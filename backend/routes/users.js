@@ -15,9 +15,14 @@ router.get("/:id", (req, res) => {
 });
 
 // POST a new user
-router.post("/", (req, res) => {
-  // Logic to create a new user with data from req.body
-  res.send("Register user");
+router.post("/", async (req, res) => {
+  try {
+    const newUser = new User(req.body);
+    await newUser.save();
+    res.status(201).json({ message: "User created successfully" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 });
 
 // PUT update a specific user by ID

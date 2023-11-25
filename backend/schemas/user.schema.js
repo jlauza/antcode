@@ -45,6 +45,3 @@ const UserSchema = new Schema(
 
 // CommonJS way
 module.exports = UserSchema;
-
-// ES6 way
-// export default UserSchema;

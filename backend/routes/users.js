@@ -27,11 +27,7 @@ router.post("/", async (req, res) => {
 
   async function validateEmailExists(email) {
     const user = await User.findOne({ email: email }).exec();
-    if (user) {
-      return true;
-    } else {
-      return false;
-    }
+    return user;
   }
 
   function passwordNotMacth(password, password2) {

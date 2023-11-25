@@ -23,8 +23,15 @@ router.post("/", async (req, res) => {
     bcrypt.hash(req.body.password, saltRounds, function (err, hash) {
       // Store hash in your password DB.
       req.body.password = hash;
-      const newUser = User.create(req.body);
-      res.status(201).json({ message: "User created successfully", newUser });
+      if (req.body.password != req.body.password2) {
+        res.status(400).json({ message: "Passwords do not match" });
+      } else {
+        const newUser = User.create(req.body);
+        res.status(201).json({
+          message: "User created successfully",
+          newUser,
+        });
+      }
     });
   } catch (error) {
     res.status(500).json({ message: error.message });

@@ -2,6 +2,7 @@ var express = require("express");
 var User = require("../models/user.model");
 var router = express.Router();
 const bcrypt = require("bcrypt");
+const e = require("express");
 const saltRounds = 10;
 
 // GET all users
@@ -19,11 +20,41 @@ router.get("/:id", (req, res) => {
 
 // POST a new user
 router.post("/", async (req, res) => {
+  function validateEmail(email) {
+    var re = /\S+@\S+\.\S+/;
+    return re.test(email);
+  }
+
+  async function validateEmailExists(email) {
+    const user = await User.findOne({ email: email }).exec();
+    if (user) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  function passwordNotMacth(password, password2) {
+    if (password != password2) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   try {
     bcrypt.hash(req.body.password, saltRounds, function (err, hash) {
       // Store hash in your password DB.
       req.body.password = hash;
-      if (req.body.password != req.body.password2) {
+      validateEmail(req.body.email);
+      validateEmailExists(req.body.email);
+      passwordNotMacth(req.body.password, req.body.password2);
+
+      if (!validateEmail(req.body.email)) {
+        res.status(400).json({ message: "Invalid Email" });
+      } else if (validateEmailExists(req.body.email)) {
+        res.status(400).json({ message: "Email already exists" });
+      } else if (passwordNotMacth(req.body.password, req.body.password2)) {
         res.status(400).json({ message: "Passwords do not match" });
       } else {
         const newUser = User.create(req.body);
@@ -32,6 +63,16 @@ router.post("/", async (req, res) => {
           newUser,
         });
       }
+
+      // if (req.body.password != req.body.password2) {
+      //   res.status(400).json({ message: "Passwords do not match" });
+      // } else {
+      //   const newUser = User.create(req.body);
+      //   res.status(201).json({
+      //     message: "User created successfully",
+      //     newUser,
+      //   });
+      // }
     });
   } catch (error) {
     res.status(500).json({ message: error.message });

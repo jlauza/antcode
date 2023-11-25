@@ -4,12 +4,11 @@ block content
   .form-wrapper
     h1= title
     p Welcome to #{title}
-    p No account? 
-    a(href="/register") Register
-    
     form(action="#", method="post") 
+      input(type="text", name="firstname", placeholder="Enter your name")
+      input(type="text", name="lastname", placeholder="Enter your last name")
       input(type="text", name="email", placeholder="Enter your email")
       input(type="text", name="password", placeholder="Enter your password")
+      input(type="text", name="password2", placeholder="Confirm your password")
       .submit-button
         input(type="submit", value="Submit")
-        

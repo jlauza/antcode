@@ -5,9 +5,10 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 
+var connectDB = require("./routes/connection");
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
-var connectDB = require("./routes/connection");
+var registerRouter = require("./routes/index");
 
 var app = express();
 connectDB();
@@ -25,6 +26,7 @@ app.use(express.static(path.join(__dirname, "public")));
 // Define your routes here
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
+app.use("/register", registerRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

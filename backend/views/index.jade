@@ -4,9 +4,9 @@ block content
   .form-wrapper
     h1= title
     p Welcome to #{title}
-    p No account? 
-    a(href="/register") Register
-    
+    div.inline-container
+      p.spacer-right No account? 
+      a(href="/register") Register
     form(action="#", method="post") 
       input(type="text", name="email", placeholder="Enter your email")
       input(type="text", name="password", placeholder="Enter your password")

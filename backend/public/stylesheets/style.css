@@ -7,6 +7,17 @@ a {
   color: #00b7ff;
 }
 
+/* utility classes */
+.inline-container {
+  display: flex;
+  align-items: center;
+}
+
+.spacer-right {
+  margin-right: 2px; /* Adjust the value as needed */
+}
+
+/* Form classes */
 .form-wrapper {
   display: flex;
   flex-direction: column;

@@ -4,6 +4,9 @@ block content
   .form-wrapper
     h1= title
     p Welcome to #{title}
+    div.inline-container
+        p.spacer-right Have an account?
+        a(href="/") Login
     form(action="#", method="post") 
       input(type="text", name="firstname", placeholder="Enter your name")
       input(type="text", name="lastname", placeholder="Enter your last name")

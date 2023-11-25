@@ -20,6 +20,7 @@ const UserSchema = new Schema(
     password: {
       type: String,
       required: true,
+      min: 9,
     },
     role: {
       type: String,
@@ -27,7 +28,11 @@ const UserSchema = new Schema(
       default: "user",
       required: true,
     },
-    avatar: String,
+    avatar: {
+      type: String,
+      default: "",
+      required: false,
+    },
     bio: [
       {
         body: String,

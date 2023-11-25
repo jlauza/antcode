@@ -1,6 +1,8 @@
 var express = require("express");
 var User = require("../models/user.model");
 var router = express.Router();
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
 
 // GET all users
 router.get("/", function (req, res, next) {
@@ -18,18 +20,12 @@ router.get("/:id", (req, res) => {
 // POST a new user
 router.post("/", async (req, res) => {
   try {
-    // const newUser = new User(req.body);
-    const newUser = new User({
-      firstname: req.body.firstname,
-      lastname: req.body.lastname,
-      email: req.body.email,
-      password: req.body.password,
-      role: req.body.role,
-      avatar: req.body.avatar,
-      bio: req.body.bio,
+    bcrypt.hash(req.body.password, saltRounds, function (err, hash) {
+      // Store hash in your password DB.
+      req.body.password = hash;
+      const newUser = User.create(req.body);
+      res.status(201).json({ message: "User created successfully", newUser });
     });
-    await newUser.save();
-    res.status(201).json({ message: "User created successfully", newUser });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

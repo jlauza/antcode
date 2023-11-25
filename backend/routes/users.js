@@ -46,7 +46,6 @@ router.post("/", async (req, res) => {
 
     // Check if email already exists
     const EmailExist = await validateEmailExists(req.body.email);
-    console.log(EmailExist);
     if (EmailExist) {
       return res.status(400).json({ message: "Email already exists" });
     }

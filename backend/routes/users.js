@@ -27,7 +27,7 @@ router.post("/", async (req, res) => {
 
   async function validateEmailExists(email) {
     const user = await User.findOne({ email: email }).exec();
-    return user;
+    return user !== null;
   }
 
   function passwordNotMacth(password, password2) {
@@ -39,39 +39,42 @@ router.post("/", async (req, res) => {
   }
 
   try {
-    bcrypt.hash(req.body.password, saltRounds, function (err, hash) {
-      // Store hash in your password DB.
-      req.body.password = hash;
-      validateEmail(req.body.email);
-      validateEmailExists(req.body.email);
-      passwordNotMacth(req.body.password, req.body.password2);
+    // Check if email is valid
+    if (!validateEmail(req.body.email)) {
+      return res.status(400).json({ message: "Invalid Email" });
+    }
 
-      if (!validateEmail(req.body.email)) {
-        res.status(400).json({ message: "Invalid Email" });
-      } else if (validateEmailExists(req.body.email)) {
-        res.status(400).json({ message: "Email already exists" });
-      } else if (passwordNotMacth(req.body.password, req.body.password2)) {
-        res.status(400).json({ message: "Passwords do not match" });
-      } else {
-        const newUser = User.create(req.body);
-        res.status(201).json({
-          message: "User created successfully",
-          newUser,
-        });
-      }
+    // Check if email already exists
+    const EmailExist = await validateEmailExists(req.body.email);
+    console.log(EmailExist);
+    if (EmailExist) {
+      return res.status(400).json({ message: "Email already exists" });
+    }
 
-      // if (req.body.password != req.body.password2) {
-      //   res.status(400).json({ message: "Passwords do not match" });
-      // } else {
-      //   const newUser = User.create(req.body);
-      //   res.status(201).json({
-      //     message: "User created successfully",
-      //     newUser,
-      //   });
-      // }
+    // Check if passwords match
+    if (passwordNotMacth(req.body.password, req.body.password2)) {
+      return res.status(400).json({ message: "Passwords do not match" });
+    }
+
+    // Hash the password
+    const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
+
+    // Create a new user
+    const newUser = await User.create({
+      ...req.body,
+      firstname: req.body.firstname,
+      lastname: req.body.lastname,
+      email: req.body.email,
+      password: hashedPassword,
+    });
+    return res.status(201).json({
+      message: "User created successfully",
+      newUser,
     });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    if (!res.headersSent) {
+      return res.status(500).json({ message: error.message });
+    }
   }
 });
 

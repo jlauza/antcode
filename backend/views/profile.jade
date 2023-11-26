@@ -1,0 +1,18 @@
+extends layout
+
+block content
+  .form-wrapper
+    h1= title
+    p Welcome to #{title}
+    div.inline-container
+        h5.spacer-right User ID: #{id}
+
+    img(src="#{avatar}" alt="Profile Picture" class="profile-picture")
+    
+    .profile-wrapper
+      p Firstname: #{firstname}
+      p Lastname: #{lastname}
+      p Email: #{email}
+      p Role: #{role}
+      p Bio: #{bio}
+  

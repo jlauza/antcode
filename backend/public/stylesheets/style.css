@@ -46,3 +46,15 @@ form input {
   align-self: flex-end;
   margin-top: 10px;
 }
+
+#ErrorMessages {
+  color: red;
+  font-weight: bold;
+  display: none;
+}
+
+#SuccessMessages {
+  color: green;
+  font-weight: bold;
+  display: none;
+}

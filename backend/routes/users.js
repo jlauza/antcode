@@ -52,25 +52,29 @@ router.post("/", async (req, res) => {
   try {
     // Check if email is valid
     if (!validateEmail(req.body.email)) {
-      return res.status(400).json({ message: "Invalid Email" });
+      return res.status(400).send(JSON.stringify({ message: "Invalid email" }));
     }
 
     // Check if email already exists
     const EmailExist = await validateEmailExists(req.body.email);
     if (EmailExist) {
-      return res.status(400).json({ message: "Email already exists" });
+      return res
+        .status(400)
+        .send(JSON.stringify({ message: "User already exists" }));
     }
 
     // Check if passwords match
     if (passwordNotMacth(req.body.password, req.body.password2)) {
-      return res.status(400).json({ message: "Passwords do not match" });
+      return res
+        .status(400)
+        .send(JSON.stringify({ message: "Passwords do not match" }));
     }
 
     // Check if password is at least 8 characters long
     if (passwordLength(req.body.password)) {
       return res
         .status(400)
-        .json({ message: "Password must be at least 8 characters long" });
+        .send(JSON.stringify({ message: "Password is too short" }));
     }
 
     // Hash the password
@@ -102,7 +106,7 @@ router.post("/", async (req, res) => {
     );
   } catch (error) {
     if (!res.headersSent) {
-      return res.status(500).json({ message: error.message });
+      return res.status(500).send({ message: error.message });
     }
   }
 });

@@ -11,7 +11,7 @@ block content
     p#SuccessMessages
     p#ErrorMessages
 
-    form#RegistrationForm(action="/users", method="post", onsubmit="return handleSubmit(event)") 
+    form(action="/users", method="POST") 
       input(type="text", name="firstname", placeholder="Enter your first name")
       input(type="text", name="lastname", placeholder="Enter your last name")
       input(type="text", name="email", placeholder="Enter your email")
@@ -19,32 +19,5 @@ block content
       input(type="password", name="password2", placeholder="Confirm your password")
       .submit-button
         input(type="submit", value="Submit")
-
-  script.
-    async function handleSubmit(event) {
-      event.preventDefault();
-      const form = document.getElementById('RegistrationForm');
-      const ErrorMessage = document.getElementById('ErrorMessages');
-      const SuccessMessage = document.getElementById('SuccessMessages');
-      const formData = new FormData(form);
-
-      const response = await fetch('/users', {
-        method: 'POST',
-        body: formData
-      });
-
-      const result = await response.json();
-
-      if(response.ok) {
-        SuccessMessage.style.display='block';
-        form.innerHTML = result.message;
-      } else {
-        ErrorMessage.style.display='block';
-        document.getElementById('ErrorMessages').innerHTML = result.message;
-        setTimeout(() => {
-          ErrorMessage.style.display='none';
-        }, 3000);
-      }
-    }
-
+        
   

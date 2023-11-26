@@ -12,10 +12,40 @@ router.get("/", function (req, res, next) {
 });
 
 // GET a specific user by ID
-router.get("/:id", (req, res) => {
+router.get("/:id", async (req, res) => {
+  // res.send("Get user with ID: " + req.params.id);
+  // console.log("request: ", req.params.id);
+
   // Logic to fetch and send details of a specific user
-  // Access the user ID with req.params.id
-  res.send("Get user with ID: " + req.params.id);
+  try {
+    const user = await User.findById(req.params.id).exec();
+    if (!user) {
+      return res
+        .status(404)
+        .send(JSON.stringify({ message: "User not found" }));
+    } else {
+      return res.status(200).send(
+        JSON.stringify(
+          {
+            message: "User Info",
+            user: {
+              avatar: user.avatar ? user.avatar : "No photo",
+              firstname: user.firstname,
+              lastname: user.lastname,
+              email: user.email,
+              role: user.role,
+            },
+          },
+          null,
+          4
+        )
+      );
+    }
+  } catch (error) {
+    if (!res.headersSent) {
+      return res.status(500).send(JSON.stringify({ message: error.message }));
+    }
+  }
 });
 
 // POST a new user

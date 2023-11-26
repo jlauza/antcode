@@ -20,6 +20,9 @@ router.get("/:id", (req, res) => {
 
 // POST a new user
 router.post("/", async (req, res) => {
+  console.log("request: ", req.body);
+  console.log("response: ", res.body);
+
   function validateEmail(email) {
     var re = /\S+@\S+\.\S+/;
     return re.test(email);
@@ -32,6 +35,14 @@ router.post("/", async (req, res) => {
 
   function passwordNotMacth(password, password2) {
     if (password != password2) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  function passwordLength(password) {
+    if (password.length < 8) {
       return true;
     } else {
       return false;
@@ -55,6 +66,13 @@ router.post("/", async (req, res) => {
       return res.status(400).json({ message: "Passwords do not match" });
     }
 
+    // Check if password is at least 8 characters long
+    if (passwordLength(req.body.password)) {
+      return res
+        .status(400)
+        .json({ message: "Password must be at least 8 characters long" });
+    }
+
     // Hash the password
     const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
 
@@ -66,10 +84,18 @@ router.post("/", async (req, res) => {
       email: req.body.email,
       password: hashedPassword,
     });
-    return res.status(201).json({
-      message: "User created successfully",
-      newUser,
-    });
+
+    return res.status(201).send(
+      JSON.stringify({
+        message: "User created successfully",
+        newUser: {
+          firstname: newUser.firstname,
+          lastname: newUser.lastname,
+          email: newUser.email,
+          role: newUser.role,
+        },
+      })
+    );
   } catch (error) {
     if (!res.headersSent) {
       return res.status(500).json({ message: error.message });

@@ -86,15 +86,19 @@ router.post("/", async (req, res) => {
     });
 
     return res.status(201).send(
-      JSON.stringify({
-        message: "User created successfully",
-        newUser: {
-          firstname: newUser.firstname,
-          lastname: newUser.lastname,
-          email: newUser.email,
-          role: newUser.role,
+      JSON.stringify(
+        {
+          message: "User created successfully",
+          newUser: {
+            firstname: newUser.firstname,
+            lastname: newUser.lastname,
+            email: newUser.email,
+            role: newUser.role,
+          },
         },
-      })
+        null,
+        4
+      )
     );
   } catch (error) {
     if (!res.headersSent) {

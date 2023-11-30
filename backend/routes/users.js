@@ -5,6 +5,17 @@ const bcrypt = require("bcrypt");
 const e = require("express");
 const saltRounds = 10;
 
+function generateRandomUsername() {
+  const adjectives = ["Cool", "Super", "Mighty", "Happy", "Crazy", "Wild"];
+  const nouns = ["Lion", "Dragon", "Tiger", "Eagle", "Panther", "Wolf"];
+  const numbers = Math.floor(Math.random() * 9999); // Random number between 0 and 9999
+
+  const adjective = adjectives[Math.floor(Math.random() * adjectives.length)];
+  const noun = nouns[Math.floor(Math.random() * nouns.length)];
+
+  return `${adjective}${noun}${numbers}`;
+}
+
 // GET all users
 router.get("/", function (req, res, next) {
   // Logic to fetch and send list of users
@@ -12,47 +23,65 @@ router.get("/", function (req, res, next) {
 });
 
 // GET a specific user by ID
-router.get("/:id", async (req, res) => {
-  // res.send("Get user with ID: " + req.params.id);
-  // console.log("request: ", req.params.id);
-
+router.get("/id/:id", async (req, res) => {
   // Logic to fetch and send details of a specific user
   try {
     const user = await User.findById(req.params.id).exec();
+
     if (!user) {
-      return res
-        .status(404)
-        .send(JSON.stringify({ message: "User not found" }));
+      return res.status(404).json({ message: "User not found" });
     } else {
-      return res.status(200).send(
-        JSON.stringify(
-          {
-            message: "User Info",
-            user: {
-              avatar: user.avatar ? user.avatar : "No photo",
-              firstname: user.firstname,
-              lastname: user.lastname,
-              email: user.email,
-              role: user.role,
-            },
-          },
-          null,
-          4
-        )
-      );
+      return res.status(200).json({
+        message: "User Info",
+        user: {
+          username: user.username,
+          avatar: user.avatar,
+          firstname: user.firstname,
+          lastname: user.lastname,
+          email: user.email,
+          role: user.role,
+        },
+      });
     }
   } catch (error) {
     if (!res.headersSent) {
-      return res.status(500).send(JSON.stringify({ message: error.message }));
+      return res.status(500).json({ message: error.message });
+    }
+  }
+});
+
+// GET a specific user by username
+router.get("/username/:username", async (req, res) => {
+  // Logic to fetch and send details of a specific user
+  try {
+    const user = await User.findOne({
+      username: req.params.username,
+    }).exec();
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    } else {
+      return res.status(200).json({
+        message: "User Info",
+        user: {
+          username: user.username,
+          avatar: user.avatar,
+          firstname: user.firstname,
+          lastname: user.lastname,
+          email: user.email,
+          role: user.role,
+        },
+      });
+    }
+  } catch (error) {
+    if (!res.headersSent) {
+      return res.status(500).json({ message: error.message });
     }
   }
 });
 
 // POST a new user
 router.post("/", async (req, res) => {
-  console.log("request: ", req.body);
-  console.log("response: ", res.body);
-
   function validateEmail(email) {
     var re = /\S+@\S+\.\S+/;
     return re.test(email);
@@ -64,47 +93,33 @@ router.post("/", async (req, res) => {
   }
 
   function passwordNotMacth(password, password2) {
-    if (password != password2) {
-      return true;
-    } else {
-      return false;
-    }
+    return password !== password2;
   }
 
   function passwordLength(password) {
-    if (password.length < 8) {
-      return true;
-    } else {
-      return false;
-    }
+    return password.length < 8;
   }
 
   try {
     // Check if email is valid
     if (!validateEmail(req.body.email)) {
-      return res.status(400).send(JSON.stringify({ message: "Invalid email" }));
+      return res.status(400).json({ message: "Invalid email" });
     }
 
     // Check if email already exists
     const EmailExist = await validateEmailExists(req.body.email);
     if (EmailExist) {
-      return res
-        .status(400)
-        .send(JSON.stringify({ message: "User already exists" }));
+      return res.status(400).json({ message: "User already exists" });
     }
 
     // Check if passwords match
     if (passwordNotMacth(req.body.password, req.body.password2)) {
-      return res
-        .status(400)
-        .send(JSON.stringify({ message: "Passwords do not match" }));
+      return res.status(400).json({ message: "Passwords do not match" });
     }
 
     // Check if password is at least 8 characters long
     if (passwordLength(req.body.password)) {
-      return res
-        .status(400)
-        .send(JSON.stringify({ message: "Password is too short" }));
+      return res.status(400).json({ message: "Password is too short" });
     }
 
     // Hash the password
@@ -113,30 +128,25 @@ router.post("/", async (req, res) => {
     // Create a new user
     const newUser = await User.create({
       ...req.body,
+      username: generateRandomUsername(),
       firstname: req.body.firstname,
       lastname: req.body.lastname,
       email: req.body.email,
       password: hashedPassword,
     });
 
-    return res.status(201).send(
-      JSON.stringify(
-        {
-          message: "User created successfully",
-          newUser: {
-            firstname: newUser.firstname,
-            lastname: newUser.lastname,
-            email: newUser.email,
-            role: newUser.role,
-          },
-        },
-        null,
-        4
-      )
-    );
+    return res.status(201).json({
+      message: "User created successfully",
+      newUser: {
+        firstname: newUser.firstname,
+        lastname: newUser.lastname,
+        email: newUser.email,
+        role: newUser.role,
+      },
+    });
   } catch (error) {
     if (!res.headersSent) {
-      return res.status(500).send({ message: error.message });
+      return res.status(500).json({ message: error.message });
     }
   }
 });

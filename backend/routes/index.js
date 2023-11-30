@@ -11,13 +11,14 @@ router.get("/register", function (req, res, next) {
   res.render("register", { title: "Register" });
 });
 
-router.get("/users/profile/:id", async function (req, res, next) {
+router.get("/users/profile/id/:id", async function (req, res, next) {
   // Logic to fetch and send details of a specific user
   const user = await User.findById(req.params.id).select("-password").exec();
 
   res.render("profile", {
     title: "My Profile",
     id: user._id,
+    username: user.username,
     firstname: user.firstname,
     lastname: user.lastname,
     email: user.email,
@@ -28,5 +29,31 @@ router.get("/users/profile/:id", async function (req, res, next) {
     role: user.role,
   });
 });
+
+router.get(
+  "/users/profile/username/:username",
+  async function (req, res, next) {
+    // Logic to fetch and send details of a specific user
+    const user = await User.findOne({
+      username: req.params.username,
+    })
+      .select("-password")
+      .exec();
+
+    res.render("profile", {
+      title: "My Profile",
+      id: user._id,
+      username: user.username,
+      firstname: user.firstname,
+      lastname: user.lastname,
+      email: user.email,
+      avatar: user.avatar
+        ? user.avatar
+        : "https://placehold.co/120x120?text=No+Photo",
+      bio: user.bio ? user.bio : "No bio",
+      role: user.role,
+    });
+  }
+);
 
 module.exports = router;

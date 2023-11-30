@@ -10,9 +10,13 @@ block content
     img(src="#{avatar}" alt="Profile Picture" class="profile-picture")
     
     .profile-wrapper
+      p Username: #{username}
       p Firstname: #{firstname}
       p Lastname: #{lastname}
       p Email: #{email}
       p Role: #{role}
       p Bio: #{bio}
+
+    .flex-row-right
+      a(href="/profile/edit" style="text-align: right;") Edit Profile
   

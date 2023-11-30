@@ -56,4 +56,27 @@ router.get(
   }
 );
 
+router.get("/users/profile/edit/id/:id", async function (req, res, next) {
+  // Logic to fetch and send details of a specific user
+  const user = await User.findById({
+    _id: req.params.id,
+  })
+    .select("-password")
+    .exec();
+
+  res.render("profile-edit", {
+    title: "Edit Profile",
+    id: user._id,
+    username: user.username,
+    firstname: user.firstname,
+    lastname: user.lastname,
+    email: user.email,
+    avatar: user.avatar
+      ? user.avatar
+      : "https://placehold.co/120x120?text=No+Photo",
+    bio: user.bio ? user.bio : "No bio",
+    role: user.role === "admin" ? true : false,
+  });
+});
+
 module.exports = router;

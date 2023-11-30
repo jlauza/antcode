@@ -1,0 +1,29 @@
+extends layout
+
+block content
+  .form-wrapper
+    h1= title
+    p Welcome to #{firstname} #{lastname} Profile
+    div.inline-container
+        h5.spacer-right User ID: #{id}
+
+    form(action=`/users/${id}`, method="POST", enctype="multipart/form-data") 
+      img(src="#{avatar}" alt="Profile Picture" class="profile-picture")
+      input(type="file", name="profilePicture" style="margin-bottom: 10px; border: none;")    
+    
+      input(type="text", name="username", placeholder="Enter your username" value="#{username}")
+      input(type="text", name="firstname", placeholder="Enter your first name" value="#{firstname}")
+      input(type="text", name="lastname", placeholder="Enter your last name" value="#{lastname}")
+      input(type="text", name="email", placeholder="Enter your email" value="#{email}")
+      input(type="password", name="password", placeholder="********")
+      input(type="password", name="password2", placeholder="********")
+      select(name="role" style="width: 100%; height: 40px; margin-bottom: 10px;" value="#{role}")
+        option(value="user" selected="#{role}") User
+        option(value="admin" selected="#{role}") Admin
+      textarea(name="bio", cols="30", rows="10" placeholder="Enter your bio" style="width: 100%; margin-bottom: 10px;") 
+
+      div.inline-container
+      a(href=`/users/profile/id/${id}`) Back 
+      .submit-button
+        input(type="submit", value="Submit")
+  

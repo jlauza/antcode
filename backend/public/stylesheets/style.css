@@ -17,28 +17,6 @@ a {
   margin-right: 2px; /* Adjust the value as needed */
 }
 
-.align-right {
-  text-align: right;
-}
-
-.flex-row-center {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-.flex-row-right {
-  display: flex;
-  flex-direction: row;
-  align-items: right;
-}
-
-.flex-row-left {
-  display: flex;
-  flex-direction: row;
-  align-items: left;
-}
-
 /* Form classes */
 .form-wrapper {
   display: flex;

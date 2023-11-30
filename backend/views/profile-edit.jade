@@ -7,7 +7,7 @@ block content
     div.inline-container
         h5.spacer-right User ID: #{id}
 
-    form(action=`/users/${id}`, method="POST", enctype="multipart/form-data") 
+    form(action=`/users/${id}?_method=PUT`, method="POST", enctype="multipart/form-data") 
       img(src="#{avatar}" alt="Profile Picture" class="profile-picture")
       input(type="file", name="profilePicture" style="margin-bottom: 10px; border: none;")    
     

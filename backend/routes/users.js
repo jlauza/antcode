@@ -152,9 +152,78 @@ router.post("/", async (req, res) => {
 });
 
 // PUT update a specific user by ID
-router.put("/:id", (req, res) => {
-  // Logic to update a user identified by req.params.id with data from req.body
-  res.send("Update user with ID: " + req.params.id);
+router.put("/:id", async (req, res) => {
+  function validateEmail(email) {
+    var re = /\S+@\S+\.\S+/;
+    return re.test(email);
+  }
+
+  async function validateEmailExists(email) {
+    const user = await User.findOne({ email: email }).exec();
+    return user !== null;
+  }
+
+  function passwordNotMacth(password, password2) {
+    return password !== password2;
+  }
+
+  function passwordLength(password) {
+    return password.length < 8;
+  }
+
+  try {
+    // Check if email is valid
+    if (!validateEmail(req.body.email)) {
+      return res.status(400).json({ message: "Invalid email" });
+    }
+
+    // Check if email already exists
+    const EmailExist = await validateEmailExists(req.body.email);
+    if (EmailExist) {
+      return res.status(400).json({ message: "User already exists" });
+    }
+
+    // Check if passwords match
+    if (passwordNotMacth(req.body.password, req.body.password2)) {
+      return res.status(400).json({ message: "Passwords do not match" });
+    }
+
+    // Check if password is at least 8 characters long
+    if (passwordLength(req.body.password)) {
+      return res.status(400).json({ message: "Password is too short" });
+    }
+
+    // Hash the password
+    const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
+
+    // Create a new user
+    const updatedUser = await User.put({
+      ...req.body,
+      username: req.body.username,
+      firstname: req.body.firstname,
+      lastname: req.body.lastname,
+      email: req.body.email,
+      password: hashedPassword,
+      role: req.body.role,
+      bio: req.body.bio,
+      avatar: req.body.avatar,
+    });
+
+    return res.status(201).json({
+      message: "User updated successfully",
+      updatedUser: {
+        firstname: updatedUser.firstname,
+        lastname: updatedUser.lastname,
+        email: updatedUser.email,
+        role: updatedUser.role,
+        bio: updatedUser.bio,
+      },
+    });
+  } catch (error) {
+    if (!res.headersSent) {
+      return res.status(500).json({ message: error.message });
+    }
+  }
 });
 
 // DELETE a specific user by ID

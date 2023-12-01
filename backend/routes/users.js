@@ -153,6 +153,7 @@ router.post("/", async (req, res) => {
 
 // PUT update a specific user by ID
 router.put("/:id", async (req, res) => {
+  console.log("Email received: ", req.body);
   function validateEmail(email) {
     var re = /\S+@\S+\.\S+/;
     return re.test(email);

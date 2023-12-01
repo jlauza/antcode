@@ -15,6 +15,14 @@ router.get("/users/profile/id/:id", async function (req, res, next) {
   // Logic to fetch and send details of a specific user
   const user = await User.findById(req.params.id).select("-password").exec();
 
+  if (!user) {
+    // return res.status(404).json({ message: "User not found" });
+    return res.render("not-found", {
+      title: "User not found",
+      message: "The page you are looking for does not exist.",
+    });
+  }
+
   res.render("profile", {
     title: "My Profile",
     id: user._id,

@@ -20,7 +20,9 @@ block content
               img(src="#{avatar}" alt="Profile Picture" class="profile-picture")
               input(type="file", name="profilePicture" style="margin: 0 auto 10px 10px; border: none;")    
         
-      form(action=`/users/${id}?_method=PUT`, method="POST", enctype="multipart/form-data") 
+      form(action=`/users/${id}`, method="POST", enctype="multipart/form-data") 
+        input(type="hidden", name="_method", value="PUT")
+
         h5.spacer-right#usernamePreview Username: #{username}
         input(id="usernameInput", type="text", name="username", placeholder="Enter your username" value="#{username}")
         input(type="text", name="firstname", placeholder="Enter your first name" value="#{firstname}")

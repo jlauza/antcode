@@ -82,8 +82,8 @@ router.get("/users/profile/edit/id/:id", async function (req, res, next) {
     avatar: user.avatar
       ? user.avatar
       : "https://placehold.co/120x120?text=No+Photo",
-    bio: user.bio ? user.bio : "No bio",
-    role: user.role === "admin" ? true : false,
+    bio: user.bio,
+    role: user.role,
   });
 });
 

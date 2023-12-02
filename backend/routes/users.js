@@ -153,7 +153,11 @@ router.post("/", async (req, res) => {
 
 // PUT update a specific user by ID
 router.put("/:id", async (req, res) => {
-  console.log("Email received: ", req.body);
+  console.log("Response received: ", res);
+  console.log("Body received: ", req.body);
+  console.log("Params received: ", req.params);
+  console.log("Query received: ", req.query);
+
   function validateEmail(email) {
     var re = /\S+@\S+\.\S+/;
     return re.test(email);
@@ -173,51 +177,46 @@ router.put("/:id", async (req, res) => {
   }
 
   try {
-    // Check if email is valid
     if (!validateEmail(req.body.email)) {
       return res.status(400).json({ message: "Invalid email" });
     }
 
-    // Check if email already exists
     const EmailExist = await validateEmailExists(req.body.email);
     if (EmailExist) {
       return res.status(400).json({ message: "User already exists" });
     }
 
-    // Check if passwords match
-    if (passwordNotMacth(req.body.password, req.body.password2)) {
-      return res.status(400).json({ message: "Passwords do not match" });
-    }
-
-    // Check if password is at least 8 characters long
-    if (passwordLength(req.body.password)) {
-      return res.status(400).json({ message: "Password is too short" });
-    }
-
-    // Hash the password
-    const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
-
-    // Create a new user
-    const updatedUser = await User.put({
+    let updatedData = {
       ...req.body,
-      username: req.body.username,
-      firstname: req.body.firstname,
-      lastname: req.body.lastname,
-      email: req.body.email,
-      password: hashedPassword,
-      role: req.body.role,
-      bio: req.body.bio,
-      avatar: req.body.avatar,
-    });
+    };
 
-    return res.status(201).json({
+    if (req.body.password) {
+      if (passwordNotMacth(req.body.password, req.body.password2)) {
+        return res.status(400).json({ message: "Passwords do not match" });
+      }
+
+      if (passwordLength(req.body.password)) {
+        return res.status(400).json({ message: "Password is too short" });
+      }
+
+      const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
+      updatedData.password = hashedPassword;
+    }
+
+    const updateUser = await User.findByIdAndUpdate(
+      req.params.id,
+      updatedData,
+      { new: true }
+    );
+
+    return res.status(200).json({
       message: "User updated successfully",
-      updatedUser: {
-        firstname: updatedUser.firstname,
-        lastname: updatedUser.lastname,
-        email: updatedUser.email,
-        role: updatedUser.role,
-        bio: updatedUser.bio,
+      updateUser: {
+        username: updateUser.username,
+        firstname: updateUser.firstname,
+        lastname: updateUser.lastname,
+        email: updateUser.email,
+        role: updateUser.role,
       },
     });
   } catch (error) {

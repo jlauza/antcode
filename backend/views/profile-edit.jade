@@ -4,13 +4,13 @@ block content
   .form-wrapper
       h1= title
       p Welcome to #{firstname} #{lastname} Profile
-      h5.spacer-right User ID: #{id}
 
       .profile-wrapper
-        form(action=`/users/${id}?_method=PUT`, method="POST", enctype="multipart/form-data") 
           img(src="#{avatar}" alt="Profile Picture" class="profile-picture")
-          input(type="file", name="profilePicture" style="margin-bottom: 10px; border: none;")    
+          input(type="file", name="profilePicture" style="margin: 0 auto 10px 10px; border: none;")    
         
+        form(action=`/users/${id}?_method=PUT`, method="POST", enctype="multipart/form-data") 
+          h5.spacer-right Username: #{username}
           input(type="text", name="username", placeholder="Enter your username" value="#{username}")
           input(type="text", name="firstname", placeholder="Enter your first name" value="#{firstname}")
           input(type="text", name="lastname", placeholder="Enter your last name" value="#{lastname}")
@@ -18,9 +18,10 @@ block content
           input(type="password", name="password", placeholder="********")
           input(type="password", name="password2", placeholder="********")
           select(name="role" style="width: 100%; height: 40px; margin-bottom: 10px;" value="#{role}")
-            option(value="user" selected="#{role}") User
-            option(value="admin" selected="#{role}") Admin
-          textarea(name="bio", cols="30", rows="10" placeholder="Enter your bio" style="width: 100%; margin-bottom: 10px;") 
+            option(value="user", selected=role === "user" ? true : false) User
+            option(value="admin", selected=role === "admin" ? true : false) Admin
+          
+          textarea(name="bio", cols="30", rows="10" placeholder="Enter your bio" style="width: 100%; margin-bottom: 10px;" value="#{bio ? bio : ''}")
 
           a(href=`/users/profile/id/${id}`) Back to Profile
           input(type="submit", value="Submit")

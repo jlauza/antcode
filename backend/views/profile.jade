@@ -3,18 +3,18 @@ extends layout
 block content
     h1= title
     p Welcome to #{firstname} #{lastname} Profile
-    h5.spacer-right User ID: #{id}
 
     .form-wrapper
       .profile-wrapper
-        img(src="#{avatar}" alt="Profile Picture" class="profile-picture" style="margin: 0 auto; display: block;")
+        img(src="#{avatar}" alt="Profile Picture" class="profile-picture" style="margin: 0 auto 10px; display: block;")
         
-        p Username: #{username}
+        .text-center
+          h5.text.center #{username}
         p Firstname: #{firstname}
         p Lastname: #{lastname}
         p Email: #{email}
         p Role: #{role}
-        p Bio: #{bio}
-
+        p Bio: #{bio ? bio : 'No bio yet.'}
+        
         a(href=`/users/profile/edit/id/${id}`) Edit Profile
   

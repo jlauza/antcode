@@ -1,22 +1,20 @@
 extends layout
 
 block content
-  .form-wrapper
     h1= title
     p Welcome to #{firstname} #{lastname} Profile
-    div.inline-container
-        h5.spacer-right User ID: #{id}
+    h5.spacer-right User ID: #{id}
 
-    img(src="#{avatar}" alt="Profile Picture" class="profile-picture")
-    
-    .profile-wrapper
-      p Username: #{username}
-      p Firstname: #{firstname}
-      p Lastname: #{lastname}
-      p Email: #{email}
-      p Role: #{role}
-      p Bio: #{bio}
+    .form-wrapper
+      .profile-wrapper
+        img(src="#{avatar}" alt="Profile Picture" class="profile-picture" style="margin: 0 auto; display: block;")
+        
+        p Username: #{username}
+        p Firstname: #{firstname}
+        p Lastname: #{lastname}
+        p Email: #{email}
+        p Role: #{role}
+        p Bio: #{bio}
 
-    .flex-row-right
-      a(href=`/users/profile/edit/id/${id}`) Edit Profile
+        a(href=`/users/profile/edit/id/${id}`) Edit Profile
   

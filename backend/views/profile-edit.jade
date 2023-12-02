@@ -5,13 +5,22 @@ block content
       h1= title
       p Welcome to #{firstname} #{lastname} Profile
 
+      script.
+        document.addEventListener('DOMContentLoaded', () => {
+          const usernameInput = document.getElementById('usernameInput');
+          const usernamePreview = document.getElementById('usernamePreview');
+          usernameInput.addEventListener('keyup', () => {
+            usernamePreview.innerHTML = `Username: ${usernameInput.value}`;
+          });
+        });
+
       .profile-wrapper
           img(src="#{avatar}" alt="Profile Picture" class="profile-picture")
           input(type="file", name="profilePicture" style="margin: 0 auto 10px 10px; border: none;")    
         
         form(action=`/users/${id}?_method=PUT`, method="POST", enctype="multipart/form-data") 
-          h5.spacer-right Username: #{username}
-          input(type="text", name="username", placeholder="Enter your username" value="#{username}")
+          h5.spacer-right#usernamePreview Username: #{username}
+          input(id="usernameInput", type="text", name="username", placeholder="Enter your username" value="#{username}")
           input(type="text", name="firstname", placeholder="Enter your first name" value="#{firstname}")
           input(type="text", name="lastname", placeholder="Enter your last name" value="#{lastname}")
           input(type="text", name="email", placeholder="Enter your email" value="#{email}")

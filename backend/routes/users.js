@@ -259,7 +259,7 @@ router.post("/", async (req, res) => {
 
 /**
  * @swagger
- * /:
+ * /{id}:
  *   put:
  *     summary: Update a user
  *     responses:
@@ -345,7 +345,7 @@ router.put("/:id", async (req, res) => {
 
 /**
  * @swagger
- * /:
+ * /{id}:
  *   delete:
  *     summary: Delete a user
  *     responses:

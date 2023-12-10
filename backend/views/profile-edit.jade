@@ -43,11 +43,6 @@ block content
               .col-xs-12
                 label(for="password2") Confirm Password
                 input(type="password", name="password2", placeholder="********", class="control-sm")
-              //- .col-xs-12
-              //-   select(name="role", class="form-control-sm")
-              //-     option(value="user", selected=role === "user" ? true : false) User
-              //-     option(value="admin", selected=role === "admin" ? true : false) Admin
-
               .col-xs-12.col-md-4
                 label(for="bio") Bio
                 textarea(name="bio", cols="60", rows="10", placeholder="Enter your bio", value="#{bio ? bio : ''}", class="form-control-sm my-2")

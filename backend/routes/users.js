@@ -155,72 +155,72 @@ router.post("/", async (req, res) => {
 router.put("/:id", async (req, res) => {
   console.log("Response received: ", res.body);
 
-  // function validateEmail(email) {
-  //   var re = /\S+@\S+\.\S+/;
-  //   return re.test(email);
-  // }
+  function validateEmail(email) {
+    var re = /\S+@\S+\.\S+/;
+    return re.test(email);
+  }
 
-  // async function validateEmailExists(email) {
-  //   const user = await User.findOne({ email: email }).exec();
-  //   return user !== null;
-  // }
+  async function validateEmailExists(email) {
+    const user = await User.findOne({ email: email }).exec();
+    return user !== null;
+  }
 
-  // function passwordNotMacth(password, password2) {
-  //   return password !== password2;
-  // }
+  function passwordNotMacth(password, password2) {
+    return password !== password2;
+  }
 
-  // function passwordLength(password) {
-  //   return password.length < 8;
-  // }
+  function passwordLength(password) {
+    return password.length < 8;
+  }
 
-  // try {
-  //   if (!validateEmail(req.body.email)) {
-  //     return res.status(400).json({ message: "Invalid email" });
-  //   }
+  try {
+    if (!validateEmail(req.body.email)) {
+      return res.status(400).json({ message: "Invalid email" });
+    }
 
-  //   const EmailExist = await validateEmailExists(req.body.email);
-  //   if (EmailExist) {
-  //     return res.status(400).json({ message: "User already exists" });
-  //   }
+    const EmailExist = await validateEmailExists(req.body.email);
+    if (EmailExist) {
+      return res.status(400).json({ message: "User already exists" });
+    }
 
-  //   let updatedData = {
-  //     ...req.body,
-  //   };
+    let updatedData = {
+      ...req.body,
+    };
 
-  //   if (req.body.password) {
-  //     if (passwordNotMacth(req.body.password, req.body.password2)) {
-  //       return res.status(400).json({ message: "Passwords do not match" });
-  //     }
+    if (req.body.password) {
+      if (passwordNotMacth(req.body.password, req.body.password2)) {
+        return res.status(400).json({ message: "Passwords do not match" });
+      }
 
-  //     if (passwordLength(req.body.password)) {
-  //       return res.status(400).json({ message: "Password is too short" });
-  //     }
+      if (passwordLength(req.body.password)) {
+        return res.status(400).json({ message: "Password is too short" });
+      }
 
-  //     const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
-  //     updatedData.password = hashedPassword;
-  //   }
+      const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
+      updatedData.password = hashedPassword;
+    }
 
-  //   const updateUser = await User.findByIdAndUpdate(
-  //     req.params.id,
-  //     updatedData,
-  //     { new: true }
-  //   );
+    const updateUser = await User.findByIdAndUpdate(
+      req.params.id,
+      updatedData,
+      { new: true }
+    );
 
-  //   return res.status(200).json({
-  //     message: "User updated successfully",
-  //     updateUser: {
-  //       username: updateUser.username,
-  //       firstname: updateUser.firstname,
-  //       lastname: updateUser.lastname,
-  //       email: updateUser.email,
-  //       role: updateUser.role,
-  //     },
-  //   });
-  // } catch (error) {
-  //   if (!res.headersSent) {
-  //     return res.status(500).json({ message: error.message });
-  //   }
-  // }
+    return res.status(200).json({
+      message: "User updated successfully",
+      updateUser: {
+        username: updateUser.username,
+        firstname: updateUser.firstname,
+        lastname: updateUser.lastname,
+        email: updateUser.email,
+        role: updateUser.role,
+      },
+    });
+  } catch (error) {
+    if (!res.headersSent) {
+      return res.status(500).json({ message: error.message });
+    }
+  }
 });
 
 // DELETE a specific user by ID

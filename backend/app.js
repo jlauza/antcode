@@ -29,7 +29,7 @@ app.use(logger("dev"));
 app.use(express.json());
 
 const upload = multer({ dest: "public/images/avatars" });
-// app.use(upload.single("avatar"));
+app.use(upload.single("avatar"));
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));

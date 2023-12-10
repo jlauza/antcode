@@ -16,12 +16,72 @@ function generateRandomUsername() {
   return `${adjective}${noun}${numbers}`;
 }
 
+/**
+ * @swagger
+ * /users:
+ *   get:
+ *     summary: Get all users
+ *     description: Retrieve a list of users
+ *     responses:
+ *       200:
+ *         description: A list of users
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: integer
+ *                     description: The user ID.
+ *                     example: 1
+ *                   name:
+ *                     type: string
+ *                     description: The user's name.
+ *                     example: John Doe
+ *                   email:
+ *                     type: string
+ *                     description: The user's email.
+ *                     example: johndoe@example.com
+ */
 // GET all users
 router.get("/", function (req, res, next) {
   // Logic to fetch and send list of users
   res.send("Respond with a resource");
 });
 
+/**
+ * @swagger
+ * /users/{id}:
+ *   get:
+ *     summary: Get user by ID
+ *     description: Retrieve a user by their unique ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: Numeric ID of the user to retrieve.
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: A single user
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: integer
+ *                   example: 1
+ *                 name:
+ *                   type: string
+ *                   example: John Doe
+ *                 email:
+ *                   type: string
+ *                   example: johndoe@example.com
+ */
 // GET a specific user by ID
 router.get("/id/:id", async (req, res) => {
   // Logic to fetch and send details of a specific user
@@ -50,6 +110,37 @@ router.get("/id/:id", async (req, res) => {
   }
 });
 
+/**
+ * @swagger
+ * /users/{username}:
+ *   get:
+ *     summary: Get user by username
+ *     description: Retrieve a user by their unique username
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: Numeric ID of the user to retrieve.
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: A single user
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: integer
+ *                   example: 1
+ *                 name:
+ *                   type: string
+ *                   example: John Doe
+ *                 email:
+ *                   type: string
+ *                   example: johndoe@example.com
+ */
 // GET a specific user by username
 router.get("/username/:username", async (req, res) => {
   // Logic to fetch and send details of a specific user
@@ -79,6 +170,21 @@ router.get("/username/:username", async (req, res) => {
     }
   }
 });
+
+/**
+ * @swagger
+ * /:
+ *   post:
+ *     summary: Add a new user
+ *     responses:
+ *       200:
+ *         description: New user added successfully
+ *         content:
+ *           text/plain:
+ *             schema:
+ *               type: string
+ *               example: User created successfully
+ */
 
 // POST a new user
 router.post("/", async (req, res) => {
@@ -151,9 +257,23 @@ router.post("/", async (req, res) => {
   }
 });
 
+/**
+ * @swagger
+ * /:
+ *   put:
+ *     summary: Update a user
+ *     responses:
+ *       200:
+ *         description: User updated successfully
+ *         content:
+ *           text/plain:
+ *             schema:
+ *               type: string
+ *               example: User updated successfully
+ */
 // PUT update a specific user by ID
 router.put("/:id", async (req, res) => {
-  console.log("Response received: ", res.body);
+  console.log("Response received: ", req.body);
 
   function validateEmail(email) {
     var re = /\S+@\S+\.\S+/;
@@ -223,6 +343,20 @@ router.put("/:id", async (req, res) => {
   }
 });
 
+/**
+ * @swagger
+ * /:
+ *   delete:
+ *     summary: Delete a user
+ *     responses:
+ *       200:
+ *         description: User deleted successfully
+ *         content:
+ *           text/plain:
+ *             schema:
+ *               type: string
+ *               example: User deleted successfully
+ */
 // DELETE a specific user by ID
 router.delete("/:id", (req, res) => {
   // Logic to delete a user identified by req.params.id

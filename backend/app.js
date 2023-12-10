@@ -4,15 +4,22 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
+const cors = require("cors");
+const multer = require("multer");
 
 var connectDB = require("./routes/connection");
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var registerRouter = require("./routes/index");
 const methodOverride = require("method-override");
+const swaggerUI = require("swagger-ui-express");
+const swaggerDocs = require("./swagger");
 
 var app = express();
 connectDB();
+
+// Swagger
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocs));
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -20,10 +27,14 @@ app.set("view engine", "jade");
 
 app.use(logger("dev"));
 app.use(express.json());
+
+const upload = multer({ dest: "public/images/avatars" });
+// app.use(upload.single("avatar"));
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(methodOverride("_method"));
+app.use(cors());
 
 // Define your routes here
 app.use("/", indexRouter);

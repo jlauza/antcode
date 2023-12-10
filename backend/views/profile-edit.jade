@@ -16,7 +16,7 @@ block content
 
     .card.my-4
       .card-body
-        //- .profile-wrapper
+        
         img(src="#{avatar}" alt="Profile Picture" class="profile-picture img-thumbnail")
         input(type="file", name="profilePicture", class="form-control-sm", style="margin: 0 auto 10px 10px;")
 
@@ -49,5 +49,6 @@ block content
             .d-flex.justify-content-start
               a(href=`/users/profile/id/${id}`, class="btn btn-secondary btn-sm m-1") Back to Profile
               button(type="submit", class="btn btn-primary btn-sm m-1", onClick="updateUser(event)") Update
+        p#error-message(style="color: red; text-align: center;")
 
 

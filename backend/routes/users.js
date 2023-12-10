@@ -20,6 +20,7 @@ function generateRandomUsername() {
  * @swagger
  * /users:
  *   get:
+ *     tags: [Users]
  *     summary: Get all users
  *     description: Retrieve a list of users
  *     responses:
@@ -55,6 +56,7 @@ router.get("/", function (req, res, next) {
  * @swagger
  * /users/{id}:
  *   get:
+ *     tags: [Users]
  *     summary: Get user by ID
  *     description: Retrieve a user by their unique ID
  *     parameters:
@@ -114,6 +116,7 @@ router.get("/id/:id", async (req, res) => {
  * @swagger
  * /users/{username}:
  *   get:
+ *     tags: [Users]
  *     summary: Get user by username
  *     description: Retrieve a user by their unique username
  *     parameters:
@@ -175,6 +178,7 @@ router.get("/username/:username", async (req, res) => {
  * @swagger
  * /:
  *   post:
+ *     tags: [Users]
  *     summary: Add a new user
  *     responses:
  *       200:
@@ -261,6 +265,7 @@ router.post("/", async (req, res) => {
  * @swagger
  * /{id}:
  *   put:
+ *     tags: [Users]
  *     summary: Update a user
  *     responses:
  *       200:
@@ -347,6 +352,7 @@ router.put("/:id", async (req, res) => {
  * @swagger
  * /{id}:
  *   delete:
+ *     tags: [Users]
  *     summary: Delete a user
  *     responses:
  *       200:

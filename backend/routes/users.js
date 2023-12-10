@@ -251,10 +251,11 @@ router.get("/username/:username", async (req, res) => {
  *               - lastname
  *               - email
  *               - password
+ *               - password2
  *               - role
  *               - avatar
  *               - bio
- *                - username
+ *               - username
  *             properties:
  *               firstname:
  *                 type: string
@@ -266,6 +267,9 @@ router.get("/username/:username", async (req, res) => {
  *                 type: string
  *                 example: johndoe@example.com
  *               password:
+ *                 type: string
+ *                 example: 12345678
+ *               password2:
  *                 type: string
  *                 example: 12345678
  *               role:
@@ -369,46 +373,40 @@ router.post("/", async (req, res) => {
  *       - in: path
  *         name: id
  *         required: true
- *         description: ID of the user to update.
+ *         description: Unique ID of the user to update
  *         schema:
- *           type: integer
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               firstname:
+ *                 type: string
+ *                 example: John
+ *               lastname:
+ *                 type: string
+ *                 example: Doe
+ *               email:
+ *                 type: string
+ *                 example: johndoe@example.com
+ *               role:
+ *                 type: string
+ *                 example: user/admin
+ *               avatar:
+ *                 type: string
+ *                 example: https://www.example.com/image.jpg
+ *               bio:
+ *                 type: string
+ *                 example: Hello, I am John Doe
+ *               username:
+ *                 type: string
+ *                 example: johndoe
  *     responses:
  *       200:
  *         description: User updated successfully
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               required:
- *                 - firstname
- *                 - lastname
- *                 - email
- *                 - role
- *                 - avatar
- *                 - bio
- *                 - username
- *               properties:
- *                 firstname:
- *                   type: string
- *                   example: John
- *                 lastname:
- *                   type: string
- *                   example: Doe
- *                 email:
- *                   type: string
- *                   example: johndoe@example.com
- *                 role:
- *                   type: string
- *                   example: user/admin
- *                 avatar:
- *                   type: string
- *                   example: https://www.example.com/image.jpg
- *                 bio:
- *                   type: string
- *                   example: Hello, I am John Doe
- *                 username:
- *                   type: string
- *                   example: johndoe
  *       400:
  *         description: Invalid input
  */

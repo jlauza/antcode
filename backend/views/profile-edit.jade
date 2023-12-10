@@ -2,40 +2,57 @@ extends layout
 
 block content
   .form-wrapper
-      h1= title
-      p Welcome to #{firstname} #{lastname} Profile
+    h1= title
+    p Welcome to #{firstname} #{lastname} Profile
 
-      script.
-        document.addEventListener('DOMContentLoaded', () => {
-          const usernameInput = document.getElementById('usernameInput');
-          const usernamePreview = document.getElementById('usernamePreview');
-          usernameInput.addEventListener('keyup', () => {
-            usernamePreview.innerHTML = `Username: ${usernameInput.value}`;
-          });
+    script.
+      document.addEventListener('DOMContentLoaded', () => {
+        const usernameInput = document.getElementById('usernameInput');
+        const usernamePreview = document.getElementById('usernamePreview');
+        usernameInput.addEventListener('keyup', () => {
+          usernamePreview.innerHTML = `Username: ${usernameInput.value}`;
         });
+      });
 
-      .card.my-4
-        .card-body
-          .profile-wrapper
-              img(src="#{avatar}" alt="Profile Picture" class="profile-picture")
-              input(type="file", name="profilePicture" style="margin: 0 auto 10px 10px; border: none;")    
-        
-      form(action=`/users/${id}`, method="POST", enctype="multipart/form-data") 
-        input(type="hidden", name="_method", value="PUT")
+    .card.my-4
+      .card-body
+        //- .profile-wrapper
+        img(src="#{avatar}" alt="Profile Picture" class="profile-picture img-thumbnail")
+        input(type="file", name="profilePicture", class="form-control-sm", style="margin: 0 auto 10px 10px;")
 
-        h5.spacer-right#usernamePreview Username: #{username}
-        input(id="usernameInput", type="text", name="username", placeholder="Enter your username" value="#{username}")
-        input(type="text", name="firstname", placeholder="Enter your first name" value="#{firstname}")
-        input(type="text", name="lastname", placeholder="Enter your last name" value="#{lastname}")
-        input(type="text", name="email", placeholder="Enter your email" value="#{email}")
-        input(type="password", name="password", placeholder="********")
-        input(type="password", name="password2", placeholder="********")
-        select(name="role" style="width: 100%; height: 40px; margin-bottom: 10px;" value="#{role}")
-          option(value="user", selected=role === "user" ? true : false) User
-          option(value="admin", selected=role === "admin" ? true : false) Admin
-        
-        textarea(name="bio", cols="30", rows="10" placeholder="Enter your bio" style="width: 100%; margin-bottom: 10px;" value="#{bio ? bio : ''}")
+        form#user-update-form(action="/users/#{id}", method="POST", enctype="multipart/form-data", style="margin-bottom: 10px;")
+          input(type="hidden", name="_method", value="PUT")
+          h5.spacer-right#usernamePreview Username: #{username}
+          .row
+            .col-xs-12.col-md-4
+              .col-xs-12
+                label(for="username") Username 
+                input(id="usernameInput", type="text", name="username", placeholder="Enter your username", value="#{username}", class="form-control-sm")
+              .col-xs-12
+                label(for="firstname") Firstname
+                input(type="text", name="firstname", placeholder="Enter your first name", value="#{firstname}", class="form-control-sm")
+              .col-xs-12
+                label(for="lastname") Lastname
+                input(type="text", name="lastname", placeholder="Enter your last name", value="#{lastname}", class="form-control-sm")
+              .col-xs-12
+                label(for="email") Email
+                input(type="text", name="email", placeholder="Enter your email", value="#{email}", class="form-control-sm")
+              .col-xs-12
+                label(for="password") Password
+                input(type="password", name="password", placeholder="********", class="form-control-sm")
+              .col-xs-12
+                label(for="password2") Confirm Password
+                input(type="password", name="password2", placeholder="********", class="control-sm")
+              //- .col-xs-12
+              //-   select(name="role", class="form-control-sm")
+              //-     option(value="user", selected=role === "user" ? true : false) User
+              //-     option(value="admin", selected=role === "admin" ? true : false) Admin
 
-        a(href=`/users/profile/id/${id}`) Back to Profile
-        input(type="submit", value="Submit")
-  
+              .col-xs-12.col-md-4
+                label(for="bio") Bio
+                textarea(name="bio", cols="41", rows="10", placeholder="Enter your bio", style="margin-bottom: 10px;", value="#{bio ? bio : ''}", class="form-control-sm mt-2")
+            .d-flex.justify-content-start
+              a(href=`/users/profile/id/${id}`, class="btn btn-secondary btn-sm m-1") Back to Profile
+              button(type="submit", class="btn btn-primary btn-sm m-1", onClick="updateUser(event)") Update
+
+

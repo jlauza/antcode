@@ -22,39 +22,55 @@ function generateRandomUsername() {
  *   get:
  *     tags: [Users]
  *     summary: Get all users
- *     description: Retrieve a list of users
+ *     description: Retrieve all users
  *     responses:
  *       200:
- *         description: A list of users
+ *         description: Users retrieved successfully
  *         content:
  *           application/json:
  *             schema:
- *               type: array
- *               items:
- *                 type: object
- *                 properties:
- *                   id:
- *                     type: integer
- *                     description: The user ID.
- *                     example: 1
- *                   name:
- *                     type: string
- *                     description: The user's name.
- *                     example: John Doe
- *                   email:
- *                     type: string
- *                     description: The user's email.
- *                     example: johndoe@example.com
+ *               type: object
+ *               required:
+ *                 - firstname
+ *                 - lastname
+ *                 - email
+ *                 - role
+ *                 - avatar
+ *                 - bio
+ *                 - username
+ *               properties:
+ *                 firstname:
+ *                   type: string
+ *                   example: John
+ *                 lastname:
+ *                   type: string
+ *                   example: Doe
+ *                 email:
+ *                   type: string
+ *                   example: johndoe@example.com
+ *                 role:
+ *                   type: string
+ *                   example: user/admin
+ *                 avatar:
+ *                   type: string
+ *                   example: https://www.example.com/image.jpg
+ *                 bio:
+ *                   type: string
+ *                   example: Hello, I am John Doe
+ *                 username:
+ *                   type: string
+ *                   example: johndoe
+ *       400:
+ *         description: Invalid request
  */
-// GET all users
 router.get("/", function (req, res, next) {
   // Logic to fetch and send list of users
-  res.send("Respond with a resource");
+  res.send("Respond with all resources");
 });
 
 /**
  * @swagger
- * /users/{id}:
+ * /users/id/{id}:
  *   get:
  *     tags: [Users]
  *     summary: Get user by ID
@@ -63,28 +79,50 @@ router.get("/", function (req, res, next) {
  *       - in: path
  *         name: id
  *         required: true
- *         description: Numeric ID of the user to retrieve.
+ *         description: ID of the user to retrieve.
  *         schema:
  *           type: integer
  *     responses:
  *       200:
- *         description: A single user
+ *         description: User retrieved successfully
  *         content:
  *           application/json:
  *             schema:
  *               type: object
+ *               required:
+ *                 - firstname
+ *                 - lastname
+ *                 - email
+ *                 - role
+ *                 - avatar
+ *                 - bio
+ *                 - username
  *               properties:
- *                 id:
- *                   type: integer
- *                   example: 1
- *                 name:
+ *                 firstname:
  *                   type: string
- *                   example: John Doe
+ *                   example: John
+ *                 lastname:
+ *                   type: string
+ *                   example: Doe
  *                 email:
  *                   type: string
  *                   example: johndoe@example.com
+ *                 role:
+ *                   type: string
+ *                   example: user/admin
+ *                 avatar:
+ *                   type: string
+ *                   example: https://www.example.com/image.jpg
+ *                 bio:
+ *                   type: string
+ *                   example: Hello, I am John Doe
+ *                 username:
+ *                   type: string
+ *                   example: johndoe
+ *       400:
+ *         description: Invalid input
  */
-// GET a specific user by ID
+
 router.get("/id/:id", async (req, res) => {
   // Logic to fetch and send details of a specific user
   try {
@@ -114,37 +152,58 @@ router.get("/id/:id", async (req, res) => {
 
 /**
  * @swagger
- * /users/{username}:
+ * /users/username/{username}:
  *   get:
  *     tags: [Users]
  *     summary: Get user by username
  *     description: Retrieve a user by their unique username
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: username
  *         required: true
- *         description: Numeric ID of the user to retrieve.
+ *         description: Username of the user to retrieve.
  *         schema:
- *           type: integer
+ *           type: string
  *     responses:
  *       200:
- *         description: A single user
+ *         description: User retrieved successfully
  *         content:
  *           application/json:
  *             schema:
  *               type: object
+ *               required:
+ *                 - firstname
+ *                 - lastname
+ *                 - email
+ *                 - role
+ *                 - avatar
+ *                 - bio
+ *                 - username
  *               properties:
- *                 id:
- *                   type: integer
- *                   example: 1
- *                 name:
+ *                 firstname:
  *                   type: string
- *                   example: John Doe
+ *                   example: John
+ *                 lastname:
+ *                   type: string
+ *                   example: Doe
  *                 email:
  *                   type: string
  *                   example: johndoe@example.com
+ *                 role:
+ *                   type: string
+ *                   example: user/admin
+ *                 avatar:
+ *                   type: string
+ *                   example: https://www.example.com/image.jpg
+ *                 bio:
+ *                   type: string
+ *                   example: Hello, I am John Doe
+ *                 username:
+ *                   type: string
+ *                   example: johndoe
+ *       400:
+ *         description: Invalid input
  */
-// GET a specific user by username
 router.get("/username/:username", async (req, res) => {
   // Logic to fetch and send details of a specific user
   try {
@@ -176,18 +235,56 @@ router.get("/username/:username", async (req, res) => {
 
 /**
  * @swagger
- * /:
+ * /users:
  *   post:
  *     tags: [Users]
- *     summary: Add a new user
+ *     summary: Create a new user
+ *     description: Adds a new user to the system
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - firstname
+ *               - lastname
+ *               - email
+ *               - password
+ *               - role
+ *               - avatar
+ *               - bio
+ *                - username
+ *             properties:
+ *               firstname:
+ *                 type: string
+ *                 example: John
+ *               lastname:
+ *                 type: string
+ *                 example: Doe
+ *               email:
+ *                 type: string
+ *                 example: johndoe@example.com
+ *               password:
+ *                 type: string
+ *                 example: 12345678
+ *               role:
+ *                 type: string
+ *                 example: user/admin
+ *               avatar:
+ *                 type: string
+ *                 example: https://www.example.com/image.jpg
+ *               bio:
+ *                 type: string
+ *                 example: Hello, I am John Doe
+ *               username:
+ *                 type: string
+ *                 example: johndoe
  *     responses:
- *       200:
- *         description: New user added successfully
- *         content:
- *           text/plain:
- *             schema:
- *               type: string
- *               example: User created successfully
+ *       201:
+ *         description: User created successfully
+ *       400:
+ *         description: Invalid input
  */
 
 // POST a new user
@@ -263,20 +360,58 @@ router.post("/", async (req, res) => {
 
 /**
  * @swagger
- * /{id}:
+ * /users/{id}:
  *   put:
  *     tags: [Users]
  *     summary: Update a user
+ *     description: Updates a user by their unique ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID of the user to update.
+ *         schema:
+ *           type: integer
  *     responses:
  *       200:
  *         description: User updated successfully
  *         content:
- *           text/plain:
+ *           application/json:
  *             schema:
- *               type: string
- *               example: User updated successfully
+ *               type: object
+ *               required:
+ *                 - firstname
+ *                 - lastname
+ *                 - email
+ *                 - role
+ *                 - avatar
+ *                 - bio
+ *                 - username
+ *               properties:
+ *                 firstname:
+ *                   type: string
+ *                   example: John
+ *                 lastname:
+ *                   type: string
+ *                   example: Doe
+ *                 email:
+ *                   type: string
+ *                   example: johndoe@example.com
+ *                 role:
+ *                   type: string
+ *                   example: user/admin
+ *                 avatar:
+ *                   type: string
+ *                   example: https://www.example.com/image.jpg
+ *                 bio:
+ *                   type: string
+ *                   example: Hello, I am John Doe
+ *                 username:
+ *                   type: string
+ *                   example: johndoe
+ *       400:
+ *         description: Invalid input
  */
-// PUT update a specific user by ID
 router.put("/:id", async (req, res) => {
   console.log("Response received: ", req.body);
 
@@ -350,20 +485,50 @@ router.put("/:id", async (req, res) => {
 
 /**
  * @swagger
- * /{id}:
+ * /users/{id}:
  *   delete:
  *     tags: [Users]
- *     summary: Delete a user
+ *     summary: Deletes a user
+ *     description: Deletes a user by their unique ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID of the user to delete.
+ *         schema:
+ *           type: integer
  *     responses:
  *       200:
  *         description: User deleted successfully
  *         content:
- *           text/plain:
+ *           application/json:
  *             schema:
- *               type: string
- *               example: User deleted successfully
+ *               type: object
+ *               required:
+ *                 - firstname
+ *                 - lastname
+ *                 - email
+ *                 - role
+ *                 - username
+ *               properties:
+ *                 firstname:
+ *                   type: string
+ *                   example: John
+ *                 lastname:
+ *                   type: string
+ *                   example: Doe
+ *                 email:
+ *                   type: string
+ *                   example: johndoe@example.com
+ *                 role:
+ *                   type: string
+ *                   example: user/admin
+ *                 username:
+ *                   type: string
+ *                   example: johndoe
+ *       400:
+ *         description: Error deleting user
  */
-// DELETE a specific user by ID
 router.delete("/:id", (req, res) => {
   // Logic to delete a user identified by req.params.id
   res.send("Delete user with ID: " + req.params.id);

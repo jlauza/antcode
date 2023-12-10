@@ -50,7 +50,7 @@ block content
 
               .col-xs-12.col-md-4
                 label(for="bio") Bio
-                textarea(name="bio", cols="41", rows="10", placeholder="Enter your bio", style="margin-bottom: 10px;", value="#{bio ? bio : ''}", class="form-control-sm mt-2")
+                textarea(name="bio", cols="60", rows="10", placeholder="Enter your bio", value="#{bio ? bio : ''}", class="form-control-sm my-2")
             .d-flex.justify-content-start
               a(href=`/users/profile/id/${id}`, class="btn btn-secondary btn-sm m-1") Back to Profile
               button(type="submit", class="btn btn-primary btn-sm m-1", onClick="updateUser(event)") Update

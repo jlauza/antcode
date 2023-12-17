@@ -33,12 +33,11 @@ const UserSchema = new Schema(
       default: "",
       required: false,
     },
-    bio: [
-      {
-        body: String,
-        date: Date,
-      },
-    ],
+    bio: {
+      type: String,
+      default: "",
+      required: false,
+    },
     username: {
       type: String,
       required: true,

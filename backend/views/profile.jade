@@ -2,7 +2,7 @@ extends layout
 
 block content
     h1= title
-    p Welcome to #{firstname} #{lastname} Profile
+    p Welcome to #{firstname} #{lastname}'s Profile
 
     .form-wrapper
       .profile-wrapper
@@ -16,5 +16,5 @@ block content
         p Role: #{role}
         p Bio: #{bio ? bio : 'No bio yet.'}
         
-        a(href=`/users/profile/edit/id/${id}`) Edit Profile
+        a(href=`/users/profile/edit/id/${id}`, class="btn btn-primary btn-sm m-1") Edit Profile
   

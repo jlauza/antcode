@@ -519,6 +519,7 @@ router.put("/:id", async (req, res) => {
  *         description: Error deleting user
  */
 router.delete("/:id", (req, res) => {
+  console.log(res.body);
   // Validate if ID is valid
   // If not, return 400 - Bad Request
   // Logic to delete a user

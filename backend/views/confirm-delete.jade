@@ -1,0 +1,10 @@
+extends layout
+
+block content
+    .confirm-delete
+        h2= title 
+        p Are you sure you want to delete #{firstname} #{lastname}'s account?
+        p.text-danger This action cannot be undone.
+        a.btn.btn-secondary.btn-sm(type='button', href=`/users/profile/id/${id}`) Cancel
+        button.btn.btn-danger.btn-sm.m-2(type='button') Delete
+        

@@ -519,8 +519,9 @@ router.put("/:id", async (req, res) => {
  *         description: Error deleting user
  */
 router.delete("/:id", (req, res) => {
-  // Logic to delete a user identified by req.params.id
-  res.send("Delete user with ID: " + req.params.id);
+  // Validate if ID is valid
+  // If not, return 400 - Bad Request
+  // Logic to delete a user
 });
 
 module.exports = router;

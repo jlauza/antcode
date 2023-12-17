@@ -87,4 +87,20 @@ router.get("/users/profile/edit/id/:id", async function (req, res, next) {
   });
 });
 
+router.get("/users/profile/delete/id/:id", async function (req, res, next) {
+  const user = await User.findById({
+    _id: req.params.id,
+  })
+    .select("-password")
+    .exec();
+
+  res.render("confirm-delete", {
+    title: "Delete Account",
+    subtitle: "Are you sure you want to delete your account?",
+    id: user._id,
+    firstname: user.firstname,
+    lastname: user.lastname,
+  });
+});
+
 module.exports = router;

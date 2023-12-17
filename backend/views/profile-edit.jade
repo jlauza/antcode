@@ -17,11 +17,12 @@ block content
     .card.my-4
       .card-body
         
-        img(src="#{avatar}" alt="Profile Picture" class="profile-picture img-thumbnail")
-        input(type="file", name="profilePicture", class="form-control-sm", style="margin: 0 auto 10px 10px;")
-
         form#user-update-form(action="/users/#{id}", method="POST", enctype="multipart/form-data", style="margin-bottom: 10px;")
           input(type="hidden", name="_method", value="PUT")
+
+          img(src="#{avatar}" alt="Profile Picture" class="profile-picture img-thumbnail")
+          input(type="file", name="profilePicture", class="form-control-sm border-0", style="margin: 0 auto 10px 10px;")
+          
           h5.spacer-right#usernamePreview Username: #{username}
           .row
             .col-xs-12.col-md-4

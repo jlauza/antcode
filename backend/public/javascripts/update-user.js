@@ -12,6 +12,10 @@ function updateUser(event) {
         // Update the UI
         console.log("Body: ", response.body);
 
+        const successMessage = document.getElementById("success-message");
+        successMessage.textContent = "User updated successfully!";
+        successMessage.style.display = "block";
+
         // Hide the loading indicator
         loadingIndicator.style.display = "none";
       } else {
@@ -23,11 +27,5 @@ function updateUser(event) {
     })
     .catch((error) => {
       console.error(error);
-      // Show an error message
-      const errorMessage = document.getElementById("error-message");
-      errorMessage.textContent = "An unknown error occurred.";
-      errorMessage.style.display = "block";
-      // Hide the loading indicator
-      loadingIndicator.style.display = "none";
     });
 }

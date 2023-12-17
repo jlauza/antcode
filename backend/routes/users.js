@@ -411,8 +411,6 @@ router.post("/", async (req, res) => {
  *         description: Invalid input
  */
 router.put("/:id", async (req, res) => {
-  console.log("Response received: ", req.body);
-
   function validateEmail(email) {
     var re = /\S+@\S+\.\S+/;
     return re.test(email);

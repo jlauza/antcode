@@ -418,11 +418,6 @@ router.put("/:id", async (req, res) => {
     return re.test(email);
   }
 
-  async function validateEmailExists(email) {
-    const user = await User.findOne({ email: email }).exec();
-    return user !== null;
-  }
-
   function passwordNotMacth(password, password2) {
     return password !== password2;
   }
@@ -434,11 +429,6 @@ router.put("/:id", async (req, res) => {
   try {
     if (!validateEmail(req.body.email)) {
       return res.status(400).json({ message: "Invalid email" });
-    }
-
-    const EmailExist = await validateEmailExists(req.body.email);
-    if (EmailExist) {
-      return res.status(400).json({ message: "User already exists" });
     }
 
     let updatedData = {
@@ -472,6 +462,9 @@ router.put("/:id", async (req, res) => {
         lastname: updateUser.lastname,
         email: updateUser.email,
         role: updateUser.role,
+        password: updateUser.password,
+        bio: updateUser.bio,
+        avatar: updateUser.avatar,
       },
     });
   } catch (error) {

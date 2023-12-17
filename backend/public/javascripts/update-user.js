@@ -10,14 +10,15 @@ function updateUser(event) {
     .then((response) => {
       if (response.ok) {
         // Update the UI
-        // ...
+        console.log("Body: ", response.body);
 
         // Hide the loading indicator
         loadingIndicator.style.display = "none";
       } else {
         // Show an error message
         const errorMessage = document.getElementById("error-message");
-        errorMessage.textContent = "An error occurred. Please try again later.";
+        errorMessage.textContent =
+          "An error occurred. Please see the console for more details.";
       }
     })
     .catch((error) => {

@@ -16,5 +16,6 @@ block content
         p Role: #{role}
         p Bio: #{bio ? bio : 'No bio yet.'}
         
-        a(href=`/users/profile/edit/id/${id}`, class="btn btn-primary btn-sm") Edit Profile
-        a(href=`/users/profile/delete/id/${id}`, class="btn btn-danger btn-sm m-1") Delete Profile
+        a(href="/users/profile/edit/id=#{id}" class="btn btn-primary btn-sm") Edit Profile
+        a(href="/users/profile/delete/id=#{id}" class="btn btn-danger btn-sm m-1") Delete Profile
+

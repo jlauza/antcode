@@ -1,5 +1,5 @@
 var express = require("express");
-var User = require("../models/user.model");
+var User = require("../../models/user.model");
 var router = express.Router();
 const bcrypt = require("bcrypt");
 const e = require("express");
@@ -123,7 +123,7 @@ router.get("/", function (req, res, next) {
  *         description: Invalid input
  */
 
-router.get("/id/:id", async (req, res) => {
+router.get("/id=:id", async (req, res) => {
   // Logic to fetch and send details of a specific user
   try {
     const user = await User.findById(req.params.id).exec();
@@ -204,7 +204,7 @@ router.get("/id/:id", async (req, res) => {
  *       400:
  *         description: Invalid input
  */
-router.get("/username/:username", async (req, res) => {
+router.get("/username=:username", async (req, res) => {
   // Logic to fetch and send details of a specific user
   try {
     const user = await User.findOne({

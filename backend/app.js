@@ -9,7 +9,7 @@ const multer = require("multer");
 
 var connectDB = require("./routes/connection");
 var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
+var usersRouter = require("./routes/users/users");
 var registerRouter = require("./routes/index");
 const methodOverride = require("method-override");
 const swaggerUI = require("swagger-ui-express");

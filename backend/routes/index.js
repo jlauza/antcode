@@ -11,7 +11,7 @@ router.get("/register", function (req, res, next) {
   res.render("register", { title: "Register" });
 });
 
-router.get("/users/profile/id/:id", async function (req, res, next) {
+router.get("/users/profile/id=:id", async function (req, res, next) {
   // Logic to fetch and send details of a specific user
   const user = await User.findById(req.params.id).select("-password").exec();
 
@@ -39,7 +39,7 @@ router.get("/users/profile/id/:id", async function (req, res, next) {
 });
 
 router.get(
-  "/users/profile/username/:username",
+  "/users/profile/username=:username",
   async function (req, res, next) {
     // Logic to fetch and send details of a specific user
     const user = await User.findOne({
@@ -64,7 +64,7 @@ router.get(
   }
 );
 
-router.get("/users/profile/edit/id/:id", async function (req, res, next) {
+router.get("/users/profile/edit/id=:id", async function (req, res, next) {
   // Logic to fetch and send details of a specific user
   const user = await User.findById({
     _id: req.params.id,
@@ -87,7 +87,7 @@ router.get("/users/profile/edit/id/:id", async function (req, res, next) {
   });
 });
 
-router.get("/users/profile/delete/id/:id", async function (req, res, next) {
+router.get("/users/profile/delete/id=:id", async function (req, res, next) {
   const user = await User.findById({
     _id: req.params.id,
   })

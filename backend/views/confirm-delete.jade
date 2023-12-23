@@ -7,6 +7,6 @@ block content
         p.text-danger This action cannot be undone.
         form#user-delete-form(action="/users/#{id}", method="POST")
             input(type="hidden", name="_method", value="DELETE")
-        a.btn.btn-secondary.btn-sm(type='button', href=`/users/profile/id/${id}`) Cancel
+        a.btn.btn-secondary.btn-sm(type='button', href="/users/profile/id=#{id}") Cancel
         button.btn.btn-danger.btn-sm.m-2(type='submit', onClick="deleteUser(event)") Delete
         

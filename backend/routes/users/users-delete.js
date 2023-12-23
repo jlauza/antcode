@@ -48,11 +48,20 @@ var router = express.Router();
  *       400:
  *         description: Error deleting user
  */
-router.delete("/:id", (req, res) => {
-  console.log(res.body);
-  // Validate if ID is valid
-  // If not, return 400 - Bad Request
-  // Logic to delete a user
+router.delete("/:id", async (req, res) => {
+  try {
+    const user = await User.findByIdAndDelete(req.params.id).exec();
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    return res.status(200).json({
+      message: "User has been deleted successfully!",
+    });
+  } catch (error) {
+    console.error(error);
+  }
 });
 
 module.exports = router;

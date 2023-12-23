@@ -1,23 +1,15 @@
 extends layout
 
 block content
-  .container
-    .row
-      .col-md-4.offset-md-3.mx-auto
-        .card
-          .card-header
-            h1= title
-          .card-body
-            p Welcome to #{title}
-            p.text-right
-              span No account? 
-              a.btn.btn-link(href="/register", style="margin-top: -0.25em;") Register
-            form(action="#", method="post")
-              .form-group
-                label(for="email") Email
-                input#email.form-control(type="text", name="email", placeholder="Enter your email")
-              .form-group
-                label(for="password") Password
-                input#password.form-control(type="password", name="password", placeholder="Enter your password")
-              .text-center
-                input.btn.btn-primary(type="submit", value="Submit")
+  .form-wrapper
+    h1= title
+    p Welcome to #{title}
+    div.inline-container.justify-content-center
+      p.spacer-right No account? 
+      a(href="/register") Register
+    form(action="#", method="post") 
+      input(type="text", name="email", placeholder="Enter your email")
+      input(type="text", name="password", placeholder="Enter your password")
+      .submit-button
+        input(type="submit", value="Submit")
+        

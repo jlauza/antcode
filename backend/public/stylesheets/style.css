@@ -17,6 +17,12 @@ a {
   margin-right: 2px; /* Adjust the value as needed */
 }
 
+/* Resetting default margins for <p> and <a> */
+.inline-container p,
+.inline-container a {
+  margin: 0;
+}
+
 /* Form classes */
 .form-wrapper {
   display: flex;

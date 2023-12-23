@@ -3,7 +3,9 @@ extends layout
 block content
     .confirm-delete
         h2= title 
-        p Are you sure you want to delete #{firstname} #{lastname}'s account?
+        p Are you sure you want to delete 
+            span.fw-bold #{firstname} #{lastname}'s 
+            span account?
         p.text-danger This action cannot be undone.
         form#user-delete-form(action="/users/#{id}", method="POST")
             input(type="hidden", name="_method", value="DELETE")

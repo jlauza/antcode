@@ -73,7 +73,6 @@ function generateRandomUsername() {
  *         description: Invalid input
  */
 
-// POST a new user
 router.post("/", async (req, res) => {
   function validateEmail(email) {
     var re = /\S+@\S+\.\S+/;

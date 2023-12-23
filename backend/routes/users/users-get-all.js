@@ -53,5 +53,4 @@ router.get("/", function (req, res, next) {
   // Logic to fetch and send list of users
   res.send("Return with all users . Backend is not yet prepared.");
 });
-
 module.exports = router;

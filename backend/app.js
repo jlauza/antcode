@@ -15,13 +15,7 @@ const swaggerUI = require("swagger-ui-express");
 const swaggerDocs = require("./swagger");
 const indexRoutes = require("./routes/index");
 
-// USERS module
-// const getAllUsers = require("./routes/users/users-get-all");
-// const getUserById = require("./routes/users/users-get-by-id");
-// const getUserByUsername = require("./routes/users/users-get-by-username");
-// const createUser = require("./routes/users/users-post");
-// const updateUser = require("./routes/users/users-update");
-// const deleteUser = require("./routes/users/users-delete");
+// modules
 const users = require("./routes/users/users");
 
 var app = express();
@@ -49,13 +43,7 @@ app.use(cors());
 app.use("/", indexRoutes);
 app.use("/register", registerRoutes);
 
-// USERS module
-// app.use("/users", getAllUsers);
-// app.use("/users", getUserById);
-// app.use("/users", getUserByUsername);
-// app.use("/users", createUser);
-// app.use("/users", updateUser);
-// app.use("/users", deleteUser);
+// module routes
 app.use("/users", users);
 
 // catch 404 and forward to error handler

@@ -16,7 +16,7 @@ const swaggerDocs = require("./swagger");
 const indexRoutes = require("./routes/index");
 
 // modules
-const users = require("./routes/users/users");
+const users = require("./routes/users");
 
 var app = express();
 connectDB();

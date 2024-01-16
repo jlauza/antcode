@@ -28,16 +28,6 @@ const UserSchema = new Schema(
       default: "admin",
       required: true,
     },
-    avatar: {
-      type: String,
-      default: "",
-      required: false,
-    },
-    bio: {
-      type: String,
-      default: "",
-      required: false,
-    },
     username: {
       type: String,
       required: true,

@@ -30,10 +30,6 @@ router.get("/users/profile/id=:id", async function (req, res, next) {
     firstname: user.firstname,
     lastname: user.lastname,
     email: user.email,
-    avatar: user.avatar
-      ? user.avatar
-      : "https://placehold.co/120x120?text=No+Photo",
-    bio: user.bio ? user.bio : "No bio",
     role: user.role,
   });
 });
@@ -55,10 +51,6 @@ router.get(
       firstname: user.firstname,
       lastname: user.lastname,
       email: user.email,
-      avatar: user.avatar
-        ? user.avatar
-        : "https://placehold.co/120x120?text=No+Photo",
-      bio: user.bio ? user.bio : "No bio",
       role: user.role,
     });
   }
@@ -79,10 +71,6 @@ router.get("/users/profile/edit/id=:id", async function (req, res, next) {
     firstname: user.firstname,
     lastname: user.lastname,
     email: user.email,
-    avatar: user.avatar
-      ? user.avatar
-      : "https://placehold.co/120x120?text=No+Photo",
-    bio: user.bio,
     role: user.role,
   });
 });

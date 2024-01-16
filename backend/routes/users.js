@@ -35,8 +35,6 @@ function generateRandomUsername() {
  *               - password
  *               - password2
  *               - role
- *               - avatar
- *               - bio
  *               - username
  *             properties:
  *               firstname:
@@ -57,12 +55,6 @@ function generateRandomUsername() {
  *               role:
  *                 type: string
  *                 example: user/admin
- *               avatar:
- *                 type: string
- *                 example: https://www.example.com/image.jpg
- *               bio:
- *                 type: string
- *                 example: Hello, I am John Doe
  *               username:
  *                 type: string
  *                 example: johndoe
@@ -176,12 +168,6 @@ router.post("/", async (req, res) => {
  *               role:
  *                 type: string
  *                 example: user/admin
- *               avatar:
- *                 type: string
- *                 example: https://www.example.com/image.jpg
- *               bio:
- *                 type: string
- *                 example: Hello, I am John Doe
  *               username:
  *                 type: string
  *                 example: johndoe
@@ -242,8 +228,6 @@ router.put("/:id", async (req, res) => {
         email: updateUser.email,
         role: updateUser.role,
         password: updateUser.password,
-        bio: updateUser.bio,
-        avatar: updateUser.avatar,
       },
     });
   } catch (error) {
@@ -272,8 +256,6 @@ router.put("/:id", async (req, res) => {
  *                 - lastname
  *                 - email
  *                 - role
- *                 - avatar
- *                 - bio
  *                 - username
  *               properties:
  *                 firstname:
@@ -288,12 +270,6 @@ router.put("/:id", async (req, res) => {
  *                 role:
  *                   type: string
  *                   example: user/admin
- *                 avatar:
- *                   type: string
- *                   example: https://www.example.com/image.jpg
- *                 bio:
- *                   type: string
- *                   example: Hello, I am John Doe
  *                 username:
  *                   type: string
  *                   example: johndoe
@@ -331,8 +307,6 @@ router.get("/", function (req, res, next) {
  *                 - lastname
  *                 - email
  *                 - role
- *                 - avatar
- *                 - bio
  *                 - username
  *               properties:
  *                 firstname:
@@ -347,12 +321,6 @@ router.get("/", function (req, res, next) {
  *                 role:
  *                   type: string
  *                   example: user/admin
- *                 avatar:
- *                   type: string
- *                   example: https://www.example.com/image.jpg
- *                 bio:
- *                   type: string
- *                   example: Hello, I am John Doe
  *                 username:
  *                   type: string
  *                   example: johndoe
@@ -413,8 +381,6 @@ router.get("/id=:id", async (req, res) => {
  *                 - lastname
  *                 - email
  *                 - role
- *                 - avatar
- *                 - bio
  *                 - username
  *               properties:
  *                 firstname:
@@ -429,12 +395,6 @@ router.get("/id=:id", async (req, res) => {
  *                 role:
  *                   type: string
  *                   example: user/admin
- *                 avatar:
- *                   type: string
- *                   example: https://www.example.com/image.jpg
- *                 bio:
- *                   type: string
- *                   example: Hello, I am John Doe
  *                 username:
  *                   type: string
  *                   example: johndoe
@@ -455,7 +415,6 @@ router.get("/username=:username", async (req, res) => {
         message: "User Info",
         user: {
           username: user.username,
-          avatar: user.avatar,
           firstname: user.firstname,
           lastname: user.lastname,
           email: user.email,

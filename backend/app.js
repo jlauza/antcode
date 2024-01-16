@@ -17,6 +17,7 @@ const indexRoutes = require("./routes/index");
 
 // modules
 const users = require("./routes/users");
+const auth = require("./routes/auth");
 
 var app = express();
 connectDB();
@@ -45,6 +46,7 @@ app.use("/register", registerRoutes);
 
 // module routes
 app.use("/users", users);
+app.use("/auth", auth);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

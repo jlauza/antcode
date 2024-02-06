@@ -31,10 +31,16 @@ function NavigationMenu() {
   );
 }
 
+const HideMenuOnLogin = () => {
+  let location = useLocation();
+
+  return location.pathname !== "/login" ? <NavigationMenu /> : null;
+};
+
 const ComponentRouter = () => {
   return (
     <Router>
-      <NavigationMenu />
+      <HideMenuOnLogin />
 
       <Routes>
         <Route path="/" element={<Home />} />

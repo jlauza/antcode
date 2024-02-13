@@ -34,12 +34,24 @@ const User = require("../models/user.model");
 router.post("/", async (req, res) => {
   const { email, password } = req.body;
   console.log(req.body);
+  console.log(User);
 
-  const user = await User.findOne({ email, password });
+  if (!email || !password) {
+    return res.status(400).json({ message: "Invalid input" });
+  } else {
+    console.log("email and password are present");
+    User.filter((user) => {
+      if (user.email === email && user.password === password) {
+        console.log("user found", user);
 
-  if (user) {
-    console.log("user found", user);
+        // Create a session
+        req.session.user = user;
+        res.redirect("/dashboard");
+      }
+    });
   }
+
+  res.render("login", { message: "Invalid credentials" });
 });
 
 /**

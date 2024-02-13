@@ -49,9 +49,8 @@ router.post("/", async (req, res) => {
         res.redirect("/dashboard");
       }
     });
+    res.render("login", { message: "Invalid credentials" });
   }
-
-  res.render("login", { message: "Invalid credentials" });
 });
 
 /**

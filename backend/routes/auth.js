@@ -2,7 +2,35 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/user.model");
 
-// Login logic
+/**
+ * @swagger
+ * /auth:
+ *   post:
+ *     tags: [Auth]
+ *     summary: Create a new session
+ *     description: Adds a new session to the system
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *               - password
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 example: johndoe@example.com
+ *               password:
+ *                 type: string
+ *                 example: 12345678
+ *     responses:
+ *       201:
+ *         description: User created successfully
+ *       400:
+ *         description: Invalid input
+ */
 router.post("/", async (req, res) => {
   const { email, password } = req.body;
   console.log(req.body);
@@ -14,7 +42,19 @@ router.post("/", async (req, res) => {
   }
 });
 
-// Logout logic
+/**
+ * @swagger
+ * /auth/logout:
+ *   post:
+ *     tags: [Auth]
+ *     summary: Exits a session
+ *     description: Exits a session to the system
+ *     responses:
+ *       201:
+ *         description: User created successfully
+ *       400:
+ *         description: Invalid input
+ */
 router.post("/logout", (req, res) => {
   // Clear user session or token
   req.session.destroy(function (err) {

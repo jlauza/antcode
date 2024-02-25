@@ -34,13 +34,15 @@ const User = require("../models/user.model");
 router.post("/", async (req, res) => {
   const { email, password } = req.body;
   console.log(req.body);
-  console.log(User);
 
   if (!email || !password) {
     return res.status(400).json({ message: "Invalid input" });
   } else {
     console.log("email and password are present");
-    User.filter((user) => {
+
+    const result = [User];
+
+    result.filter((user) => {
       if (user.email === email && user.password === password) {
         console.log("user found", user);
 

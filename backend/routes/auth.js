@@ -52,7 +52,7 @@ router.post("/", async (req, res) => {
         console.log("session created line 51: ", user);
 
         // res.redirect(`/users/profile/id=${user._id}`);
-        res.redirect(`/dashboard/id=${user._id}`);
+        res.redirect(`/dashboard`);
       }
     });
     res.render("login", { message: "Invalid credentials" });

@@ -48,7 +48,7 @@ router.post("/", async (req, res) => {
 
         // Create a session
         req.session.user = user;
-        res.redirect("/dashboard");
+        res.redirect(`/users/profile/id=${user._id}`);
       }
     });
     res.render("login", { message: "Invalid credentials" });

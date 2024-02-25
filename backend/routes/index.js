@@ -92,7 +92,7 @@ router.get("/users/profile/delete/id=:id", async function (req, res, next) {
 });
 
 // Get Dashboard page
-router.get("/dashboard/id=:id", async function (req, res, next) {
+router.get("/dashboard", async function (req, res, next) {
   // Logic to fetch and send details of a specific user
   const user = await User.findOne({
     username: req.params.username,
@@ -100,14 +100,16 @@ router.get("/dashboard/id=:id", async function (req, res, next) {
     .select("-password")
     .exec();
 
+  console.log(user);
+
   res.render("dashboard", {
     title: "My Dasboard",
-    id: user._id,
-    username: user.username,
-    firstname: user.firstname,
-    lastname: user.lastname,
-    email: user.email,
-    role: user.role,
+    // id: user._id,
+    // username: user.username,
+    // firstname: user.firstname,
+    // lastname: user.lastname,
+    // email: user.email,
+    // role: user.role,
   });
 });
 

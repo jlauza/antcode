@@ -33,7 +33,6 @@ const User = require("../models/user.model");
  */
 router.post("/", async (req, res) => {
   const { email, password } = req.body;
-  console.log(req.body);
 
   if (!email || !password) {
     return res.status(400).json({ message: "Invalid input" });
@@ -42,13 +41,18 @@ router.post("/", async (req, res) => {
 
     const result = [User];
 
+    console.log("result line 44: ", result);
+
     result.filter((user) => {
       if (user.email === email && user.password === password) {
-        console.log("user found", user);
+        console.log("user found line 47: ", user);
 
         // Create a session
         req.session.user = user;
-        res.redirect(`/users/profile/id=${user._id}`);
+        console.log("session created line 51: ", user);
+
+        // res.redirect(`/users/profile/id=${user._id}`);
+        res.redirect(`/dashboard/id=${user._id}`);
       }
     });
     res.render("login", { message: "Invalid credentials" });

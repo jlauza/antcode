@@ -39,11 +39,9 @@ router.post("/", async (req, res) => {
   } else {
     console.log("email and password are present");
 
-    const result = [User];
+    const User = [];
 
-    console.log("result line 44: ", result);
-
-    result.filter((user) => {
+    User.filter((user) => {
       if (user.email === email && user.password === password) {
         console.log("user found line 47: ", user);
 

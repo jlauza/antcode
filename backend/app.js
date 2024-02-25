@@ -9,7 +9,6 @@ var multer = require("multer");
 
 // GENERAL ROUTES
 const connectDB = require("./routes/connection");
-const registerRoutes = require("./routes/index");
 const methodOverride = require("method-override");
 const swaggerUI = require("swagger-ui-express");
 const swaggerDocs = require("./swagger");
@@ -42,7 +41,6 @@ app.use(cors());
 
 // Define your routes here
 app.use("/", indexRoutes);
-app.use("/register", registerRoutes);
 
 // module routes
 app.use("/users", users);

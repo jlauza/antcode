@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/user.model");
-const User = [];
+const resultUser = [User];
 
 /**
  * @swagger
@@ -40,7 +40,7 @@ router.post("/", async (req, res) => {
   } else {
     console.log("email and password are present");
 
-    User.filter((user) => {
+    resultUser.filter((user) => {
       if (user.email === email && user.password === password) {
         console.log("user found line 47: ", user);
 

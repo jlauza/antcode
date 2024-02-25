@@ -91,9 +91,19 @@ router.get("/users/profile/delete/id=:id", async function (req, res, next) {
   });
 });
 
+function checkSignIn(req, res) {
+  console.log("req.session: ", req.session);
+  if (req.session.user) {
+    next(); //If session exists, proceed to page
+  } else {
+    var err = new Error("Not logged in!");
+    next(err);
+  }
+}
+
 // Get Dashboard page
-router.get("/dashboard", function (req, res, next) {
-  res.render("dashboard", { title: "My Dashboard" });
+router.get("/dashboard", checkSignIn, function (req, res, next) {
+  res.render("dashboard", { id: req.session._id, title: "My Dashboard" });
 });
 
 module.exports = router;

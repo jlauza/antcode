@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/user.model");
+const User = [];
 
 /**
  * @swagger
@@ -38,8 +39,6 @@ router.post("/", async (req, res) => {
     return res.status(400).json({ message: "Invalid input" });
   } else {
     console.log("email and password are present");
-
-    const User = [];
 
     User.filter((user) => {
       if (user.email === email && user.password === password) {

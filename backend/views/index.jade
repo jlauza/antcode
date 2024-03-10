@@ -7,9 +7,30 @@ block content
     div.inline-container.justify-content-center
       p.spacer-right No account? 
       a(href="/register") Register
-    form(action="#", method="post") 
+    form(method="post") 
       input(type="text", name="email", placeholder="Enter your email")
-      input(type="text", name="password", placeholder="Enter your password")
+      input(type="password", name="password", placeholder="Enter your password")
       .submit-button
         input(type="submit", value="Submit")
-        
+
+  script.
+    document.querySelector('form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const email = document.querySelector('input[name="email"]').value;
+      const password = document.querySelector('input[name="password"]').value;
+      fetch('http://localhost:8000/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email, password })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.error) {
+          alert(data.error);
+        } else {
+          window.location.href = '/dashboard';
+        }
+      });
+    });  

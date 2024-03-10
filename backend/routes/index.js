@@ -11,7 +11,7 @@ router.get("/register", function (req, res, next) {
   res.render("register", { title: "Register" });
 });
 
-router.get("/users/profile/id=:id", async function (req, res, next) {
+router.get("/users/profile/:id", async function (req, res, next) {
   // Logic to fetch and send details of a specific user
   const user = await User.findById(req.params.id).select("-password").exec();
 
@@ -34,29 +34,26 @@ router.get("/users/profile/id=:id", async function (req, res, next) {
   });
 });
 
-router.get(
-  "/users/profile/username=:username",
-  async function (req, res, next) {
-    // Logic to fetch and send details of a specific user
-    const user = await User.findOne({
-      username: req.params.username,
-    })
-      .select("-password")
-      .exec();
+router.get("/users/profile/:username", async function (req, res, next) {
+  // Logic to fetch and send details of a specific user
+  const user = await User.findOne({
+    username: req.params.username,
+  })
+    .select("-password")
+    .exec();
 
-    res.render("profile", {
-      title: "My Profile",
-      id: user._id,
-      username: user.username,
-      firstname: user.firstname,
-      lastname: user.lastname,
-      email: user.email,
-      role: user.role,
-    });
-  }
-);
+  res.render("profile", {
+    title: "My Profile",
+    id: user._id,
+    username: user.username,
+    firstname: user.firstname,
+    lastname: user.lastname,
+    email: user.email,
+    role: user.role,
+  });
+});
 
-router.get("/users/profile/edit/id=:id", async function (req, res, next) {
+router.get("/users/profile/edit/:id", async function (req, res, next) {
   // Logic to fetch and send details of a specific user
   const user = await User.findById({
     _id: req.params.id,
@@ -75,7 +72,7 @@ router.get("/users/profile/edit/id=:id", async function (req, res, next) {
   });
 });
 
-router.get("/users/profile/delete/id=:id", async function (req, res, next) {
+router.get("/users/profile/delete/:id", async function (req, res, next) {
   const user = await User.findById({
     _id: req.params.id,
   })

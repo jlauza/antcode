@@ -98,6 +98,13 @@ function checkSignIn(req, res) {
   }
 }
 
+router.post("/login", async function (req, res) {
+  // Login logic
+  const { email, password } = req.body;
+
+  console.log("email: ", email);
+});
+
 // Get Dashboard page
 router.get("/dashboard", checkSignIn, function (req, res, next) {
   res.render("dashboard", { id: req.session._id, title: "My Dashboard" });

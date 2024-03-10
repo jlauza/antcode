@@ -32,7 +32,7 @@ const resultUser = [User];
  *       400:
  *         description: Invalid input
  */
-router.post("/", async (req, res) => {
+router.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
   if (!email || !password) {

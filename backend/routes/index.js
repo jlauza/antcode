@@ -99,7 +99,9 @@ function checkSignIn(req, res) {
 }
 
 router.get("/login", async function (req, res) {
-  // Login logic
+  // Fetch auth endpoint
+
+  // Render login page
   res.render("login", { title: "Login" });
 });
 

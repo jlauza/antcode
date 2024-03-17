@@ -1,31 +1,12 @@
 extends layout
 
 block content
-  .form-wrapper
-    h1= title
-    p Welcome to #{title}
-    div.inline-container.justify-content-center
-      p.spacer-right No account? 
-      a(href="/register") Register
-    form(method="post") 
-      input(type="text", name="email", placeholder="Enter your email")
-      input(type="password", name="password", placeholder="Enter your password")
-      .submit-button
-        input(type="submit", value="Submit")
+  h1= title
+  p Welcome to #{title}
 
-  script.
-    document.querySelector('form').addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const email = document.querySelector('input[name="email"]').value;
-      const password = document.querySelector('input[name="password"]').value;
-      
-      await axios.post('/login', { email, password })
-        .then(res => {
-          console.log(res);
-          window.location = '/users/profile';
-        })
-        .catch(err => {
-          console.error(err);
-        });
+  div.inline-container.justify-content-center
+    p.spacer-right No account? 
+    a(href="/register") Register
 
-    });  
+  div.inline-container.justify-content-center
+    a(href="/login") Login

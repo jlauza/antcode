@@ -98,11 +98,9 @@ function checkSignIn(req, res) {
   }
 }
 
-router.post("/login", async function (req, res) {
+router.get("/login", async function (req, res) {
   // Login logic
-  const { email, password } = req.body;
-
-  console.log("email: ", email);
+  res.render("login", { title: "Login" });
 });
 
 // Get Dashboard page

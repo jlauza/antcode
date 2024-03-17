@@ -14,7 +14,7 @@ document.querySelector("form").addEventListener("submit", async function (e) {
     .post(api, { email, password })
     .then((res) => {
       console.log(res);
-      window.location = "/users/profile";
+      window.location = "/dashboard";
     })
     .catch((err) => {
       console.error(err);

@@ -101,6 +101,11 @@ function checkSignIn(req, res) {
 router.get("/login", async function (req, res) {
   // Fetch auth endpoint
 
+  // Render login
+  const { email, password } = req.body;
+
+  console.log("email: ", email);
+
   // Render login page
   res.render("login", { title: "Login" });
 });

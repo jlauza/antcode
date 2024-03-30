@@ -104,7 +104,14 @@ router.get("/login", async function (req, res) {
   // Render login
   const { email, password } = req.body;
 
-  console.log("email: ", email);
+  const user = await User.findOne({ email, password }).exec();
+
+  if (user) {
+    req.session.user = user;
+    res.redirect(`/dashboard`);
+  } else {
+    res.render("login", { message: "Invalid credentials" });
+  }
 
   // Render login page
   res.render("login", { title: "Login" });

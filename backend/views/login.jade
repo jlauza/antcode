@@ -3,12 +3,13 @@ extends layout
 block content
   .form-wrapper
     h1= title
-    p Welcome to #{title}
-    div.inline-container.justify-content-center
-      p(style="margin-right:2px") No account? 
-      a(href="/register") Register
+    p Welcome to Passwordless Auhtentication
+    small(style="color: #888") Enter your email address to recieve the OTP
     form#login-form(method="post" action="/auth") 
       input(type="text", name="email", placeholder="Enter your email")
-      input(type="password", name="password", placeholder="Enter your password")
+      //- input(type="password", name="password", placeholder="Enter your password")
       .submit-button
-        input(type="submit", value="Submit")
+        input(type="submit", value="Login")
+    div.inline-container.justify-content-center
+      p(style="margin-right:2px") No account? 
+      a(href="/register") Register    

@@ -99,6 +99,9 @@ function checkSignIn(req, res) {
 }
 
 router.get("/login", async function (req, res) {
+  // Render login page
+  res.render("login", { title: "Express" });
+
   // Fetch auth endpoint
 
   // Render login
@@ -112,9 +115,6 @@ router.get("/login", async function (req, res) {
   } else {
     res.render("login", { message: "Invalid credentials" });
   }
-
-  // Render login page
-  res.render("login", { title: "Login" });
 });
 
 // Get Dashboard page

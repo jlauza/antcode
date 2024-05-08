@@ -1,6 +1,44 @@
 var express = require("express");
 var router = express.Router();
 const User = require("../models/user.model");
+var session = require("express-session");
+var cookieParser = require("cookie-parser");
+var bodyParser = require("body-parser");
+var multer = require("multer");
+var upload = multer();
+
+router.get("/login", async function (req, res) {
+  // Render login page
+  res.render("login", { title: "Express" });
+
+  // Fetch auth endpoint
+
+  // Render login
+  const { email, password } = req.body;
+
+  const user = await User.findOne({ email, password }).exec();
+
+  if (user) {
+    req.session.user = user;
+    res.redirect(`/dashboard`);
+  } else {
+    res.render("login", { message: "Invalid credentials" });
+  }
+});
+
+function checkSignIn(req, res) {
+  console.log("req.session: ", req.session);
+  if (req.session?.user) {
+    // next(); //If session exists, proceed to page
+    res.redirect(`/dashboard`);
+    res.render("dashboard", { title: "Dashboard" });
+  } else {
+    // var err = new Error("Not logged in!");
+    // next(err);
+    res.redirect(`/login`);
+    res.render("login", { message: "Invalid credentials" });
+  }
+}
 
 /* GET home page. */
 router.get("/", function (req, res, next) {
@@ -11,7 +49,7 @@ router.get("/register", function (req, res, next) {
   res.render("register", { title: "Register" });
 });
 
-router.get("/users/profile/:id", async function (req, res, next) {
+router.get("/users/profile/:id", checkSignIn, async function (req, res, next) {
   // Logic to fetch and send details of a specific user
   const user = await User.findById(req.params.id).select("-password").exec();
 
@@ -34,88 +72,71 @@ router.get("/users/profile/:id", async function (req, res, next) {
   });
 });
 
-router.get("/users/profile/:username", async function (req, res, next) {
-  // Logic to fetch and send details of a specific user
-  const user = await User.findOne({
-    username: req.params.username,
-  })
-    .select("-password")
-    .exec();
+router.get(
+  "/users/profile/:username",
+  checkSignIn,
+  async function (req, res, next) {
+    // Logic to fetch and send details of a specific user
+    const user = await User.findOne({
+      username: req.params.username,
+    })
+      .select("-password")
+      .exec();
 
-  res.render("profile", {
-    title: "My Profile",
-    id: user._id,
-    username: user.username,
-    firstname: user.firstname,
-    lastname: user.lastname,
-    email: user.email,
-    role: user.role,
-  });
-});
-
-router.get("/users/profile/edit/:id", async function (req, res, next) {
-  // Logic to fetch and send details of a specific user
-  const user = await User.findById({
-    _id: req.params.id,
-  })
-    .select("-password")
-    .exec();
-
-  res.render("profile-edit", {
-    title: "Edit Profile",
-    id: user._id,
-    username: user.username,
-    firstname: user.firstname,
-    lastname: user.lastname,
-    email: user.email,
-    role: user.role,
-  });
-});
-
-router.get("/users/profile/delete/:id", async function (req, res, next) {
-  const user = await User.findById({
-    _id: req.params.id,
-  })
-    .select("-password")
-    .exec();
-
-  res.render("confirm-delete", {
-    title: "Delete Account",
-    subtitle: "Are you sure you want to delete your account?",
-    id: user._id,
-    firstname: user.firstname,
-    lastname: user.lastname,
-  });
-});
-
-function checkSignIn(req, res) {
-  console.log("req.session: ", req.session);
-  if (req.session.user) {
-    next(); //If session exists, proceed to page
-  } else {
-    var err = new Error("Not logged in!");
-    next(err);
+    res.render("profile", {
+      title: "My Profile",
+      id: user._id,
+      username: user.username,
+      firstname: user.firstname,
+      lastname: user.lastname,
+      email: user.email,
+      role: user.role,
+    });
   }
-}
+);
 
-router.get("/login", async function (req, res) {
-  // Render login page
-  res.render("login", { title: "Express" });
+router.get(
+  "/users/profile/edit/:id",
+  checkSignIn,
+  async function (req, res, next) {
+    // Logic to fetch and send details of a specific user
+    const user = await User.findById({
+      _id: req.params.id,
+    })
+      .select("-password")
+      .exec();
 
-  // Fetch auth endpoint
-
-  // Render login
-  const { email, password } = req.body;
-
-  const user = await User.findOne({ email, password }).exec();
-
-  if (user) {
-    req.session.user = user;
-    res.redirect(`/dashboard`);
-  } else {
-    res.render("login", { message: "Invalid credentials" });
+    res.render("profile-edit", {
+      title: "Edit Profile",
+      id: user._id,
+      username: user.username,
+      firstname: user.firstname,
+      lastname: user.lastname,
+      email: user.email,
+      role: user.role,
+    });
   }
-});
+);
+
+router.get(
+  "/users/profile/delete/:id",
+  checkSignIn,
+  async function (req, res, next) {
+    const user = await User.findById({
+      _id: req.params.id,
+    })
+      .select("-password")
+      .exec();
+
+    res.render("confirm-delete", {
+      title: "Delete Account",
+      subtitle: "Are you sure you want to delete your account?",
+      id: user._id,
+      firstname: user.firstname,
+      lastname: user.lastname,
+    });
+  }
+);
 
 // Get Dashboard page
 router.get("/dashboard", checkSignIn, function (req, res, next) {

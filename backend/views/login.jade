@@ -3,9 +3,9 @@ extends layout
 block content
   .form-wrapper
     h1= title
-    p Welcome to Passwordless Auhtentication
-    small(style="color: #888") Enter your email address to recieve the OTP
-    form#login-form(method="post" action="/auth") 
+    p Please login
+    //- small(style="color: #888") Enter your email address to recieve the OTP
+    form#login-form(method="post") 
       input(type="text", name="email", placeholder="Enter your email")
       input(type="password", name="password", placeholder="Enter your password")
       .submit-button

@@ -27,7 +27,6 @@ router.get("/login", async function (req, res) {
 });
 
 function checkSignIn(req, res) {
-  console.log("req.session: ", req.session);
   if (req.session?.user) {
     // next(); //If session exists, proceed to page
     res.redirect(`/dashboard`);
@@ -139,8 +138,8 @@ router.get(
 );
 
 // Get Dashboard page
-router.get("/dashboard", checkSignIn, function (req, res, next) {
-  res.render("dashboard", { id: req.session._id, title: "My Dashboard" });
+router.get("/dashboard", function (req, res, next) {
+  res.render("dashboard", { title: "My Dashboard" });
 });
 
 module.exports = router;

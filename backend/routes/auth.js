@@ -38,22 +38,36 @@ router.post("/", async (req, res) => {
   if (!email || !password) {
     return res.status(400).json({ message: "Invalid input" });
   } else {
-    console.log("email and password are present");
+    console.log(email, password);
+
+    // const loginUser = await User.findOne(email, password);
+    // console.log("loginUser", loginUser);
 
     resultUser.filter((user) => {
       if (user.email === email && user.password === password) {
-        console.log("user found line 47: ", user);
+        console.log("session status:", req.session);
 
         // Create a session
         req.session.user = user;
-        console.log("session created line 51: ", user);
 
-        // res.redirect(`/users/profile/id=${user._id}`);
+        console.log("session status: ", user, req.session.status);
         res.redirect(`/dashboard`);
       }
     });
+
     res.render("login", { message: "Invalid credentials" });
   }
+
+  // return res.status(200).json({
+  //   message: `Welcome back, ${firstname}`,
+  //   loginUser: {
+  //     username: loginUser.username,
+  //     firstname: loginUser.firstname,
+  //     lastname: loginUser.lastname,
+  //     email: loginUser.email,
+  //     password: updateUser.password,
+  //   },
+  // });
 });
 
 /**

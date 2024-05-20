@@ -1,33 +1,25 @@
-const axios = require("axios");
-const dotenv = require("dotenv");
-dotenv.config();
-const apiUrl = process.env.REACT_APP_API_LOGIN;
+function loginUser(event) {
+  event.preventDefault();
+  const form = document.getElementById("login-form");
+  const formData = new FormData(form);
 
-console.log(apiUrl);
-
-document.addEventListener("DOMContentLoaded", function () {
-  const form = document.querySelector("form#login-form");
-
-  if (form) {
-    form.addEventListener("submit", async function (e) {
-      e.preventDefault();
-
-      const emailInput = form.querySelector('input[name="email"]');
-      const passwordInput = form.querySelector('input[name="password"]');
-      const email = emailInput ? emailInput.value : "";
-      const password = passwordInput ? passwordInput.value : "";
-      const api = apiUrl; // make sure to define your API URL
-
-      try {
-        const res = await axios.post(api, { email, password });
-        console.log(res);
-        window.location.href = "/dashboard";
-      } catch (err) {
-        console.error(err);
-        // Optionally handle the error in the UI, such as displaying a message to the user.
+  fetch(form.action, {
+    // method: "POST",
+    body: formData,
+  })
+    .then((response) => {
+      if (response.ok) {
+        const successMessage = document.getElementById("success-message");
+        successMessage.textContent = "You have logged in successfully!";
+        successMessage.style.display = "block";
+      } else {
+        // Show an error message
+        const errorMessage = document.getElementById("error-message");
+        errorMessage.textContent =
+          "An error occurred. Please see the console for more details.";
       }
+    })
+    .catch((error) => {
+      console.error(error);
     });
-  } else {
-    console.error("Form #login-form not found on this page.");
-  }
-});
+}

@@ -33,30 +33,31 @@ const resultUser = [User];
  *         description: Invalid input
  */
 router.post("/", async (req, res) => {
-  const { email, password } = req.body;
+  res.redirect(`/dashboard`);
+  // const { email, password } = req.body;
 
-  if (!email || !password) {
-    return res.status(400).json({ message: "Invalid input" });
-  } else {
-    console.log(email, password);
+  // if (!email || !password) {
+  //   return res.status(400).json({ message: "Invalid input" });
+  // } else {
+  //   console.log(email, password);
 
-    // const loginUser = await User.findOne(email, password);
-    // console.log("loginUser", loginUser);
+  //   // const loginUser = await User.findOne(email, password);
+  //   // console.log("loginUser", loginUser);
 
-    resultUser.filter((user) => {
-      if (user.email === email && user.password === password) {
-        console.log("session status:", req.session);
+  //   resultUser.filter((user) => {
+  //     if (user.email === email && user.password === password) {
+  //       console.log("session status:", req.session);
 
-        // Create a session
-        req.session.user = user;
+  //       // Create a session
+  //       req.session.user = user;
 
-        console.log("session status: ", user, req.session.status);
-        res.redirect(`/dashboard`);
-      }
-    });
+  //       console.log("session status: ", user, req.session.status);
+  //       res.redirect(`/dashboard`);
+  //     }
+  //   });
 
-    res.render("login", { message: "Invalid credentials" });
-  }
+  //   res.render("login", { message: "Invalid credentials" });
+  // }
 
   // return res.status(200).json({
   //   message: `Welcome back, ${firstname}`,

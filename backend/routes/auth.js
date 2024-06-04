@@ -35,51 +35,19 @@ const User = require("../models/user.model");
 router.post("/", async (req, res) => {
   const { email, password } = req.body;
 
-  const user = await User.findOne({
-    email: email,
-  });
+  try {
+    const user = await User.findOne({
+      email: email,
+    });
 
-  console.log(user);
-
-  // if (user) {
-  //   console.log("User is found? ", user);
-  // } else {
-  //   return res.status(400).json({ message: "Invalid input" });
-  // }
-
-  // if (!email || !password) {
-  //   return res.status(400).json({ message: "Invalid input" });
-  // } else {
-  //   console.log(email, password);
-
-  //   const loginUser = await User.findOne(email, password);
-  //   console.log("loginUser", loginUser);
-
-  //   loginUser.filter((user) => {
-  //     if (user.email === email && user.password === password) {
-  //       console.log("session status:", req.session);
-
-  //       // Create a session
-  //       req.session.user = user;
-
-  //       console.log("session status: ", user, req.session.status);
-  //       res.redirect(`/dashboard`);
-  //     }
-  //   });
-
-  //   res.render("login", { message: "Invalid credentials" });
-  // }
-
-  // return res.status(200).json({
-  //   message: `Welcome back, ${firstname}`,
-  //   loginUser: {
-  //     username: loginUser.username,
-  //     firstname: loginUser.firstname,
-  //     lastname: loginUser.lastname,
-  //     email: loginUser.email,
-  //     password: updateUser.password,
-  //   },
-  // });
+    if (user) {
+      //
+    } else {
+      res.status(401).send("Invalid email or password.");
+    }
+  } catch (error) {
+    console.error(error);
+  }
 });
 
 /**

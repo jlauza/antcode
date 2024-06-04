@@ -1,7 +1,7 @@
+const bycrpt = require("bcrypt");
 const express = require("express");
 const router = express.Router();
 const User = require("../models/user.model");
-const resultUser = [User];
 
 /**
  * @swagger
@@ -33,18 +33,29 @@ const resultUser = [User];
  *         description: Invalid input
  */
 router.post("/", async (req, res) => {
-  res.redirect(`/dashboard`);
-  // const { email, password } = req.body;
+  const { email, password } = req.body;
+
+  const user = await User.findOne({
+    email: email,
+  });
+
+  console.log(user);
+
+  // if (user) {
+  //   console.log("User is found? ", user);
+  // } else {
+  //   return res.status(400).json({ message: "Invalid input" });
+  // }
 
   // if (!email || !password) {
   //   return res.status(400).json({ message: "Invalid input" });
   // } else {
   //   console.log(email, password);
 
-  //   // const loginUser = await User.findOne(email, password);
-  //   // console.log("loginUser", loginUser);
+  //   const loginUser = await User.findOne(email, password);
+  //   console.log("loginUser", loginUser);
 
-  //   resultUser.filter((user) => {
+  //   loginUser.filter((user) => {
   //     if (user.email === email && user.password === password) {
   //       console.log("session status:", req.session);
 

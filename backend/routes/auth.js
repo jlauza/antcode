@@ -41,7 +41,15 @@ router.post("/", async (req, res) => {
     });
 
     if (user) {
-      //
+      const isMatch = await bycrpt.compare(password, user.password);
+
+      if (isMatch) {
+        console.log(user);
+        res.redirect("/dashboard");
+        res.status(200).send("Login successful!");
+      } else {
+        res.status(401).send("Invalid email or password.");
+      }
     } else {
       res.status(401).send("Invalid email or password.");
     }

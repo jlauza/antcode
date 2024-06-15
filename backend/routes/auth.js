@@ -46,9 +46,12 @@ router.post("/", async (req, res) => {
       const isMatch = await bcrypt.compare(password, user.password);
 
       if (isMatch) {
+        req.session.user = user;
+
         console.log(user);
-        res.redirect("/dashboard");
+
         res.status(200).send("Login successful!");
+        res.redirect("/dashboard");
       } else {
         res.status(401).send("Invalid email or password.");
       }
@@ -57,6 +60,7 @@ router.post("/", async (req, res) => {
     }
   } catch (error) {
     console.error(error);
+    res.status(500).send("Internal server error.");
   }
 });
 
@@ -73,13 +77,12 @@ router.post("/", async (req, res) => {
  *       400:
  *         description: Invalid input
  */
-router.post("/logout", (req, res) => {
+router.post("/logout", (req, res, next) => {
   // Clear user session or token
   req.session.destroy(function () {
     console.log("User logged out!");
     res.status(200).send("User has been logged out!");
   });
-
   res.redirect("/login");
 });
 

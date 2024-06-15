@@ -47,10 +47,6 @@ router.post("/", async (req, res) => {
 
       if (isMatch) {
         req.session.user = user;
-
-        console.log(user);
-
-        res.status(200).send("Login successful!");
         res.redirect("/dashboard");
       } else {
         res.status(401).send("Invalid email or password.");

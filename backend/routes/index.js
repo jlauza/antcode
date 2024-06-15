@@ -6,26 +6,33 @@ var cookieParser = require("cookie-parser");
 var bodyParser = require("body-parser");
 var multer = require("multer");
 var upload = multer();
-const ensureAuthenticated = require("../backend/routes/authMiddleware");
+const {
+  ensureAuthenticated,
+  redirectToDashboardIfAuthenticated,
+} = require("./authMiddleware");
 
-router.get("/login", async function (req, res) {
-  // Render login page
-  res.render("login", { title: "Express" });
+router.get(
+  "/login",
+  redirectToDashboardIfAuthenticated,
+  async function (req, res) {
+    // Render login page
+    res.render("login", { title: "Express" });
 
-  // Fetch auth endpoint
+    // Fetch auth endpoint
 
-  // Render login
-  const { email, password } = req.body;
+    // Render login
+    const { email, password } = req.body;
 
-  const user = await User.findOne({ email, password }).exec();
+    const user = await User.findOne({ email, password }).exec();
 
-  if (user) {
-    req.session.user = user;
-    res.redirect(`/dashboard`);
-  } else {
-    res.render("login", { message: "Invalid credentials" });
+    if (user) {
+      req.session.user = user;
+      res.redirect(`/dashboard`);
+    } else {
+      res.render("login", { message: "Invalid credentials" });
+    }
   }
-});
+);
 
 // function checkSignIn(req, res) {
 //   if (req.session?.user) {

@@ -77,13 +77,15 @@ router.post("/", async (req, res) => {
  *       400:
  *         description: Invalid input
  */
-router.post("/logout", (req, res, next) => {
-  // Clear user session or token
-  req.session.destroy(function () {
+router.get("/logout", (req, res, next) => {
+  req.session.destroy(function (err) {
+    if (err) {
+      console.error("Failed to destroy session", err);
+      return next(err);
+    }
     console.log("User logged out!");
-    res.status(200).send("User has been logged out!");
+    res.redirect("/login");
   });
-  res.redirect("/login");
 });
 
 module.exports = router;

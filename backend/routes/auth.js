@@ -1,4 +1,4 @@
-const bycrpt = require("bcrypt");
+const bcrypt = require("bcrypt");
 const express = require("express");
 const router = express.Router();
 const User = require("../models/user.model");
@@ -33,6 +33,8 @@ const User = require("../models/user.model");
  *         description: Invalid input
  */
 router.post("/", async (req, res) => {
+  console.log(req.session);
+
   const { email, password } = req.body;
 
   try {
@@ -41,7 +43,7 @@ router.post("/", async (req, res) => {
     });
 
     if (user) {
-      const isMatch = await bycrpt.compare(password, user.password);
+      const isMatch = await bcrypt.compare(password, user.password);
 
       if (isMatch) {
         console.log(user);
@@ -73,14 +75,12 @@ router.post("/", async (req, res) => {
  */
 router.post("/logout", (req, res) => {
   // Clear user session or token
-  req.session.destroy(function (err) {
-    if (err) {
-      res.status(500).json({ message: "Logout failed" });
-    } else {
-      res.status(200).json({ message: "Logout successful" });
-      res.redirect("/");
-    }
+  req.session.destroy(function () {
+    console.log("User logged out!");
+    res.status(200).send("User has been logged out!");
   });
+
+  res.redirect("/login");
 });
 
 module.exports = router;

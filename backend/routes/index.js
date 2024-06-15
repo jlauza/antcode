@@ -34,27 +34,18 @@ router.get(
   }
 );
 
-// function checkSignIn(req, res) {
-//   if (req.session?.user) {
-//     // next(); //If session exists, proceed to page
-//     res.redirect(`/dashboard`);
-//     res.render("dashboard", { title: "Dashboard" });
-//   } else {
-//     // var err = new Error("Not logged in!");
-//     // next(err);
-//     res.redirect(`/login`);
-//     res.render("login", { message: "Invalid credentials" });
-//   }
-// }
-
 /* GET home page. */
-router.get("/", function (req, res, next) {
+router.get("/", redirectToDashboardIfAuthenticated, function (req, res, next) {
   res.render("index", { title: "Express" });
 });
 
-router.get("/register", function (req, res, next) {
-  res.render("register", { title: "Register" });
-});
+router.get(
+  "/register",
+  redirectToDashboardIfAuthenticated,
+  function (req, res, next) {
+    res.render("register", { title: "Register" });
+  }
+);
 
 router.get(
   "/users/profile/:id",

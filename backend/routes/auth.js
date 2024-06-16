@@ -33,8 +33,6 @@ const User = require("../models/user.model");
  *         description: Invalid input
  */
 router.post("/", async (req, res) => {
-  console.log(req.session);
-
   const { email, password } = req.body;
 
   try {
@@ -78,9 +76,9 @@ router.get("/logout", (req, res, next) => {
     if (err) {
       console.error("Failed to destroy session", err);
       return next(err);
+    } else {
+      res.redirect("/login");
     }
-    console.log("User logged out!");
-    res.redirect("/login");
   });
 });
 

@@ -4,6 +4,7 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var session = require("express-session");
+var bodyParser = require("body-parser");
 var logger = require("morgan");
 var cors = require("cors");
 var multer = require("multer");
@@ -54,15 +55,9 @@ app.use(cors());
 // Define your routes here
 app.use("/", indexRoutes);
 
-// module routes
+// api routes
 app.use("/users", users);
 app.use("/auth", auth);
-
-app.use("/dashboard", function (err, req, res, next) {
-  console.log(err);
-  //User should be authenticated! Redirect him to log in.
-  res.redirect("/");
-});
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

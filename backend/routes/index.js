@@ -1,9 +1,6 @@
 var express = require("express");
 var router = express.Router();
 const User = require("../models/user.model");
-var session = require("express-session");
-var cookieParser = require("cookie-parser");
-var bodyParser = require("body-parser");
 var multer = require("multer");
 var upload = multer();
 const {

@@ -40,9 +40,11 @@ router.post("/", async (req, res) => {
       email: email,
     });
 
+    // If user exists
     if (user) {
       const isMatch = await bcrypt.compare(password, user.password);
 
+      // check username and password match
       if (isMatch) {
         req.session.user = user;
         res.redirect("/dashboard");
@@ -50,7 +52,7 @@ router.post("/", async (req, res) => {
         res.status(401).send("Invalid email or password.");
       }
     } else {
-      res.status(401).send("Invalid email or password.");
+      res.status(401).send("User not found.");
     }
   } catch (error) {
     console.error(error);

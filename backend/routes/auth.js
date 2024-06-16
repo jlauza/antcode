@@ -78,9 +78,9 @@ router.get("/logout", (req, res, next) => {
     if (err) {
       console.error("Failed to destroy session", err);
       return next(err);
-    } else {
-      res.redirect("/login");
     }
+    res.clearCookie("connect.sid");
+    res.redirect("/login");
   });
 });
 

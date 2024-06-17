@@ -4,18 +4,15 @@ function loginUser(event) {
   const formData = new FormData(form);
 
   fetch(form.action, {
-    //   method: "POST",
+    method: "POST",
     body: formData,
   })
     .then((response) => {
-      if (response.ok) {
-        const successMessage = document.getElementById("success-message");
-        successMessage.textContent = "Logged in successfully!";
-        successMessage.style.display = "block";
-      } else {
-        // Show an error message
+      console.log(response);
+      if (response.ok == false) {
         const errorMessage = document.getElementById("error-message");
-        errorMessage.textContent = "Invalid input.";
+        errorMessage.textContent = "Invalid creadentials!";
+        errorMessage.style.display = "block";
       }
     })
     .catch((error) => {

@@ -8,10 +8,15 @@ const {
   redirectToDashboardIfAuthenticated,
 } = require("./authMiddleware");
 
-router.get("/login", redirectToDashboardIfAuthenticated, function (req, res) {
-  // Render login page
-  res.render("login", { title: "Express" });
-});
+router.get(
+  "/login",
+  redirectToDashboardIfAuthenticated,
+  async function (req, res) {
+    res.render("login", {
+      title: "Express",
+    });
+  }
+);
 
 /* GET home page. */
 router.get("/", redirectToDashboardIfAuthenticated, function (req, res, next) {

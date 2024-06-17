@@ -8,28 +8,10 @@ const {
   redirectToDashboardIfAuthenticated,
 } = require("./authMiddleware");
 
-router.get(
-  "/login",
-  redirectToDashboardIfAuthenticated,
-  async function (req, res) {
-    // Render login page
-    res.render("login", { title: "Express" });
-
-    // Fetch auth endpoint
-
-    // Render login
-    const { email, password } = req.body;
-
-    const user = await User.findOne({ email, password }).exec();
-
-    if (user) {
-      req.session.user = user;
-      res.redirect(`/dashboard`);
-    } else {
-      res.render("login", { message: "Invalid credentials" });
-    }
-  }
-);
+router.get("/login", redirectToDashboardIfAuthenticated, function (req, res) {
+  // Render login page
+  res.render("login", { title: "Express" });
+});
 
 /* GET home page. */
 router.get("/", redirectToDashboardIfAuthenticated, function (req, res, next) {

@@ -49,7 +49,7 @@ router.post("/", async (req, res) => {
         req.session.user = user;
         res.redirect("/dashboard");
       } else {
-        res.status(401).send("Invalid email or password.");
+        res.redirect("/login");
       }
     } else {
       res.status(401).send("User not found.");

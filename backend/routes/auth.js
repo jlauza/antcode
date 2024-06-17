@@ -49,7 +49,8 @@ router.post("/", async (req, res) => {
         req.session.user = user;
         res.redirect("/dashboard");
       } else {
-        res.redirect("/login");
+        res.send("Wrong credentials.");
+        // res.redirect("/login");
       }
     } else {
       res.status(401).send("User not found.");

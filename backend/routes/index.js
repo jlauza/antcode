@@ -36,7 +36,9 @@ router.get(
   ensureAuthenticated,
   async function (req, res, next) {
     // Logic to fetch and send details of a specific user
-    const user = await User.findById(req.params.id).select("-password").exec();
+    const user = await User.findById(req.session.user.id)
+      .select("-password")
+      .exec();
 
     if (!user) {
       // return res.status(404).json({ message: "User not found" });
@@ -62,9 +64,8 @@ router.get(
   "/users/profile/:username",
   ensureAuthenticated,
   async function (req, res, next) {
-    // Logic to fetch and send details of a specific user
     const user = await User.findOne({
-      username: req.params.username,
+      username: req.session.user.username,
     })
       .select("-password")
       .exec();
@@ -87,7 +88,7 @@ router.get(
   async function (req, res, next) {
     // Logic to fetch and send details of a specific user
     const user = await User.findById({
-      _id: req.params.id,
+      _id: req.session.user.id,
     })
       .select("-password")
       .exec();
@@ -109,7 +110,7 @@ router.get(
   ensureAuthenticated,
   async function (req, res, next) {
     const user = await User.findById({
-      _id: req.params.id,
+      _id: req.session.user.id,
     })
       .select("-password")
       .exec();
@@ -125,8 +126,23 @@ router.get(
 );
 
 // Get Dashboard page
-router.get("/dashboard", ensureAuthenticated, function (req, res, next) {
-  res.render("dashboard", { title: "My Dashboard" });
+router.get("/dashboard", ensureAuthenticated, async function (req, res, next) {
+  // console.log("req", req.session.user);
+
+  const user = await User.findById(req.session.user._id)
+    .select("-password")
+    .exec();
+
+  if (!user) {
+    return res.status(404).json({ message: "User not found" });
+  }
+
+  res.render("dashboard", {
+    title: "Welcome to dashboard",
+    id: user._id,
+    firstname: user.firstname,
+    lastname: user.lastname,
+  });
 });
 
 module.exports = router;

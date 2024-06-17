@@ -49,7 +49,7 @@ router.post("/", async (req, res) => {
         req.session.user = user;
         res.redirect("/dashboard");
       } else {
-        res.send("Wrong credentials.");
+        res.send("Wrong password.");
         // res.redirect("/login");
       }
     } else {

@@ -7,8 +7,9 @@ html
       li
         a(href="/dashboard") Dashboard
       li
-        a(href="/users/profile/${id}") Profile
-    h1 Welcome to Dashboard
+        a(href='/users/profile/#{id}') Profile
+      li
+        a(href="/auth/logout") Logout
+    h1 Welcome to Dashboard, #{firstname}
     p This is the dashboard page.
 
-    a(href="/auth/logout") Logout

@@ -35,18 +35,7 @@ router.get(
   "/users/profile/:id",
   ensureAuthenticated,
   async function (req, res, next) {
-    // Logic to fetch and send details of a specific user
-    const user = await User.findById(req.session.user.id)
-      .select("-password")
-      .exec();
-
-    if (!user) {
-      // return res.status(404).json({ message: "User not found" });
-      return res.render("not-found", {
-        title: "User not found",
-        message: "The page you are looking for does not exist.",
-      });
-    }
+    const user = req.session.user;
 
     res.render("profile", {
       title: "My Profile",
@@ -64,11 +53,7 @@ router.get(
   "/users/profile/:username",
   ensureAuthenticated,
   async function (req, res, next) {
-    const user = await User.findOne({
-      username: req.session.user.username,
-    })
-      .select("-password")
-      .exec();
+    const user = req.session.user;
 
     res.render("profile", {
       title: "My Profile",
@@ -86,12 +71,7 @@ router.get(
   "/users/profile/edit/:id",
   ensureAuthenticated,
   async function (req, res, next) {
-    // Logic to fetch and send details of a specific user
-    const user = await User.findById({
-      _id: req.session.user.id,
-    })
-      .select("-password")
-      .exec();
+    const user = req.session.user;
 
     res.render("profile-edit", {
       title: "Edit Profile",
@@ -109,11 +89,7 @@ router.get(
   "/users/profile/delete/:id",
   ensureAuthenticated,
   async function (req, res, next) {
-    const user = await User.findById({
-      _id: req.session.user.id,
-    })
-      .select("-password")
-      .exec();
+    const user = req.session.user;
 
     res.render("confirm-delete", {
       title: "Delete Account",
@@ -127,19 +103,12 @@ router.get(
 
 // Get Dashboard page
 router.get("/dashboard", ensureAuthenticated, async function (req, res, next) {
-  // console.log("req", req.session.user);
-
-  const user = await User.findById(req.session.user._id)
-    .select("-password")
-    .exec();
-
-  if (!user) {
-    return res.status(404).json({ message: "User not found" });
-  }
+  const user = req.session.user;
 
   res.render("dashboard", {
     title: "Welcome to dashboard",
     id: user._id,
+    username: user.username,
     firstname: user.firstname,
     lastname: user.lastname,
   });

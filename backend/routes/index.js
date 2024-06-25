@@ -3,7 +3,6 @@ var router = express.Router();
 const User = require("../models/user.model");
 var multer = require("multer");
 var upload = multer();
-const user_uri = process.env.APP_URI;
 
 const {
   ensureAuthenticated,
@@ -113,7 +112,6 @@ router.get("/dashboard", ensureAuthenticated, async function (req, res, next) {
     username: user.username,
     firstname: user.firstname,
     lastname: user.lastname,
-    profilelink: user_uri,
   });
 });
 

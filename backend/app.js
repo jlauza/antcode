@@ -25,6 +25,15 @@ const auth = require("./routes/auth");
 var app = express();
 connectDB();
 
+// Serve static files from the "public" directory
+app.use(express.static(path.join(__dirname, "public")));
+
+// Serve static files from "node_modules/bootstrap/dist"
+app.use(
+  "/bootstrap",
+  express.static(path.join(__dirname, "node_modules/bootstrap/dist"))
+);
+
 // Swagger
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocs));
 

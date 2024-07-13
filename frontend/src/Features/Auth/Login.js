@@ -1,11 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import useAuthService from "./useAuthService";
 import { Form, Input, Button, Row, Col, Typography } from "antd";
-const api = process.env.REACT_APP_API_URL;
+import { useForm } from "react-hook-form";
+
+const initialValues = {
+  username: "",
+  password: "",
+};
 
 const Login = () => {
-  const onFinish = (values) => {
-    console.log("Received values:", values);
+  const [getVal, setVal] = useState(initialValues);
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = (values) => {
+    console.log("values.username", values.username);
+    console.log("values.password", values.password);
   };
 
   return (
@@ -17,7 +32,7 @@ const Login = () => {
           initialValues={{
             remember: true,
           }}
-          onFinish={onFinish}
+          onSubmit={handleSubmit(onSubmit)}
         >
           <Form.Item
             label="Username"

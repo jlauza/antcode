@@ -9,18 +9,25 @@ const initialValues = {
 };
 
 const Login = () => {
-  const [getVal, setVal] = useState(initialValues);
+  const [form] = Form.useForm();
 
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    shouldUseNativeValidation: true,
+    handleSubmit: (values) => {
+      console.log("values", values);
+    },
+  });
 
-  const onSubmit = (values) => {
-    console.log("values.username", values.username);
-    console.log("values.password", values.password);
+  const onFinish = (values) => {
+    console.log("Success:", values);
+  };
+  const onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
   };
 
   return (
@@ -32,7 +39,9 @@ const Login = () => {
           initialValues={{
             remember: true,
           }}
-          onSubmit={handleSubmit(onSubmit)}
+          onFinish={handleSubmit(onFinish)}
+          onFinishFailed={onFinishFailed}
+          autoComplete="off"
         >
           <Form.Item
             label="Username"
@@ -43,8 +52,14 @@ const Login = () => {
                 message: "Please input your username!",
               },
             ]}
+            validateStatus={errors.username && "error"}
+            help={errors.username && errors.username.message}
           >
-            <Input />
+            <Input
+              {...register("username", {
+                required: "Username is required",
+              })}
+            />
           </Form.Item>
 
           <Form.Item
@@ -56,8 +71,14 @@ const Login = () => {
                 message: "Please input your password!",
               },
             ]}
+            validateStatus={errors.password && "error"}
+            help={errors.password && errors.password.message}
           >
-            <Input.Password />
+            <Input.Password
+              {...register("password", {
+                required: "Password is required",
+              })}
+            />
           </Form.Item>
 
           <Form.Item>

@@ -3,21 +3,16 @@ import useAuthService from "./useAuthService";
 import { Form, Input, Button, Row, Col, Typography } from "antd";
 import { useForm, Controller } from "react-hook-form";
 
-const initialValues = {
-  username: "",
-  password: "",
-};
-
 const Login = () => {
   const [form] = Form.useForm();
 
   const {
-    register,
     handleSubmit,
-    watch,
     control,
     formState: { errors },
   } = useForm();
+
+  const { authenticate, isLoading, error } = useAuthService();
 
   const onFinish = (values) => {
     console.log("Success:", values);

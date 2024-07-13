@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import useAuthService from "./useAuthService";
 import { Form, Input, Button, Row, Col, Typography } from "antd";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 
 const initialValues = {
   username: "",
@@ -15,13 +15,9 @@ const Login = () => {
     register,
     handleSubmit,
     watch,
+    control,
     formState: { errors },
-  } = useForm({
-    shouldUseNativeValidation: true,
-    handleSubmit: (values) => {
-      console.log("values", values);
-    },
-  });
+  } = useForm();
 
   const onFinish = (values) => {
     console.log("Success:", values);
@@ -46,38 +42,28 @@ const Login = () => {
           <Form.Item
             label="Username"
             name="username"
-            rules={[
-              {
-                required: true,
-                message: "Please input your username!",
-              },
-            ]}
             validateStatus={errors.username && "error"}
             help={errors.username && errors.username.message}
           >
-            <Input
-              {...register("username", {
-                required: "Username is required",
-              })}
+            <Controller
+              name="username"
+              control={control}
+              rules={{ required: "Username is required." }}
+              render={({ field }) => <Input {...field} />}
             />
           </Form.Item>
 
           <Form.Item
             label="Password"
             name="password"
-            rules={[
-              {
-                required: true,
-                message: "Please input your password!",
-              },
-            ]}
             validateStatus={errors.password && "error"}
             help={errors.password && errors.password.message}
           >
-            <Input.Password
-              {...register("password", {
-                required: "Password is required",
-              })}
+            <Controller
+              name="password"
+              control={control}
+              rules={{ required: "Password is required." }}
+              render={({ field }) => <Input.Password {...field} />}
             />
           </Form.Item>
 

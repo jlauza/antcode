@@ -53,7 +53,7 @@ router.post("/", async (req, res) => {
         // res.redirect("/login");
       }
     } else {
-      res.status(401).send("User not found.");
+      res.status(401).send("Unauthorized.");
     }
   } catch (error) {
     console.error(error);

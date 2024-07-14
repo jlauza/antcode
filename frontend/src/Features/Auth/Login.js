@@ -14,8 +14,17 @@ const Login = () => {
 
   const { authenticate, isLoading, error } = useAuthService();
 
-  const onFinish = (values) => {
-    console.log("Success:", values);
+  const onFinish = async (values) => {
+    try {
+      const data = await authenticate(values);
+
+      // redirect to dashboard
+      console.log("Redirect to dashboard");
+
+      return data;
+    } catch (err) {
+      console.error("Authentication failed: ", err);
+    }
   };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
@@ -63,7 +72,7 @@ const Login = () => {
           </Form.Item>
 
           <Form.Item>
-            <Button type="primary" htmlType="submit">
+            <Button type="primary" htmlType="submit" loading={isLoading}>
               Log in
             </Button>
           </Form.Item>

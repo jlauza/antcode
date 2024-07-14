@@ -35,7 +35,11 @@ function NavigationMenu() {
 const ExcludeHomenavMenu = () => {
   let location = useLocation();
 
-  return location.pathname !== "/login" ? <NavigationMenu /> : null;
+  const excludeFromMenu = ["/login", "/dashboard"];
+
+  const shouldExclude = excludeFromMenu.includes(location.pathname);
+
+  return !shouldExclude ? <NavigationMenu /> : null;
 };
 
 const ComponentRouter = () => {

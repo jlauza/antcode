@@ -13,7 +13,6 @@ const useAuthService = () => {
     setError(null);
 
     try {
-      // fetch data is existing using axios
       const response = await axios.post(apiURL, values);
       const data = response.data;
       setLoading(false);

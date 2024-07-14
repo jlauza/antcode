@@ -10,6 +10,7 @@ import { Menu } from "antd";
 import Home from "./Pages/Home";
 import About from "./Pages/About";
 import Login from "./Features/Auth/Login";
+import Dashboard from "./Features/Dashboard/Dashboard";
 
 function NavigationMenu() {
   return (
@@ -47,6 +48,9 @@ const ComponentRouter = () => {
         <Route path="/about" element={<About />} />
         {/* Add a Route for the login page if you have one */}
         <Route path="/login" element={<Login />} />
+
+        {/* Protected Pages */}
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </Router>
   );

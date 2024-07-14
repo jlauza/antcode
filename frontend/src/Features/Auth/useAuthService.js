@@ -15,6 +15,8 @@ const useAuthService = () => {
     try {
       const response = await axios.post(apiURL, values);
       const data = response.data;
+
+      console.log(data);
       setLoading(false);
 
       return data;

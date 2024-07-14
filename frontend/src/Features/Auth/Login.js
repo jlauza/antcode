@@ -24,6 +24,7 @@ const Login = () => {
       return data;
     } catch (err) {
       console.error("Authentication failed: ", err);
+      message.error("Authentication failed.");
     }
   };
   const onFinishFailed = (errorInfo) => {

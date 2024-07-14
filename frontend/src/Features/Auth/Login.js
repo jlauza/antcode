@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import useAuthService from "./useAuthService";
-import { Form, Input, Button, Row, Col, Typography } from "antd";
+import { Form, Input, Button, Row, Col, Typography, message } from "antd";
 import { useForm, Controller } from "react-hook-form";
 
 const Login = () => {
@@ -28,6 +28,8 @@ const Login = () => {
   };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
+
+    message.error("Authentication failed.");
   };
 
   return (

@@ -2,8 +2,6 @@ import axios from "axios";
 import { useState } from "react";
 const apiURL = process.env.REACT_APP_API_AUTH;
 
-console.log(apiURL);
-
 const useAuthService = () => {
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState(null);

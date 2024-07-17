@@ -52,8 +52,10 @@ router.post("/", async (req, res) => {
         res.send("Wrong password.");
         // res.redirect("/login");
       }
-    } else {
+    } else if (res.status === 401) {
       res.status(401).send("Unauthorized.");
+    } else if (user === null) {
+      res.status(404).send("User not found");
     }
   } catch (error) {
     console.error(error);

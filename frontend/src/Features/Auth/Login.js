@@ -18,6 +18,7 @@ const Login = () => {
     try {
       const data = await authenticate(values);
 
+      message.success("Login Successful!");
       // redirect to dashboard
       console.log("Redirect to dashboard");
 
@@ -47,15 +48,15 @@ const Login = () => {
           autoComplete="off"
         >
           <Form.Item
-            label="Username"
-            name="username"
+            label="Email"
+            name="email"
             validateStatus={errors.username && "error"}
             help={errors.username && errors.username.message}
           >
             <Controller
-              name="username"
+              name="email"
               control={control}
-              rules={{ required: "Username is required." }}
+              rules={{ required: "Email is required." }}
               render={({ field }) => <Input {...field} />}
             />
           </Form.Item>

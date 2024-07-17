@@ -47,7 +47,7 @@ router.post("/", async (req, res) => {
       // check username and password match
       if (isMatch) {
         req.session.user = user;
-        // res.redirect("/dashboard");
+        res.redirect("/dashboard");
       } else {
         res.send("Wrong password.");
         // res.redirect("/login");

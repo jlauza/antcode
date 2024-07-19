@@ -17,3 +17,5 @@ export const AuthProvider = ({ children }) => {
 export const useAuth = () => {
   return useContext(AuthContext);
 };
+
+// THIS COMPONENT IS NOT YET PERFECT AND WORKING!!!

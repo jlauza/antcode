@@ -1,9 +1,11 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import useAuthService from "./useAuthService";
 import { Form, Input, Button, Row, Col, Typography, message } from "antd";
 import { useForm, Controller } from "react-hook-form";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [form] = Form.useForm();
 
   const {
@@ -21,6 +23,7 @@ const Login = () => {
       message.success("Login Successful!");
       // redirect to dashboard
       console.log("Redirect to dashboard");
+      navigate("/dashboard");
 
       return data;
     } catch (err) {
@@ -37,9 +40,14 @@ const Login = () => {
   return (
     <Row justify="center" align="middle" style={{ height: "90vh" }}>
       <Col span={{ xs: 12, sm: 12, md: 12, lg: 8, xl: 6 }}>
-        <Typography.Title level={2}>Login</Typography.Title>
+        <Typography.Title level={2}>
+          Welcome back! Please Login
+        </Typography.Title>
         <Form
           name="login-form"
+          labelCol={{ span: 8 }}
+          wrapperCol={{ span: 16 }}
+          style={{ maxWidth: 600 }}
           initialValues={{
             remember: true,
           }}
@@ -50,8 +58,8 @@ const Login = () => {
           <Form.Item
             label="Email"
             name="email"
-            validateStatus={errors.username && "error"}
-            help={errors.username && errors.username.message}
+            validateStatus={errors.email && "error"}
+            help={errors.email && errors.email.message}
           >
             <Controller
               name="email"
@@ -75,7 +83,7 @@ const Login = () => {
             />
           </Form.Item>
 
-          <Form.Item>
+          <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
             <Button type="primary" htmlType="submit" loading={isLoading}>
               Log in
             </Button>

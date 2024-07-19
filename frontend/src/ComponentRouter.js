@@ -6,6 +6,8 @@ import {
   Link,
   useLocation,
 } from "react-router-dom";
+import { AuthProvider } from "./Context/AuthContext";
+import ProtectedRoute from "./ProtectedRoute";
 import { Menu } from "antd";
 import Home from "./Pages/Home";
 import About from "./Pages/About";
@@ -44,19 +46,21 @@ const ExcludeHomenavMenu = () => {
 
 const ComponentRouter = () => {
   return (
-    <Router>
-      <ExcludeHomenavMenu />
+    <AuthProvider>
+      <Router>
+        <ExcludeHomenavMenu />
 
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        {/* Add a Route for the login page if you have one */}
-        <Route path="/login" element={<Login />} />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          {/* Add a Route for the login page if you have one */}
+          <Route path="/login" element={<Login />} />
 
-        {/* Protected Pages */}
-        <Route path="/dashboard" element={<Dashboard />} />
-      </Routes>
-    </Router>
+          {/* Protected Pages */}
+          <ProtectedRoute path="/dashboard" component={<Dashboard />} />
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
 };
 

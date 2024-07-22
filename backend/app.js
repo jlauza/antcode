@@ -51,9 +51,9 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      secure: true,
+      secure: false, // enable true in prod
       path: "/",
-      httpOnly: true,
+      httpOnly: false, // enable true in prod
       maxAge: 1000 * 60 * 60 * 24,
     },
   })

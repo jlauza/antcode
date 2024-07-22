@@ -49,8 +49,13 @@ app.use(
   session({
     secret: secret,
     resave: false,
-    saveUninitialized: true,
-    cookie: { secure: false },
+    saveUninitialized: false,
+    cookie: {
+      secure: true,
+      path: "/",
+      httpOnly: true,
+      maxAge: 1000 * 60 * 60 * 24,
+    },
   })
 );
 app.use(logger("dev"));

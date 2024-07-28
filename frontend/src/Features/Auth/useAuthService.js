@@ -1,14 +1,11 @@
 import { message } from "antd";
 import axios from "axios";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 const apiURL = process.env.REACT_APP_API_AUTH;
-const apiURLlogout = process.env.REACT_APP_API_AUTH_LOGOUT;
 
 const useAuthService = () => {
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const navigate = useNavigate();
 
   const authenticate = async (values) => {
     setLoading(true);
@@ -33,10 +30,8 @@ const useAuthService = () => {
     setError(null);
 
     try {
-      await axios.get(apiURLlogout);
+      await axios.get(`${apiURL}/logout`);
       setLoading(false);
-
-      navigate("/login");
     } catch (error) {
       console.error("Something went wrong: ", error);
       message.error(error);

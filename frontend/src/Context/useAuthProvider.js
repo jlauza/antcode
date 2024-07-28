@@ -1,13 +1,18 @@
 import React, { useState } from "react";
+import useAuthService from "../Features/Auth/useAuthService";
 
 function useAuthProvider() {
   const [user, setUser] = useState(null);
   const [errors, setErrors] = useState([]);
-  const [isLoading, setLoading] = useState(false);
+  const { authenticate, unauthenticate, error, isLoading } = useAuthService();
 
-  function signIn() {}
+  async function signIn(values) {
+    await authenticate(values);
+  }
   function signUp() {}
-  function signOut() {}
+  async function signOut() {
+    await unauthenticate();
+  }
   function autoSignIn() {}
 
   return {

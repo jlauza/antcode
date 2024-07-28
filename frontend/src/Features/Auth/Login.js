@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import useAuthService from "./useAuthService";
 import { Form, Input, Button, Row, Col, Typography, message } from "antd";
 import { useForm, Controller } from "react-hook-form";
+import useAuthProvider from "../../Context/useAuthProvider";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -15,10 +16,11 @@ const Login = () => {
   } = useForm();
 
   const { authenticate, isLoading, error } = useAuthService();
+  const { signIn } = useAuthProvider();
 
   const onFinish = async (values) => {
     try {
-      const data = await authenticate(values);
+      const data = await signIn(values);
 
       message.success("Login Successful!");
       // redirect to dashboard

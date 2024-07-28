@@ -50,7 +50,7 @@ router.post("/", async (req, res) => {
         res.redirect("/dashboard");
       } else {
         res.send("Wrong password.");
-        // res.redirect("/login");
+        res.redirect("/login");
       }
     } else if (res.status === 401) {
       res.status(401).send("Unauthorized.");

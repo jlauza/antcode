@@ -1,13 +1,15 @@
 import React from "react";
 import useAuthService from "../Auth/useAuthService";
+import useAuthProvider from "../../Context/useAuthProvider";
 import { message } from "antd";
+import { redirect, useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
-  const { authenticate, unauthenticate, isLoading, error } = useAuthService();
+  const { signOut } = useAuthProvider();
 
   const handleLogout = async () => {
     try {
-      await authenticate();
+      await signOut();
     } catch (error) {
       message.error("Logout failed!");
       console.error(error);
@@ -16,10 +18,7 @@ const Dashboard = () => {
   return (
     <div>
       <h1>Welcome to Dashboard</h1>
-      {/* Add your content here */}
-      <button onClick={handleLogout} disabled={isLoading}>
-        Logout
-      </button>
+      <button onClick={handleLogout}>Logout</button>
     </div>
   );
 };

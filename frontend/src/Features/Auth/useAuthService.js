@@ -4,7 +4,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 const apiURL = process.env.REACT_APP_API_AUTH;
 const apiURLlogout = process.env.REACT_APP_API_AUTH_LOGOUT;
-console.log(apiURLlogout);
 
 const useAuthService = () => {
   const [isLoading, setLoading] = useState(false);

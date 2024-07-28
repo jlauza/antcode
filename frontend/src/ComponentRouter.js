@@ -11,6 +11,7 @@ import Home from "./Pages/Home";
 import About from "./Pages/About";
 import Login from "./Features/Auth/Login";
 import Dashboard from "./Features/Dashboard/Dashboard";
+import ProtectedRoute from "./Context/ProtectedRoute";
 
 function NavigationMenu() {
   return (
@@ -54,7 +55,14 @@ const ComponentRouter = () => {
         <Route path="/login" element={<Login />} />
 
         {/* Protected Pages */}
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </Router>
   );

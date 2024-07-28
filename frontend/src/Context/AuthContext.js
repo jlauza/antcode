@@ -1,29 +1,14 @@
 import React, { createContext, useState, useContext } from "react";
+import useAuthProvider from "./useAuthProvider";
 
 // Create context for auth
 const AuthContext = createContext();
 
+export function AuthProvider({ children }) {
+  const auth = useAuthProvider();
+  return <AuthContext.Provider value={auth}>{children}</AuthContext.Provider>;
+}
+
 export const useAuth = () => {
   return useContext(AuthContext);
 };
-
-function AuthProvider() {
-  const [user, setUser] = useState(null);
-  const [errors, setErrors] = useState([]);
-  const [isLoading, setLoading] = useState(false);
-
-  function signIn() {}
-  function signUp() {}
-  function signOut() {}
-  function autoSignIn() {}
-
-  return {
-    user,
-    signIn,
-    signUp,
-    signOut,
-    autoSignIn,
-    errors,
-    isLoading,
-  };
-}

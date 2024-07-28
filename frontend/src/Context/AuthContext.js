@@ -3,19 +3,17 @@ import React, { createContext, useState, useContext } from "react";
 // Create context for auth
 const AuthContext = createContext();
 
-export const AuthProvider = ({ children }) => {
-  const [isAuthenticated, setAuthenticated] = useState(false);
-  const login = setAuthenticated(true);
-  const logout = setAuthenticated(false);
-
-  return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
-      {children}
-    </AuthContext.Provider>
-  );
-};
 export const useAuth = () => {
   return useContext(AuthContext);
 };
 
-// THIS COMPONENT IS NOT YET PERFECT AND WORKING!!!
+function AuthProvider() {
+  const [user, setUser] = useState(null);
+  const [errors, setErrors] = useState([]);
+  const [iseLoading, setLoading] = useState(false);
+
+  function signIn() {}
+  function signUp() {}
+  function signOut() {}
+  function AutoSignIn() {}
+}

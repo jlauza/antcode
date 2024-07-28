@@ -8414,6 +8414,11 @@ react-app-polyfill@^3.0.0:
     regenerator-runtime "^0.13.9"
     whatwg-fetch "^3.6.2"
 
+react-auth-verification-context@^0.0.7:
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/react-auth-verification-context/-/react-auth-verification-context-0.0.7.tgz#19668d51a951a60546e5e1abf564e737497a7dfa"
+  integrity sha512-/dtYEOe1AHrATDloHlpio/3Y04NxL+XSYq3iiyR0d6EZYAdKcvCNdW1L4ORyUyj/cK/Pi5m8WohMX/J2y8WFHQ==
+
 react-dev-utils@^12.0.1:
   version "12.0.1"
   resolved "https://registry.npmjs.org/react-dev-utils/-/react-dev-utils-12.0.1.tgz"

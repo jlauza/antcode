@@ -1,11 +1,4 @@
-import React, { createContext, useState, useContext } from "react";
-
-// Create context for auth
-const AuthContext = createContext();
-
-export const useAuth = () => {
-  return useContext(AuthContext);
-};
+import React, { useState } from "react";
 
 function useAuthProvider() {
   const [user, setUser] = useState(null);

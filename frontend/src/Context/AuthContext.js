@@ -10,10 +10,20 @@ export const useAuth = () => {
 function AuthProvider() {
   const [user, setUser] = useState(null);
   const [errors, setErrors] = useState([]);
-  const [iseLoading, setLoading] = useState(false);
+  const [isLoading, setLoading] = useState(false);
 
   function signIn() {}
   function signUp() {}
   function signOut() {}
-  function AutoSignIn() {}
+  function autoSignIn() {}
+
+  return {
+    user,
+    signIn,
+    signUp,
+    signOut,
+    autoSignIn,
+    errors,
+    isLoading,
+  };
 }

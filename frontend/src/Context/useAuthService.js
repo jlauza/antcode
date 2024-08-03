@@ -4,6 +4,7 @@ import { useState } from "react";
 const apiURL = process.env.REACT_APP_API_AUTH;
 
 const useAuthService = () => {
+  const [user, setUser] = useState(null);
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -13,8 +14,9 @@ const useAuthService = () => {
 
     try {
       const response = await axios.post(apiURL, values);
-      console.log(response);
+
       const data = response.data;
+
       setLoading(false);
 
       return data;
@@ -30,7 +32,9 @@ const useAuthService = () => {
     setError(null);
 
     try {
-      await axios.get(`${apiURL}/logout`);
+      const res = await axios.get(`${apiURL}/logout`);
+      console.log(res);
+      return res;
       setLoading(false);
     } catch (error) {
       console.error("Something went wrong: ", error);

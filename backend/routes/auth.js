@@ -48,6 +48,8 @@ router.post("/", async (req, res) => {
       if (isMatch) {
         req.session.user = user;
         res.redirect("/dashboard");
+
+        return user;
       } else {
         res.send("Wrong password.");
         res.redirect("/login");

@@ -1,14 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import ComponentRouter from "./ComponentRouter";
-import { AuthProvider } from "./Context/AuthContext";
+import UserContext from "./Context/UserContext";
 
 function App() {
+  const [user, setUser] = useState(null);
+
+  const userData = "Jayson Lauza";
+
+  const login = () => {
+    setUser(userData);
+  };
+  const logout = () => {
+    setUser(null);
+  };
+
   return (
-    <div className="App">
-      <AuthProvider>
+    <UserContext.Provider value={{ user, login, logout }}>
+      <div className="App">
         <ComponentRouter />
-      </AuthProvider>
-    </div>
+      </div>
+    </UserContext.Provider>
   );
 }
 

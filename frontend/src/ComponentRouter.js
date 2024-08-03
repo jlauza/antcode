@@ -11,7 +11,7 @@ import Home from "./Pages/Home";
 import About from "./Pages/About";
 import Login from "./Features/Auth/Login";
 import Dashboard from "./Features/Dashboard/Dashboard";
-import ProtectedRoute from "./Context/ProtectedRoute";
+import UserAccount from "./Features/UserAccount/UserAccount";
 
 function NavigationMenu() {
   return (
@@ -36,7 +36,7 @@ function NavigationMenu() {
 const ExcludeHomenavMenu = () => {
   let location = useLocation();
 
-  const excludeFromMenu = ["/login", "/dashboard"];
+  const excludeFromMenu = ["/login", "/dashboard", "/account"];
 
   const shouldExclude = excludeFromMenu.includes(location.pathname);
 
@@ -55,14 +55,8 @@ const ComponentRouter = () => {
         <Route path="/login" element={<Login />} />
 
         {/* Protected Pages */}
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute>
-              <Dashboard />
-            </ProtectedRoute>
-          }
-        />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/account" element={<UserAccount />} />
       </Routes>
     </Router>
   );

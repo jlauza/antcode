@@ -1,15 +1,10 @@
 import React from "react";
-import useAuthService from "../Auth/useAuthService";
-import useAuthProvider from "../../Context/useAuthProvider";
 import { message } from "antd";
-import { redirect, useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
-  const { signOut } = useAuthProvider();
-
   const handleLogout = async () => {
     try {
-      await signOut();
+      // await signOut();
     } catch (error) {
       message.error("Logout failed!");
       console.error(error);

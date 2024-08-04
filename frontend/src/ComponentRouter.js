@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -12,8 +12,10 @@ import About from "./Pages/About";
 import Login from "./Features/Auth/Login";
 import Dashboard from "./Features/Dashboard/Dashboard";
 import UserAccount from "./Features/UserAccount/UserAccount";
+import UserContext from "./Context/UserContext";
 
 function NavigationMenu() {
+  const { user, login, logout } = useContext(UserContext);
   return (
     <Menu
       mode="horizontal"
@@ -26,9 +28,23 @@ function NavigationMenu() {
         <Link to="/about">About</Link>
       </Menu.Item>
 
-      <Menu.Item key="/login" style={{ marginLeft: "auto" }}>
-        <Link to="/login">Login</Link>
+      {/* Test code */}
+      <Menu.Item style={{ marginLeft: "auto" }}>
+        {user ? (
+          <>
+            <Link onClick={logout}>Logout</Link>
+          </>
+        ) : (
+          <>
+            <Link onClick={login}>Login</Link>
+          </>
+        )}
       </Menu.Item>
+
+      {/* Orignial code */}
+      {/* <Menu.Item key="/login" style={{ marginLeft: "auto" }}>
+        <Link to="/login">Login</Link>
+      </Menu.Item> */}
     </Menu>
   );
 }

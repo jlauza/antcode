@@ -5,8 +5,9 @@ import {
   Route,
   Link,
   useLocation,
+  useNavigate,
 } from "react-router-dom";
-import { Menu } from "antd";
+import { Button, Menu } from "antd";
 import Home from "./Pages/Home";
 import About from "./Pages/About";
 import Login from "./Features/Auth/Login";
@@ -16,6 +17,7 @@ import UserContext from "./Context/UserContext";
 
 function NavigationMenu() {
   const { user, login, logout } = useContext(UserContext);
+  const navigate = useNavigate();
   return (
     <Menu
       mode="horizontal"
@@ -36,7 +38,9 @@ function NavigationMenu() {
           </>
         ) : (
           <>
-            <Link onClick={login}>Login</Link>
+            <Button type="link" onClick={() => navigate("/login")}>
+              Login
+            </Button>
           </>
         )}
       </Menu.Item>

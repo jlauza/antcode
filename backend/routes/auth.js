@@ -2,6 +2,7 @@ const bcrypt = require("bcrypt");
 const express = require("express");
 const router = express.Router();
 const User = require("../models/user.model");
+const generateToken = require("../utils/token");
 
 /**
  * @swagger
@@ -50,17 +51,20 @@ router.post("/", async (req, res) => {
 
         res.redirect("/dashboard");
 
-        const userData = {
-          id: user.id,
-          email: user.email,
-          fname: user.firstname,
-          lname: user.lastname,
-          role: user.role,
-          username: user.username,
-          created_at: user.createdAt,
-        };
+        const token = generateToken(user);
 
-        return userData;
+        return {
+          token,
+          user: {
+            id: user.id,
+            email: user.email,
+            fname: user.firstname,
+            lname: user.lastname,
+            username: user.username,
+            role: user.role,
+            createdAt: user.createdAt,
+          },
+        };
       } else {
         res.send("Wrong password.");
         res.redirect("/login");

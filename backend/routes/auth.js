@@ -47,9 +47,20 @@ router.post("/", async (req, res) => {
       // check username and password match
       if (isMatch) {
         req.session.user = user;
+
         res.redirect("/dashboard");
 
-        return user;
+        const userData = {
+          id: user.id,
+          email: user.email,
+          fname: user.firstname,
+          lname: user.lastname,
+          role: user.role,
+          username: user.username,
+          created_at: user.createdAt,
+        };
+
+        return userData;
       } else {
         res.send("Wrong password.");
         res.redirect("/login");

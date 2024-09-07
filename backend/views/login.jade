@@ -1,17 +1,18 @@
 extends layouts/layout
 
 block content
-  .form-wrapper
-    h1= title
-    p Please login
-    //- small(style="color: #888") Enter your email address to recieve the OTP
-    form#login-form(method="post", action="/auth") 
-      input(type="text", name="email", placeholder="Enter your email")
-      input(type="password", name="password", placeholder="Enter your password")
-      .submit-button
-        input(type="submit", value="Login")
-    div.inline-container.justify-content-center
-      p(style="margin-right:2px") No account? 
-      a(href="/register") Register   
-    p#error-message(style="color: red; text-align: center;") 
-    p#success-message(style="color: green; text-align: center;")
+  div.row.m-auto(style="height:80vh;")
+    div.col-xs-12.col-md-4.col-lg-3.m-auto.d-flex.justify-content-center.text-center.p-4
+      div.row.border.p-4
+        h1= title
+        p Please login
+        //- small(style="color: #888") Enter your email address to recieve the OTP
+        form#login-form(method="post", action="/auth")
+          input.form-control(type="text", name="email", placeholder="Enter your email")
+          input.form-control(type="password", name="password", placeholder="Enter your password")
+          //- input.btn.btn-success(type="submit", value="Login")
+          button.btn.btn-success(type="submit") Login
+          p.mt-4 No account? 
+          a(href="/register") Register   
+        p#error-message(style="color: red; text-align: center;") 
+        p#success-message(style="color: green; text-align: center;")        

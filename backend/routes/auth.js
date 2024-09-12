@@ -49,11 +49,11 @@ router.post("/", async (req, res) => {
       if (isMatch) {
         req.session.user = user;
 
+        // res.status(200).json({ message: "Login successful!" });
         res.redirect("/dashboard");
 
         const token = generateToken(user);
-
-        return {
+        const userSession = {
           token,
           user: {
             id: user.id,
@@ -65,6 +65,8 @@ router.post("/", async (req, res) => {
             createdAt: user.createdAt,
           },
         };
+
+        return userSession;
       } else {
         return res.status(401).json({ error: "Invalid credentials!" });
       }

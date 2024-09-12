@@ -7,12 +7,14 @@ block content
         h1= title
         p Please login
         //- small(style="color: #888") Enter your email address to recieve the OTP
-        form#login-form(method="post", action="/auth")
+
+        p#error-message(style="color: red; text-align: center;") 
+        p#success-message(style="color: green; text-align: center;")      
+
+        form#login-form(method="post", action="/auth", onsubmit="return loginUser(event)")
           input.form-control(type="text", name="email", placeholder="Enter your email", required="required")
           input.form-control(type="password", name="password", placeholder="Enter your password", required="required")
           //- input.btn.btn-success(type="submit", value="Login")
           button.btn.btn-primary(type="submit") Login
           p.mt-4 No account? 
-            a(href="/register") Register   
-          p#error-message(style="color: red; text-align: center;") 
-          p#success-message(style="color: green; text-align: center;")        
+            a(href="/register") Register         

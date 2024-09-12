@@ -66,17 +66,14 @@ router.post("/", async (req, res) => {
           },
         };
       } else {
-        res.send("Wrong password.");
-        res.redirect("/login");
+        return res.status(401).json({ error: "Invalid credentials!" });
       }
-    } else if (res.status === 401) {
-      res.status(401).send("Unauthorized.");
-    } else if (user === null) {
-      res.status(404).send("User not found");
+    } else {
+      return res.status(404).json({ error: "User not found!" });
     }
   } catch (error) {
     console.error(error);
-    res.status(500).send("Internal server error.");
+    return res.status(500).json({ error: "Internal server error" });
   }
 });
 

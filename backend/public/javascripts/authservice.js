@@ -11,20 +11,21 @@ function loginUser(event) {
   })
     .then(async (response) => {
       const data = await response.json();
+      console.log(data);
+
+      if (response.ok) {
+        window.location.href = "/dashboard";
+        return;
+      }
 
       if (!response.ok) {
         const errorMessage = document.getElementById("error-message");
 
-        if (response.status === 401) {
-          errorMessage.textContent = "Invalid credentials!";
-        } else if (response.status === 404) {
-          errorMessage.textContent = "User not found!";
-        } else if (response.status === 500) {
-          errorMessage.textContent = "Internal server error!";
+        if (response.status) {
+          errorMessage.textContent = data.error;
         }
+
         errorMessage.style.display = "block";
-      } else {
-        window.location.href = "/dashboard";
       }
     })
     .catch((error) => {

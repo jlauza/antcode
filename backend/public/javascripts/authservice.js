@@ -3,19 +3,15 @@ function loginUser(event) {
   const form = document.getElementById("login-form");
   const formData = new FormData(form);
 
-  console.log(formData);
-
   fetch(form.action, {
     method: "POST",
     body: formData,
   })
     .then(async (response) => {
       const data = await response.json();
-      console.log(data);
 
       if (response.ok) {
         window.location.href = "/dashboard";
-        return;
       }
 
       if (!response.ok) {

@@ -50,7 +50,7 @@ router.post("/", async (req, res) => {
         req.session.user = user;
 
         // res.status(200).json({ message: "Login successful!" });
-        res.redirect("/dashboard");
+        // res.redirect("/dashboard");
 
         const token = generateToken(user);
         const userSession = {
@@ -66,7 +66,10 @@ router.post("/", async (req, res) => {
           },
         };
 
-        return userSession;
+        return res.status(200).json({
+          message: "Login successful!",
+          userSession,
+        });
       } else {
         return res.status(401).json({ error: "Invalid credentials!" });
       }

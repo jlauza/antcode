@@ -71,7 +71,7 @@ router.post("/", async (req, res) => {
           userSession,
         });
       } else {
-        return res.status(401).json({ error: "Invalid credentials!" });
+        return res.status(401).json({ error: "Invalid username or password!" });
       }
     } else {
       return res.status(404).json({ error: "User not found!" });

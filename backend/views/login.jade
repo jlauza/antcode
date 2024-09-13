@@ -9,9 +9,7 @@ block content
         //- small(style="color: #888") Enter your email address to recieve the OTP
 
         div.alert.alert-danger#error-message(style="color: red; text-align: center;display: none")
-          //- p#error-message(style="color: red; text-align: center;") 
-        div.alert.alert-success#success-message(style="color: green; text-align: center;display: none")      
-          //- p#success-message(style="color: green; text-align: center;")      
+        div.alert.alert-success#success-message(style="color: green; text-align: center;display: none")  
 
         form#login-form(method="post", action="/auth", onsubmit="return loginUser(event)")
           input.form-control(type="text", name="email", placeholder="Enter your email", required="required")

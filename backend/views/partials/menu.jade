@@ -1,25 +1,141 @@
-nav.navbar.navbar-expand-lg.navbar-light.bg-light
-  .container-fluid
-    a.navbar-brand(href='#') Brand
-    button.navbar-toggler(type='button', data-bs-toggle='collapse', data-bs-target='#navbarSupportedContent', aria-controls='navbarSupportedContent', aria-expanded='false', aria-label='Toggle navigation')
-      span.navbar-toggler-icon
-    .collapse.navbar-collapse(id='navbarSupportedContent')
-      ul.navbar-nav.me-auto.mb-2.mb-lg-0
-        li.nav-item
-          a.nav-link(aria-current='page', href='/dashboard') Dashboard
-        li.nav-item
-          a.nav-link(href=`/users/profile/${id}`) Profile
-        li.nav-item.dropdown
-          a.nav-link.dropdown-toggle(href='#', id='navbarDropdown', role='button', data-bs-toggle='dropdown', aria-expanded='false')
-            | Dropdown
-          ul.dropdown-menu(aria-labelledby='navbarDropdown')
-            li
-              a.dropdown-item(href='#') Action
-            li
-              a.dropdown-item(href='#') Another action
-            li
-              hr.dropdown-divider
-            li
-              a.dropdown-item(href='#') Something else here
-        li.nav-item
-          a.nav-link(href='/auth/logout') Logout
+header.header.fixed-top.d-flex.align-items-center#header
+  .d-flex.align-items-center.justify-content-between
+    a.logo.d-flex.align-items-center(href='/dashboard')
+      img(src="/assets/img/logo.png" alt="")
+      span.d-none.d-lg-block EX Admin
+    i.bi.bi-list.toggle-sidebar-btn
+
+  .search-bar
+    form.search-form.d-flex.align-items-center(method="POST" action="#")
+      input(type="text" name="query" placeholder="Search" title="Enter search keyword")
+      button(type="submit" title="Search")
+        i.bi.bi-search
+
+  nav.header-nav.ms-auto
+    ul.d-flex.align-items-center
+      li.nav-item.d-block.d-lg-none
+        a.nav-link.nav-icon.search-bar-toggle(href="#")
+          i.bi.bi-search
+
+      li.nav-item.dropdown
+        a.nav-link.nav-icon(href="#" data-bs-toggle="dropdown")
+          i.bi.bi-bell
+          span.badge.bg-primary.badge-number 4
+
+        ul.dropdown-menu.dropdown-menu-end.dropdown-menu-arrow.notifications
+          li.dropdown-header
+            | You have 4 new notifications
+            a(href="#")
+              span.badge.rounded-pill.bg-primary.p-2.ms-2 View all
+          li
+            hr.dropdown-divider
+          li.notification-item
+            i.bi.bi-exclamation-circle.text-warning
+            div
+              h4 Lorem Ipsum
+              p Quae dolorem earum veritatis oditseno
+              p 30 min. ago
+          li
+            hr.dropdown-divider
+          li.notification-item
+            i.bi.bi-x-circle.text-danger
+            div
+              h4 Atque rerum nesciunt
+              p Quae dolorem earum veritatis oditseno
+              p 1 hr. ago
+          li
+            hr.dropdown-divider
+          li.notification-item
+            i.bi.bi-check-circle.text-success
+            div
+              h4 Sit rerum fuga
+              p Quae dolorem earum veritatis oditseno
+              p 2 hrs. ago
+          li
+            hr.dropdown-divider
+          li.notification-item
+            i.bi.bi-info-circle.text-primary
+            div
+              h4 Dicta reprehenderit
+              p Quae dolorem earum veritatis oditseno
+              p 4 hrs. ago
+          li
+            hr.dropdown-divider
+          li.dropdown-footer
+            a(href="#") Show all notifications
+
+      li.nav-item.dropdown
+        a.nav-link.nav-icon(href="#" data-bs-toggle="dropdown")
+          i.bi.bi-chat-left-text
+          span.badge.bg-success.badge-number 3
+
+        ul.dropdown-menu.dropdown-menu-end.dropdown-menu-arrow.messages
+          li.dropdown-header
+            | You have 3 new messages
+            a(href="#")
+              span.badge.rounded-pill.bg-primary.p-2.ms-2 View all
+          li
+            hr.dropdown-divider
+          li.message-item
+            a(href="#")
+              img(src="/assets/img/messages-1.jpg" alt="" class="rounded-circle")
+              div
+                h4 Maria Hudson
+                p Velit asperiores et ducimus soluta repudiandae labore officia est ut...
+                p 4 hrs. ago
+          li
+            hr.dropdown-divider
+          li.message-item
+            a(href="#")
+              img(src="/assets/img/messages-2.jpg" alt="" class="rounded-circle")
+              div
+                h4 Anna Nelson
+                p Velit asperiores et ducimus soluta repudiandae labore officia est ut...
+                p 6 hrs. ago
+          li
+            hr.dropdown-divider
+          li.message-item
+            a(href="#")
+              img(src="/assets/img/messages-3.jpg" alt="" class="rounded-circle")
+              div
+                h4 David Muldon
+                p Velit asperiores et ducimus soluta repudiandae labore officia est ut...
+                p 8 hrs. ago
+          li
+            hr.dropdown-divider
+          li.dropdown-footer
+            a(href="#") Show all messages
+
+      li.nav-item.dropdown.pe-3
+        a.nav-link.nav-profile.d-flex.align-items-center.pe-0(href="#" data-bs-toggle="dropdown")
+          img(src="/assets/img/profile-img.jpg" alt="Profile" class="rounded-circle")
+          span.d-none.d-md-block.dropdown-toggle.ps-2 K. Anderson
+
+        ul.dropdown-menu.dropdown-menu-end.dropdown-menu-arrow.profile
+          li.dropdown-header
+            h6 Kevin Anderson
+            span Web Designer
+          li
+            hr.dropdown-divider
+          li
+            a.dropdown-item.d-flex.align-items-center(href=`/users/profile/${id}`)
+              i.bi.bi-person
+              span My Profile
+          li
+            hr.dropdown-divider
+          li
+            a.dropdown-item.d-flex.align-items-center(href="users-profile.html")
+              i.bi.bi-gear
+              span Account Settings
+          li
+            hr.dropdown-divider
+          li
+            a.dropdown-item.d-flex.align-items-center(href="pages-faq.html")
+              i.bi.bi-question-circle
+              span Need Help?
+          li
+            hr.dropdown-divider
+          li
+            a.dropdown-item.d-flex.align-items-center(href="/auth/logout")
+              i.bi.bi-box-arrow-right
+              span Sign Out

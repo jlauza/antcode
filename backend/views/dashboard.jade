@@ -1,12 +1,12 @@
 extends layouts/layout
 
 block content
-    include partials/menu.jade
-    include partials/aside.jade
-
     //- Emergency logout, activated when needed
     //- a(href=`auth/logout`) Logout
-    h1 Welcome to Dashboard, #{firstname}
-    p Your username is #{username}.   
+    include partials/menu.jade
+    include partials/aside.jade
+    main#main.main
+        h1 Welcome to Dashboard, #{firstname}
+        p Your username is #{username}.   
 
     include partials/footer.jade

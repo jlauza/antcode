@@ -2,57 +2,58 @@ extends layouts/layout
 
 block content
   include partials/menu.jade
-  .form-wrapper
-    h1= title
-    p Welcome to #{firstname} #{lastname}'s Profile
+  include partials/aside.jade
+  main#main.main
+    .form-wrapper
+      h1= title
+      p Welcome to #{firstname} #{lastname}'s Profile
 
-    script.
-      document.addEventListener('DOMContentLoaded', () => {
-        const usernameInput = document.getElementById('usernameInput');
-        const usernamePreview = document.getElementById('usernamePreview');
-        usernameInput.addEventListener('keyup', () => {
-          usernamePreview.innerHTML = `Username: ${usernameInput.value}`;
+      script.
+        document.addEventListener('DOMContentLoaded', () => {
+          const usernameInput = document.getElementById('usernameInput');
+          const usernamePreview = document.getElementById('usernamePreview');
+          usernameInput.addEventListener('keyup', () => {
+            usernamePreview.innerHTML = `Username: ${usernameInput.value}`;
+          });
         });
-      });
 
-    .card.my-4
-      .card-body
-        
-        form#user-update-form(action="/users/#{id}", method="POST", enctype="multipart/form-data", style="margin-bottom: 10px;")
-          input(type="hidden", name="_method", value="PUT")
-
-          //- img(src="#{avatar}" alt="Profile Picture" class="profile-picture img-thumbnail")
-          //- input(type="file", name="profilePicture", class="form-control-sm border-0", style="margin: 0 auto 10px 10px;")
+      .card.my-4
+        .card-body
           
-          h5.spacer-right#usernamePreview Username: #{username}
-          .row
-            .col-xs-12.col-md-4
-              .col-xs-12
-                label(for="username") Username 
-                input(id="usernameInput", type="text", name="username", placeholder="Enter your username", value="#{username}", class="form-control-sm")
-              .col-xs-12
-                label(for="firstname") Firstname
-                input(type="text", name="firstname", placeholder="Enter your first name", value="#{firstname}", class="form-control-sm")
-              .col-xs-12
-                label(for="lastname") Lastname
-                input(type="text", name="lastname", placeholder="Enter your last name", value="#{lastname}", class="form-control-sm")
-              .col-xs-12
-                label(for="email") Email
-                input(type="text", name="email", placeholder="Enter your email", value="#{email}", class="form-control-sm")
-              .col-xs-12
-                label(for="password") Password
-                input(type="password", name="password", placeholder="********", class="form-control-sm")
-              .col-xs-12
-                label(for="password2") Confirm Password
-                input(type="password", name="password2", placeholder="********", class="control-sm")
-              //- .col-xs-12.col-md-4
-              //-   label(for="bio") Bio
-              //-   textarea(name="bio", cols="60", rows="10", placeholder="Enter your bio", class="form-control-sm my-2") #{bio}
-                  
-            .d-flex.justify-content-start
-              a(href=`/users/profile/${id}`, class="btn btn-secondary btn-sm m-1") Back to Profile
-              button(type="submit", class="btn btn-primary btn-sm m-1", onClick="updateUser(event)") Update
-        p#error-message(style="color: red;")
-        p#success-message(style="color: green;")
+          form#user-update-form(action="/users/#{id}", method="POST", enctype="multipart/form-data", style="margin-bottom: 10px;")
+            input(type="hidden", name="_method", value="PUT")
 
-
+            //- img(src="#{avatar}" alt="Profile Picture" class="profile-picture img-thumbnail")
+            //- input(type="file", name="profilePicture", class="form-control-sm border-0", style="margin: 0 auto 10px 10px;")
+            
+            h5.spacer-right#usernamePreview Username: #{username}
+            .row
+              .col-xs-12.col-md-4
+                .col-xs-12
+                  label(for="username") Username 
+                  input(id="usernameInput", type="text", name="username", placeholder="Enter your username", value="#{username}", class="form-control-sm")
+                .col-xs-12
+                  label(for="firstname") Firstname
+                  input(type="text", name="firstname", placeholder="Enter your first name", value="#{firstname}", class="form-control-sm")
+                .col-xs-12
+                  label(for="lastname") Lastname
+                  input(type="text", name="lastname", placeholder="Enter your last name", value="#{lastname}", class="form-control-sm")
+                .col-xs-12
+                  label(for="email") Email
+                  input(type="text", name="email", placeholder="Enter your email", value="#{email}", class="form-control-sm")
+                .col-xs-12
+                  label(for="password") Password
+                  input(type="password", name="password", placeholder="********", class="form-control-sm")
+                .col-xs-12
+                  label(for="password2") Confirm Password
+                  input(type="password", name="password2", placeholder="********", class="control-sm")
+                //- .col-xs-12.col-md-4
+                //-   label(for="bio") Bio
+                //-   textarea(name="bio", cols="60", rows="10", placeholder="Enter your bio", class="form-control-sm my-2") #{bio}
+                    
+              .d-flex.justify-content-start
+                a(href=`/users/profile/${id}`, class="btn btn-secondary btn-sm m-1") Back to Profile
+                button(type="submit", class="btn btn-primary btn-sm m-1", onClick="updateUser(event)") Update
+          p#error-message(style="color: red;")
+          p#success-message(style="color: green;")
+  include partials/footer.jade

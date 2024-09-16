@@ -6,9 +6,9 @@ header.header.fixed-top.d-flex.align-items-center#header
     i.bi.bi-list.toggle-sidebar-btn
 
   .search-bar
-    form.search-form.d-flex.align-items-center(method="POST" action="#")
-      input(type="text" name="query" placeholder="Search" title="Enter search keyword")
-      button(type="submit" title="Search")
+    form.search-form.d-flex.align-items-center(method="POST", action="#")
+      input(type="text", name="query", placeholder="Search", title="Enter search keyword")
+      button(type="submit", title="Search")
         i.bi.bi-search
 
   nav.header-nav.ms-auto
@@ -18,7 +18,7 @@ header.header.fixed-top.d-flex.align-items-center#header
           i.bi.bi-search
 
       li.nav-item.dropdown
-        a.nav-link.nav-icon(href="#" data-bs-toggle="dropdown")
+        a.nav-link.nav-icon(href="#",data-bs-toggle="dropdown")
           i.bi.bi-bell
           span.badge.bg-primary.badge-number 4
 
@@ -65,7 +65,7 @@ header.header.fixed-top.d-flex.align-items-center#header
             a(href="#") Show all notifications
 
       li.nav-item.dropdown
-        a.nav-link.nav-icon(href="#" data-bs-toggle="dropdown")
+        a.nav-link.nav-icon(href="#", data-bs-toggle="dropdown")
           i.bi.bi-chat-left-text
           span.badge.bg-success.badge-number 3
 
@@ -78,7 +78,7 @@ header.header.fixed-top.d-flex.align-items-center#header
             hr.dropdown-divider
           li.message-item
             a(href="#")
-              img(src="/assets/img/messages-1.jpg" alt="" class="rounded-circle")
+              img(src="/assets/img/messages-1.jpg", alt="", class="rounded-circle")
               div
                 h4 Maria Hudson
                 p Velit asperiores et ducimus soluta repudiandae labore officia est ut...
@@ -87,7 +87,7 @@ header.header.fixed-top.d-flex.align-items-center#header
             hr.dropdown-divider
           li.message-item
             a(href="#")
-              img(src="/assets/img/messages-2.jpg" alt="" class="rounded-circle")
+              img(src="/assets/img/messages-2.jpg", alt="", class="rounded-circle")
               div
                 h4 Anna Nelson
                 p Velit asperiores et ducimus soluta repudiandae labore officia est ut...
@@ -96,7 +96,7 @@ header.header.fixed-top.d-flex.align-items-center#header
             hr.dropdown-divider
           li.message-item
             a(href="#")
-              img(src="/assets/img/messages-3.jpg" alt="" class="rounded-circle")
+              img(src="/assets/img/messages-3.jpg", alt="", class="rounded-circle")
               div
                 h4 David Muldon
                 p Velit asperiores et ducimus soluta repudiandae labore officia est ut...
@@ -107,8 +107,8 @@ header.header.fixed-top.d-flex.align-items-center#header
             a(href="#") Show all messages
 
       li.nav-item.dropdown.pe-3
-        a.nav-link.nav-profile.d-flex.align-items-center.pe-0(href="#" data-bs-toggle="dropdown")
-          img(src="/assets/img/profile-img.jpg" alt="Profile" class="rounded-circle")
+        a.nav-link.nav-profile.d-flex.align-items-center.pe-0(href="#", data-bs-toggle="dropdown", aria-expanded="false", role="button")
+          img(src="/assets/img/profile-img.jpg", alt="Profile", class="rounded-circle")
           span.d-none.d-md-block.dropdown-toggle.ps-2 K. Anderson
 
         ul.dropdown-menu.dropdown-menu-end.dropdown-menu-arrow.profile

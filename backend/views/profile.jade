@@ -2,23 +2,26 @@ extends layouts/layout
 
 block content
   include partials/menu.jade
-  h1= title
-  p Welcome to 
-    span.fw-bold #{firstname} #{lastname}'s 
-    span Profile
+  include partials/aside.jade
+  main#main.main
+    h1= title
+    p Welcome to 
+      span.fw-bold #{firstname} #{lastname}'s 
+      span Profile
 
-  .form-wrapper
-    .profile-wrapper
-      //- img(src="#{avatar}" alt="Profile Picture" class="profile-picture mb-2")
+    .form-wrapper
+      .profile-wrapper
+        //- img(src="#{avatar}" alt="Profile Picture" class="profile-picture mb-2")
 
-      // Removed .text-center class
-      h5 #{username}
-      p Firstname: #{firstname}
-      p Lastname: #{lastname}
-      p Email: #{email}
-      p Role: #{role}
-      //- p Bio: #{bio ? bio : 'No bio yet.'}
-      
-      a(href="/users/profile/edit/#{id}" class="btn btn-primary btn-sm") Edit Profile
-      a(href="/users/profile/delete/#{id}" class="btn btn-danger btn-sm m-1") Delete Profile
+        // Removed .text-center class
+        h5 #{username}
+        p Firstname: #{firstname}
+        p Lastname: #{lastname}
+        p Email: #{email}
+        p Role: #{role}
+        //- p Bio: #{bio ? bio : 'No bio yet.'}
+        
+        a(href="/users/profile/edit/#{id}" class="btn btn-primary btn-sm") Edit Profile
+        a(href="/users/profile/delete/#{id}" class="btn btn-danger btn-sm m-1") Delete Profile
+  include partials/footer.jade
 

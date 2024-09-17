@@ -1,23 +1,62 @@
 extends layouts/layout
 
 block content
-  div.row.m-auto(style="height:80vh;")
-    div.col-xs-12.col-md-4.col-lg-3.m-auto.d-flex.justify-content-center.text-center.p-4
-      div.row.border.p-4
-        h1= title
-        p.mt-4 Have an account? 
-          a(href="/login") Login
-          
-        p#SuccessMessages
-        p#ErrorMessages
+  div.container
+    section.section.register.min-vh-100.d-flex.flex-column.align-items-center.justify-content-center.py-4
+      div.container
+        div.row.justify-content-center
+          div.col-lg-4.col-md-6.d-flex.flex-column.align-items-center.justify-content-center
+            div.d-flex.justify-content-center.py-4
+              a.logo.d-flex.align-items-center.w-auto(href="/")
+                img(src="assets/img/logo.png" alt="")
+                span.d-none.d-lg-block NiceAdmin
 
-        form(action="/users", method="POST") 
-          input.form-control(type="text", name="firstname", placeholder="Enter your first name", required="required")
-          input.form-control(type="text", name="lastname", placeholder="Enter your last name", required="required")
-          input.form-control(type="text", name="email", placeholder="Enter your email", required="required")
-          input.form-control(type="password", name="password", placeholder="Enter your password", required="required")
-          input.form-control(type="password", name="password2", placeholder="Confirm your password", required="required")
-          
-          button.btn.btn-primary(type="submit") Register
-            
-  
+            div.card.mb-3
+              div.card-body
+                div.pt-4.pb-2
+                  h5.card-title.text-center.pb-0.fs-4 Create an Account
+                  p.text-center.small Enter your personal details to create account
+
+                p#SuccessMessages
+                p#ErrorMessages
+
+                form.row.g-3.needs-validation(action="/users", method="POST", novalidate)
+                  div.col-12
+                    label.form-label(for="yourName") Your Name
+                    input#yourName.form-control(type="text" name="firstname" required)
+                    div.invalid-feedback Please, enter your firstname!
+
+                  div.col-12
+                    label.form-label(for="yourName") Your Name
+                    input#yourName.form-control(type="text" name="lastname" required)
+                    div.invalid-feedback Please, enter your lastname!
+
+                  div.col-12
+                    label.form-label(for="yourEmail") Your Email
+                    input#yourEmail.form-control(type="email" name="email" required)
+                    div.invalid-feedback Please enter a valid Email address!
+
+                  div.col-12
+                    label.form-label(for="yourPassword") Password
+                    input#yourPassword.form-control(type="password" name="password" required)
+                    div.invalid-feedback Please enter your password!
+                  
+                  div.col-12
+                    label.form-label(for="yourPassword2") Confirm Password
+                    input#yourPassword.form-control(type="password" name="password2" required)
+                    div.invalid-feedback Password did not match!
+
+                  div.col-12
+                    div.form-check
+                      input#acceptTerms.form-check-input(type="checkbox" name="terms" value="" required)
+                      label.form-check-label(for="acceptTerms")
+                        | I agree and accept the 
+                        a(href="#") terms and conditions
+                      div.invalid-feedback You must agree before submitting.
+
+                  div.col-12
+                    button.btn.btn-primary.w-100(type="submit") Create Account
+
+                  div.col-12
+                    p.small.mb-0 Already have an account? 
+                      a(href="/login") Log in

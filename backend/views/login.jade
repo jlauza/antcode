@@ -1,20 +1,46 @@
 extends layouts/layout
 
 block content
-  div.row.m-auto(style="height:80vh;")
-    div.col-xs-12.col-md-6.col-lg-5.col-xl-3.m-auto.d-flex.justify-content-center.text-center.p-4
-      div.row.border.p-4
-        h1= title
-        p Please login
-        //- small(style="color: #888") Enter your email address to recieve the OTP
+  div.container
+    section.section.register.min-vh-100.d-flex.flex-column.align-items-center.justify-content-center.py-4
+      div.container
+        div.row.justify-content-center
+          div.col-lg-4.col-md-6.d-flex.flex-column.align-items-center.justify-content-center
+            div.d-flex.justify-content-center.py-4
+              a.logo.d-flex.align-items-center.w-auto(href="index.html")
+                img(src="assets/img/logo.png" alt="")
+                span.d-none.d-lg-block NiceAdmin
 
-        div.alert.alert-danger#error-message(style="color: red; text-align: center;display: none")
-        div.alert.alert-success#success-message(style="color: green; text-align: center;display: none")  
+            div.card.mb-3
+              div.card-body
+                div.pt-4.pb-2
+                  h5.card-title.text-center.pb-0.fs-4 Login to Your Account
+                  p.text-center.small Enter your username & password to login
 
-        form#login-form(method="post", action="/auth", onsubmit="return loginUser(event)")
-          input.form-control(type="text", name="email", placeholder="Enter your email", required="required")
-          input.form-control(type="password", name="password", placeholder="Enter your password", required="required")
-          //- input.btn.btn-success(type="submit", value="Login")
-          button.btn.btn-primary(type="submit") Login
-          p.mt-4 No account? 
-            a(href="/register") Register         
+                  div.alert.alert-danger#error-message(style="color: red; text-align: center;display: none")
+                  div.alert.alert-success#success-message(style="color: green; text-align: center;display: none")                  
+
+                form#login-form.row.g-3.needs-validation(method="post", action="/auth", onsubmit="return loginUser(event)", novalidate)
+                  div.col-12
+                    label.form-label(for="yourUsername") Email Address
+                    div.input-group.has-validation
+                      //- span.input-group-text#inputGroupPrepend @
+                      input#yourUsername.form-control(type="text" name="email" required)
+                      div.invalid-feedback Please enter your email.
+
+                  div.col-12
+                    label.form-label(for="yourPassword") Password
+                    input#yourPassword.form-control(type="password" name="password" required)
+                    div.invalid-feedback Please enter your password!
+
+                  div.col-12
+                    div.form-check
+                      input#rememberMe.form-check-input(type="checkbox" name="remember" value="true")
+                      label.form-check-label(for="rememberMe") Remember me
+
+                  div.col-12
+                    button.btn.btn-primary.w-100(type="submit") Login
+
+                  div.col-12
+                    p.small.mb-0 Don't have account? 
+                      a(href="/register") Create an account

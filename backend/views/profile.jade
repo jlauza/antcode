@@ -11,7 +11,7 @@ block content
 
     .form-wrapper
       .profile-wrapper
-        //- img(src="#{avatar}" alt="Profile Picture" class="profile-picture mb-2")
+        img(src="#{avatar}" alt="Profile Picture" class="profile-picture mb-2 rounded-circle")
 
         // Removed .text-center class
         h5 #{username}
@@ -19,7 +19,7 @@ block content
         p Lastname: #{lastname}
         p Email: #{email}
         p Role: #{role}
-        //- p Bio: #{bio ? bio : 'No bio yet.'}
+        p Bio: #{bio ? bio : 'No bio yet.'}
         
         a(href="/users/profile/edit/#{id}" class="btn btn-primary btn-sm") Edit Profile
         a(href="/users/profile/delete/#{id}" class="btn btn-danger btn-sm m-1") Delete Profile

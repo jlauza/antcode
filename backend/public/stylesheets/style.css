@@ -1229,3 +1229,8 @@ h6 {
   font-size: 13px;
   color: #012970;
 }
+
+.profile-picture {
+  width: 120px;
+  height: 120px;
+}

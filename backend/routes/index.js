@@ -40,10 +40,17 @@ router.get(
   async function (req, res, next) {
     const user = req.session.user;
 
+    const ini_fname = user.firstname;
+    const ini_lname = user.lastname;
+    const ini_name = ini_fname.charAt(0) + ini_lname.charAt(0);
+
     res.render("profile", {
       LOCAL: process.env.LOCAL,
       title: "My Profile",
       id: user._id,
+      avatar: user.avatar
+        ? user.avatar
+        : `https://placehold.co/40x40?text=${ini_name}`,
       username: user.username,
       firstname: user.firstname,
       lastname: user.lastname,
@@ -59,10 +66,17 @@ router.get(
   async function (req, res, next) {
     const user = req.session.user;
 
+    const ini_fname = user.firstname;
+    const ini_lname = user.lastname;
+    const ini_name = ini_fname.charAt(0) + ini_lname.charAt(0);
+
     res.render("profile", {
       LOCAL: process.env.LOCAL,
       title: "My Profile",
       id: user._id,
+      avatar: user.avatar
+        ? user.avatar
+        : `https://placehold.co/40x40?text=${ini_name}`,
       username: user.username,
       firstname: user.firstname,
       lastname: user.lastname,
@@ -78,10 +92,17 @@ router.get(
   async function (req, res, next) {
     const user = req.session.user;
 
+    const ini_fname = user.firstname;
+    const ini_lname = user.lastname;
+    const ini_name = ini_fname.charAt(0) + ini_lname.charAt(0);
+
     res.render("profile-edit", {
       LOCAL: process.env.LOCAL,
       title: "Edit Profile",
       id: user._id,
+      avatar: user.avatar
+        ? user.avatar
+        : `https://placehold.co/40x40?text=${ini_name}`,
       username: user.username,
       firstname: user.firstname,
       lastname: user.lastname,
@@ -112,10 +133,17 @@ router.get(
 router.get("/dashboard", ensureAuthenticated, async function (req, res, next) {
   const user = req.session.user;
 
+  const ini_fname = user.firstname;
+  const ini_lname = user.lastname;
+  const ini_name = ini_fname.charAt(0) + ini_lname.charAt(0);
+
   res.render("dashboard", {
     LOCAL: process.env.LOCAL,
     title: "Welcome to dashboard",
     id: user._id,
+    avatar: user.avatar
+      ? user.avatar
+      : `https://placehold.co/40x40?text=${ini_name}`,
     username: user.username,
     firstname: user.firstname,
     lastname: user.lastname,

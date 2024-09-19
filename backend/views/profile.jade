@@ -48,6 +48,16 @@ block content
                   i.bi.bi-instagram
                 a(href="#" class="linkedin")
                   i.bi.bi-linkedin
+          .d-flex.flex-row.justify-content-center.align-items-center
+            //- a(href="/users/profile/edit/#{id}" class="btn btn-primary btn-sm m-2")
+            //-   i.bi.bi-pencil-square
+            //-   |  Edit Profile
+            a(href="#" class="btn btn-primary btn-sm m-2")
+              i.bi.bi-person-fill-lock
+              |  Deactivate
+            a(href="/users/profile/delete/#{id}" class="btn btn-danger btn-sm m-2") 
+              i.bi.bi-trash
+              |  Delete Profile
         .col-xl-8
           .card
             .card-body.pt-3
@@ -60,6 +70,8 @@ block content
                   button.nav-link(data-bs-toggle="tab", data-bs-target="#profile-settings") Settings
                 li.nav-item
                   button.nav-link(data-bs-toggle="tab", data-bs-target="#profile-change-password") Change Password
+                li.nav-item
+                  button.nav-link(data-bs-toggle="tab", data-bs-target="#billing-info") Billing and Subscription
               .tab-content.pt-2
                 .tab-pane.fade.show.active.profile-overview#profile-overview
                   //- h5.card-title About
@@ -141,6 +153,21 @@ block content
                         input.form-control(name="renewpassword", type="password", id="renewPassword")
                     .text-center
                       button.btn.btn-primary(type="submit") Change Password
-
+                .tab-pane.fade.pt-3#billing-info
+                  form
+                    .row.mb-3
+                      label.col-md-4.col-lg-3.col-form-label(for="currentPassword") Current Password
+                      .col-md-8.col-lg-9
+                        input.form-control(name="password", type="password", id="currentPassword")
+                    .row.mb-3
+                      label.col-md-4.col-lg-3.col-form-label(for="newPassword") New Password
+                      .col-md-8.col-lg-9
+                        input.form-control(name="newpassword", type="password", id="newPassword")
+                    .row.mb-3
+                      label.col-md-4.col-lg-3.col-form-label(for="renewPassword") Re-enter New Password
+                      .col-md-8.col-lg-9
+                        input.form-control(name="renewpassword", type="password", id="renewPassword")
+                    .text-center
+                      button.btn.btn-primary(type="submit") Change Password
   include partials/footer.jade
 

@@ -3,25 +3,144 @@ extends layouts/layout
 block content
   include partials/menu.jade
   include partials/aside.jade
-  main#main.main
-    h1= title
-    p Welcome to 
-      span.fw-bold #{firstname} #{lastname}'s 
-      span Profile
+  //- main#main.main
+    //- h1= title
+    //- p Welcome to 
+    //-   span.fw-bold #{firstname} #{lastname}'s 
+    //-   span Profile
 
-    .form-wrapper
-      .profile-wrapper
-        img(src="#{avatar}" alt="Profile Picture" class="profile-picture mb-2 rounded-circle")
-
-        // Removed .text-center class
-        h5 #{username}
-        p Firstname: #{firstname}
-        p Lastname: #{lastname}
-        p Email: #{email}
-        p Role: #{role}
-        p Bio: #{bio ? bio : 'No bio yet.'}
+    //- .form-wrapper
+    //-   .profile-wrapper
+    //-     img(src="#{avatar}" alt="Profile Picture" class="profile-picture mb-2 rounded-circle")
+    //-     h5 #{username}
+    //-     p Firstname: #{firstname}
+    //-     p Lastname: #{lastname}
+    //-     p Email: #{email}
+    //-     p Role: #{role}
+    //-     p Bio: #{bio ? bio : 'No bio yet.'}
         
-        a(href="/users/profile/edit/#{id}" class="btn btn-primary btn-sm") Edit Profile
-        a(href="/users/profile/delete/#{id}" class="btn btn-danger btn-sm m-1") Delete Profile
+    //-     a(href="/users/profile/edit/#{id}" class="btn btn-primary btn-sm") Edit Profile
+    //-     a(href="/users/profile/delete/#{id}" class="btn btn-danger btn-sm m-1") Delete Profile
+
+  main#main.main
+    .pagetitle
+      h1= title
+      nav
+        ol.breadcrumb
+          li.breadcrumb-item
+            a(href="/dashboard") Dashboard
+          li.breadcrumb-item Users
+          li.breadcrumb-item.active Profile
+    section.section.profile
+      .row
+        .col-xl-4
+          .card
+            .card-body.profile-card.pt-4.d-flex.flex-column.align-items-center
+              img(src="#{avatar}", alt="Profile", class="rounded-circle", style="width: 120px;")
+              h2 #{firstname} #{lastname}
+              h3 #{username}
+              .social-links.mt-2
+                a(href="#" class="twitter")
+                  i.bi.bi-twitter
+                a(href="#" class="facebook")
+                  i.bi.bi-facebook
+                a(href="#" class="instagram")
+                  i.bi.bi-instagram
+                a(href="#" class="linkedin")
+                  i.bi.bi-linkedin
+        .col-xl-8
+          .card
+            .card-body.pt-3
+              ul.nav.nav-tabs.nav-tabs-bordered
+                li.nav-item
+                  button.nav-link.active(data-bs-toggle="tab", data-bs-target="#profile-overview") Overview
+                li.nav-item
+                  button.nav-link(data-bs-toggle="tab", data-bs-target="#profile-edit") Edit Profile
+                li.nav-item
+                  button.nav-link(data-bs-toggle="tab", data-bs-target="#profile-settings") Settings
+                li.nav-item
+                  button.nav-link(data-bs-toggle="tab", data-bs-target="#profile-change-password") Change Password
+              .tab-content.pt-2
+                .tab-pane.fade.show.active.profile-overview#profile-overview
+                  //- h5.card-title About
+                  //- p.small.fst-italic #{bio}
+                  h5.card-title Profile Details
+                  .row
+                    .col-lg-3.col-md-4.label Username
+                    .col-lg-9.col-md-8 #{username}
+                  .row
+                    .col-lg-3.col-md-4.label Full Name
+                    .col-lg-9.col-md-8 #{firstname} #{lastname}
+                  .row
+                    .col-lg-3.col-md-4.label Role
+                    .col-lg-9.col-md-8.text-capitalize #{role}
+                  .row
+                    .col-lg-3.col-md-4.label Email Address
+                    .col-lg-9.col-md-8 #{email}
+                .tab-pane.fade.profile-edit.pt-3#profile-edit
+                  form
+                    .row.mb-3
+                      label.col-md-4.col-lg-3.col-form-label(for="profileImage") Profile Image
+                      .col-md-8.col-lg-9
+                        img(src="#{avatar}", alt="Profile", style="width: 120px;")
+                        .pt-2
+                          a(href="#" class="btn btn-primary btn-sm", title="Upload new profile image")
+                            i.bi.bi-upload
+                          a(href="#" class="btn btn-danger.btn-sm", title="Remove my profile image")
+                            i.bi.bi-trash
+                    .row.mb-3
+                      label.col-md-4.col-lg-3.col-form-label(for="firstName") First Name
+                      .col-md-8.col-lg-9
+                        input.form-control(name="firstname", type="text", id="firstname", value="#{firstname}")
+                    .row.mb-3
+                      label.col-md-4.col-lg-3.col-form-label(for="lastName") Last Name
+                      .col-md-8.col-lg-9
+                        input.form-control(name="lasstname", type="text", id="lastname", value="#{lastname}")
+                    .row.mb-3
+                      label.col-md-4.col-lg-3.col-form-label(for="Job") Role
+                      .col-md-8.col-lg-9
+                        input.form-control.text-capitalize(name="role", type="text", id="role", value="#{role}")
+                    .row.mb-3
+                      label.col-md-4.col-lg-3.col-form-label(for="email") Email
+                      .col-md-8.col-lg-9
+                        input.form-control(name="email", type="email", id="email", value="#{email}")
+                    .text-center
+                      button.btn.btn-primary(type="submit") Save Changes
+                .tab-pane.fade.pt-3#profile-settings
+                  form
+                    .row.mb-3
+                      label.col-md-4.col-lg-3.col-form-label Email Notifications
+                      .col-md-8.col-lg-9
+                        .form-check
+                          input.form-check-input(type="checkbox", id="changesMade", checked)
+                          label.form-check-label(for="changesMade") Changes made to your account
+                        .form-check
+                          input.form-check-input(type="checkbox", id="newProducts", checked)
+                          label.form-check-label(for="newProducts") Information on new products and services
+                        .form-check
+                          input.form-check-input(type="checkbox", id="proOffers")
+                          label.form-check-label(for="proOffers") Marketing and promo offers
+                        .form-check
+                          input.form-check-input(type="checkbox", id="securityNotify", checked disabled)
+                          label.form-check-label(for="securityNotify") Security alerts
+                    .text-center
+                      button.btn.btn-primary(type="submit") Save Changes
+                .tab-pane.fade.pt-3#profile-change-password
+                  form
+                    .row.mb-3
+                      label.col-md-4.col-lg-3.col-form-label(for="currentPassword") Current Password
+                      .col-md-8.col-lg-9
+                        input.form-control(name="password", type="password", id="currentPassword")
+                    .row.mb-3
+                      label.col-md-4.col-lg-3.col-form-label(for="newPassword") New Password
+                      .col-md-8.col-lg-9
+                        input.form-control(name="newpassword", type="password", id="newPassword")
+                    .row.mb-3
+                      label.col-md-4.col-lg-3.col-form-label(for="renewPassword") Re-enter New Password
+                      .col-md-8.col-lg-9
+                        input.form-control(name="renewpassword", type="password", id="renewPassword")
+                    .text-center
+                      button.btn.btn-primary(type="submit") Change Password
+
   include partials/footer.jade
 

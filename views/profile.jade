@@ -98,6 +98,10 @@ block content
                           a(href="#" class="btn btn-danger.btn-sm", title="Remove my profile image")
                             i.bi.bi-trash
                     .row.mb-3
+                      label.col-md-4.col-lg-3.col-form-label(for="userName") Username
+                      .col-md-8.col-lg-9
+                        input.form-control(name="username", type="text", id="Username", value="#{username}")
+                    .row.mb-3
                       label.col-md-4.col-lg-3.col-form-label(for="firstName") First Name
                       .col-md-8.col-lg-9
                         input.form-control(name="firstname", type="text", id="firstname", value="#{firstname}")
@@ -152,19 +156,20 @@ block content
                       button.btn.btn-primary(type="submit") Change Password
                 .tab-pane.fade.pt-3#billing-info
                   form
-                    .row.mb-3
-                      label.col-md-4.col-lg-3.col-form-label(for="currentPassword") Current Password
-                      .col-md-8.col-lg-9
-                        input.form-control(name="password", type="password", id="currentPassword")
-                    .row.mb-3
-                      label.col-md-4.col-lg-3.col-form-label(for="newPassword") New Password
-                      .col-md-8.col-lg-9
-                        input.form-control(name="newpassword", type="password", id="newPassword")
-                    .row.mb-3
-                      label.col-md-4.col-lg-3.col-form-label(for="renewPassword") Re-enter New Password
-                      .col-md-8.col-lg-9
-                        input.form-control(name="renewpassword", type="password", id="renewPassword")
+                  h3.text-center.my-4 Coming soon!
+                    //- .row.mb-3
+                    //-   label.col-md-4.col-lg-3.col-form-label(for="currentPassword") Current Password
+                    //-   .col-md-8.col-lg-9
+                    //-     input.form-control(name="password", type="password", id="currentPassword")
+                    //- .row.mb-3
+                    //-   label.col-md-4.col-lg-3.col-form-label(for="newPassword") New Password
+                    //-   .col-md-8.col-lg-9
+                    //-     input.form-control(name="newpassword", type="password", id="newPassword")
+                    //- .row.mb-3
+                    //-   label.col-md-4.col-lg-3.col-form-label(for="renewPassword") Re-enter New Password
+                    //-   .col-md-8.col-lg-9
+                    //-     input.form-control(name="renewpassword", type="password", id="renewPassword")
                     .text-center
-                      button.btn.btn-primary(type="submit") Change Password
+                      button.btn.btn-primary(type="submit") Save Billing Information
   include partials/footer.jade
 

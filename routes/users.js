@@ -85,25 +85,35 @@ router.post("/", async (req, res) => {
   }
 
   try {
+    const errors = [];
+
     // Check if email is valid
     if (!validateEmail(req.body.email)) {
-      return res.status(400).json({ message: "Invalid email" });
+      // return res.status(400).json({ message: "Invalid email" });
+      errors.push("Invalid email");
     }
 
     // Check if email already exists
     const EmailExist = await validateEmailExists(req.body.email);
     if (EmailExist) {
-      return res.status(400).json({ message: "User already exists" });
+      // return res.status(400).json({ message: "User already exists" });
+      errors.push("User already exists");
     }
 
     // Check if passwords match
     if (passwordNotMacth(req.body.password, req.body.password2)) {
-      return res.status(400).json({ message: "Passwords do not match" });
+      errors.push("Passwords do not match");
+      // return res.status(400).json({ message: "Passwords do not match" });
     }
 
     // Check if password is at least 8 characters long
     if (passwordLength(req.body.password)) {
-      return res.status(400).json({ message: "Password is too short" });
+      errors.push("Password is too short");
+      // return res.status(400).json({ message: "Password is too short" });
+    }
+
+    if (errors.length > 0) {
+      return res.status(400).json({ errors });
     }
 
     // Hash the password

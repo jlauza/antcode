@@ -17,8 +17,10 @@ block content
                   h5.card-title.text-center.pb-0.fs-4 Login to Your Account
                   p.text-center.small Enter your username & password to login
 
-                  div.alert.alert-danger#error-message(style="color: red; text-align: center;display: none")
-                  div.alert.alert-success#success-message(style="color: green; text-align: center;display: none")                  
+                  .block 
+                    span.bi.bi-x.text-danger#error-message(style="color: red; text-align: center;display: none")
+                  .block
+                    span.bi.bi-check.text-success#success-message(style="color: green; text-align: center;display: none")                  
 
                 form#login-form.row.g-3.needs-validation(method="post", action="/auth", onsubmit="return loginUser(event)", novalidate)
                   div.col-12

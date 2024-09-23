@@ -22,12 +22,12 @@ block content
 
                 form#register-form.row.g-3.needs-validation(action="/users", method="POST", onsubmit="return registerUser(event)" novalidate)
                   div.col-12
-                    label.form-label(for="yourName") Your Name
+                    label.form-label(for="yourName") First Name
                     input#yourName.form-control(type="text" name="firstname" required)
                     div.invalid-feedback Please, enter your firstname!
 
                   div.col-12
-                    label.form-label(for="yourName") Your Name
+                    label.form-label(for="yourName") Last Name
                     input#yourName.form-control(type="text" name="lastname" required)
                     div.invalid-feedback Please, enter your lastname!
 

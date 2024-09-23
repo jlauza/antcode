@@ -71,6 +71,14 @@ router.post("/", async (req, res) => {
     return re.test(email);
   }
 
+  function firstname(firstname) {
+    return firstname == "" || firstname == null;
+  }
+
+  function firstname(lastname) {
+    return lastname == "" || lastname == null;
+  }
+
   async function validateEmailExists(email) {
     const user = await User.findOne({ email: email }).exec();
     return user !== null;
@@ -86,6 +94,14 @@ router.post("/", async (req, res) => {
 
   try {
     const errors = [];
+
+    if (firstname(req.body.firstname)) {
+      errors.push("Firstname is required");
+    }
+
+    if (firstname(req.body.lastname)) {
+      errors.push("Lastname is required");
+    }
 
     // Check if email is valid
     if (!validateEmail(req.body.email)) {

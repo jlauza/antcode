@@ -17,10 +17,12 @@ block content
                   h5.card-title.text-center.pb-0.fs-4 Create an Account
                   p.text-center.small Enter your personal details to create account
 
-                p#SuccessMessages
-                p#ErrorMessages
+                  .block 
+                    span.bi.bi-x.text-danger#ErrorMessages(style="color: red; text-align: center;display: none")
+                  .block
+                    span.bi.bi-check.text-success#SuccessMessages(style="color: green; text-align: center;display: none")
 
-                form.row.g-3.needs-validation(action="/users", method="POST", novalidate)
+                form#register-form.row.g-3.needs-validation(action="/users", method="POST", onSubmit="return registerUser(event)" novalidate)
                   div.col-12
                     label.form-label(for="yourName") Your Name
                     input#yourName.form-control(type="text" name="firstname" required)

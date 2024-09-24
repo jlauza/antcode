@@ -21,7 +21,7 @@ async function registerUser(event) {
       successMessage.textContent = data.message;
       successMessage.style.display = "block";
 
-      window.location.href = "/dashboard";
+      // window.location.href = "/dashboard";
     } else {
       displayErrors(data.errors);
     }

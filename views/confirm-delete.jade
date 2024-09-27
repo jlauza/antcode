@@ -2,17 +2,20 @@ extends layouts/layout
 
 block content
     include partials/menu.jade
-    .confirm-delete
-        h2= title 
-        p Are you sure you want to delete 
-            span.fw-bold #{firstname} #{lastname}'s 
-            span account?
-        p.text-danger This action cannot be undone.
-        form#user-delete-form(action="/users/#{id}", method="POST")
-            input(type="hidden", name="_method", value="DELETE")
-        a.btn.btn-secondary.btn-sm(type='button', href="/users/profile/#{id}") Cancel
-        button.btn.btn-danger.btn-sm.m-2(type='submit', onClick="deleteUser(event)") Delete
+    include partials/aside.jade
+    main#main.main
+        .confirm-delete
+            h2= title 
+            p Are you sure you want to delete 
+                span.fw-bold #{firstname} #{lastname}'s 
+                span account?
+            p.text-danger This action cannot be undone.
+            form#user-delete-form(action="/users/#{id}", method="POST")
+                input(type="hidden", name="_method", value="DELETE")
+            a.btn.btn-secondary.btn-sm(type='button', href="/users/profile/#{id}") Cancel
+            button.btn.btn-danger.btn-sm.m-2(type='submit', onClick="deleteUser(event)") Delete
 
-        p#error-message(style="color: red; text-align: left;")
-        p#success-message(style="color: green; text-align: left;")
+            p#error-message(style="color: red; text-align: left;")
+            p#success-message(style="color: green; text-align: left;")
+    include partials/footer.jade
         

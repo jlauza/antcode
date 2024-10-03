@@ -3,25 +3,6 @@ extends layouts/layout
 block content
   include partials/menu.jade
   include partials/aside.jade
-  //- main#main.main
-    //- h1= title
-    //- p Welcome to 
-    //-   span.fw-bold #{firstname} #{lastname}'s 
-    //-   span Profile
-
-    //- .form-wrapper
-    //-   .profile-wrapper
-    //-     img(src="#{avatar}" alt="Profile Picture" class="profile-picture mb-2 rounded-circle")
-    //-     h5 #{username}
-    //-     p Firstname: #{firstname}
-    //-     p Lastname: #{lastname}
-    //-     p Email: #{email}
-    //-     p Role: #{role}
-    //-     p Bio: #{bio ? bio : 'No bio yet.'}
-        
-    //-     a(href="/users/profile/edit/#{id}" class="btn btn-primary btn-sm") Edit Profile
-    //-     a(href="/users/profile/delete/#{id}" class="btn btn-danger btn-sm m-1") Delete Profile
-
   main#main.main
     .pagetitle
       h1= title
@@ -32,10 +13,13 @@ block content
           li.breadcrumb-item Users
           li.breadcrumb-item.active Profile
     section.section.profile
+      p#error-message(style="color: red;")
+      p#success-message(style="color: green;")    
       .row
         .col-xl-4
           .card
             .card-body.profile-card.pt-4.d-flex.flex-column.align-items-center
+              h2.mb-3 Profile Overview
               img(src="#{avatar}", alt="Profile", class="rounded-circle", style="width: 120px;")
               h2 #{firstname} #{lastname}
               h3 #{username}
@@ -60,9 +44,7 @@ block content
             .card-body.pt-3
               ul.nav.nav-tabs.nav-tabs-bordered
                 li.nav-item
-                  button.nav-link.active(data-bs-toggle="tab", data-bs-target="#profile-overview") Overview
-                li.nav-item
-                  button.nav-link(data-bs-toggle="tab", data-bs-target="#profile-edit") Edit Profile
+                  button.nav-link.active(data-bs-toggle="tab", data-bs-target="#profile-edit") Edit Profile
                 li.nav-item
                   button.nav-link(data-bs-toggle="tab", data-bs-target="#profile-settings") Settings
                 li.nav-item
@@ -70,33 +52,32 @@ block content
                 li.nav-item
                   button.nav-link(data-bs-toggle="tab", data-bs-target="#billing-info") Billing and Subscription
               .tab-content.pt-2
-                .tab-pane.fade.show.active.profile-overview#profile-overview
-                  //- h5.card-title About
-                  //- p.small.fst-italic #{bio}
-                  h5.card-title Profile Details
-                  .row
-                    .col-lg-3.col-md-4.label Username
-                    .col-lg-9.col-md-8 #{username}
-                  .row
-                    .col-lg-3.col-md-4.label Full Name
-                    .col-lg-9.col-md-8 #{firstname} #{lastname}
-                  .row
-                    .col-lg-3.col-md-4.label Role
-                    .col-lg-9.col-md-8.text-capitalize #{role}
-                  .row
-                    .col-lg-3.col-md-4.label Email Address
-                    .col-lg-9.col-md-8 #{email}
-                .tab-pane.fade.profile-edit.pt-3#profile-edit
-                  form
+                    
+                .tab-pane.fade.show.active.profile-edit.pt-3#profile-edit
+                  form#user-update-form(action="/users/#{id}", method="POST", enctype="multipart/form-data", style="margin-bottom: 10px;")
+                    input(type="hidden", name="_method", value="PUT")
                     .row.mb-3
                       label.col-md-4.col-lg-3.col-form-label(for="profileImage") Profile Image
-                      .col-md-8.col-lg-9
-                        img(src="#{avatar}", alt="Profile", style="width: 120px;")
-                        .pt-2
-                          a(href="#" class="btn btn-primary btn-sm", title="Upload new profile image")
+                      .col-md-8.col-lg-9.d-flex.flex-row.justify-content-start.align-items-center
+                        img.rounded-circle.img-fluid(src="#{avatar}", alt="Profile", style="width: 120px;")
+                        .block.p-2
+                          a(href="#" class="btn text-primary btn-sm", title="Upload new profile image")
                             i.bi.bi-upload
-                          a(href="#" class="btn btn-danger.btn-sm", title="Remove my profile image")
-                            i.bi.bi-trash
+                          //- a(href="#" class="btn text-danger btn-sm", title="Remove my profile image")
+                          button.btn.text-danger.btn-sm(type="submit", onClick="removeAvatar(event)")
+                              i.bi.bi-trash
+
+                    label.col-md-4.col-lg-3.col-form-label(for="About") About
+                    //- p.small.fst-italic #{bio ? bio : "No bio."}
+
+                    //- Quill Editor Bubble
+                    div.quill-editor-bubble
+                      p #{bio ? bio : "No bio."}
+                    //- End Quill Editor Bubble
+
+
+                    h5.card-title Profile Details
+
                     .row.mb-3
                       label.col-md-4.col-lg-3.col-form-label(for="userName") Username
                       .col-md-8.col-lg-9
@@ -108,17 +89,28 @@ block content
                     .row.mb-3
                       label.col-md-4.col-lg-3.col-form-label(for="lastName") Last Name
                       .col-md-8.col-lg-9
-                        input.form-control(name="lasstname", type="text", id="lastname", value="#{lastname}")
+                        input.form-control(name="lastname", type="text", id="lastname", value="#{lastname}")
                     .row.mb-3
                       label.col-md-4.col-lg-3.col-form-label(for="Job") Role
                       .col-md-8.col-lg-9
-                        input.form-control.text-capitalize(name="role", type="text", id="role", value="#{role}")
+                        p.form-control.text-capitalize.border-0 #{role}
                     .row.mb-3
                       label.col-md-4.col-lg-3.col-form-label(for="email") Email
                       .col-md-8.col-lg-9
                         input.form-control(name="email", type="email", id="email", value="#{email}")
-                    .text-center
-                      button.btn.btn-primary(type="submit") Save Changes
+                    .text-center.py-3
+                      //- button.btn.btn-primary(type="submit", onClick="updateUser(event)") Save Changes
+                    .d-flex.flex-row.justify-content-center.align-items-center
+                      a(href="#" class="btn btn-primary btn-sm m-2")
+                        i.bi.bi-floppy 
+                        | Update Profile
+                      //- a(href="#" class="btn btn-primary btn-sm m-2")
+                      //-   i.bi.bi-person-fill-lock
+                      //-   |  Deactivate
+                      //- a(href="/users/profile/delete/#{id}" class="btn btn-danger btn-sm m-2") 
+                      //-   i.bi.bi-trash
+                      //-   |  Delete Profile
+
                 .tab-pane.fade.pt-3#profile-settings
                   form
                     .row.mb-3
@@ -136,7 +128,7 @@ block content
                         .form-check
                           input.form-check-input(type="checkbox", id="securityNotify", checked disabled)
                           label.form-check-label(for="securityNotify") Security alerts
-                    .text-center
+                    .text-center.py-4.border-top
                       button.btn.btn-primary(type="submit") Save Changes
                 .tab-pane.fade.pt-3#profile-change-password
                   form
@@ -152,7 +144,7 @@ block content
                       label.col-md-4.col-lg-3.col-form-label(for="renewPassword") Re-enter New Password
                       .col-md-8.col-lg-9
                         input.form-control(name="renewpassword", type="password", id="renewPassword")
-                    .text-center
+                    .text-center.py-4.border-top
                       button.btn.btn-primary(type="submit") Change Password
                 .tab-pane.fade.pt-3#billing-info
                   form

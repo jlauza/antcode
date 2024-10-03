@@ -1,0 +1,245 @@
+extends layouts/layout
+
+block content
+  include partials/menu.jade
+  include partials/aside.jade
+  main#main.main
+    //- .form-wrapper
+    //-   h1= title
+    //-   p Welcome to #{firstname} #{lastname}'s Profile
+
+    //-   .card.my-4
+    //-     .card-body
+      //- script.
+      //-   document.addEventListener('DOMContentLoaded', () => {
+      //-     const usernameInput = document.getElementById('usernameInput');
+      //-     const usernamePreview = document.getElementById('usernamePreview');
+      //-     usernameInput.addEventListener('keyup', () => {
+      //-       usernamePreview.innerHTML = `Username: ${usernameInput.value}`;
+      //-     });
+      //-   });
+    //-       form#user-update-form(action="/users/#{id}", method="POST", enctype="multipart/form-data", style="margin-bottom: 10px;")
+    //-         input(type="hidden", name="_method", value="PUT")
+
+    //-         //- img(src="#{avatar}" alt="Profile Picture" class="profile-picture img-thumbnail")
+    //-         //- input(type="file", name="profilePicture", class="form-control-sm border-0", style="margin: 0 auto 10px 10px;")
+            
+    //-         h5.spacer-right#usernamePreview Username: #{username}
+    //-         .row
+    //-           .col-xs-12.col-md-4
+    //-             .col-xs-12
+    //-               label(for="username") Username 
+    //-               input(id="usernameInput", type="text", name="username", placeholder="Enter your username", value="#{username}", class="form-control-sm")
+    //-             .col-xs-12
+    //-               label(for="firstname") Firstname
+    //-               input(type="text", name="firstname", placeholder="Enter your first name", value="#{firstname}", class="form-control-sm")
+    //-             .col-xs-12
+    //-               label(for="lastname") Lastname
+    //-               input(type="text", name="lastname", placeholder="Enter your last name", value="#{lastname}", class="form-control-sm")
+    //-             .col-xs-12
+    //-               label(for="email") Email
+    //-               input(type="text", name="email", placeholder="Enter your email", value="#{email}", class="form-control-sm")
+    //-             .col-xs-12
+    //-               label(for="password") Password
+    //-               input(type="password", name="password", placeholder="********", class="form-control-sm")
+    //-             .col-xs-12
+    //-               label(for="password2") Confirm Password
+    //-               input(type="password", name="password2", placeholder="********", class="control-sm")
+    //-             //- .col-xs-12.col-md-4
+    //-             //-   label(for="bio") Bio
+    //-             //-   textarea(name="bio", cols="60", rows="10", placeholder="Enter your bio", class="form-control-sm my-2") #{bio}
+                    
+    //-           .d-flex.justify-content-start
+    //-             a(href=`/users/profile/${id}`, class="btn btn-secondary btn-sm m-1") Back to Profile
+    //-             button(type="submit", class="btn btn-primary btn-sm m-1", onClick="updateUser(event)") Update
+    //-       p#error-message(style="color: red;")
+    //-       p#success-message(style="color: green;")
+
+    .pagetitle
+      h1= title
+      nav
+        ol.breadcrumb
+          li.breadcrumb-item
+            a(href="/dashboard") Dashboard
+          li.breadcrumb-item Users
+          li.breadcrumb-item.active Profile
+    section.section.profile
+
+      script.
+        document.addEventListener('DOMContentLoaded', () => {
+          const usernameInput = document.getElementById('usernameInput');
+          const usernamePreview = document.getElementById('usernamePreview');
+          usernameInput.addEventListener('keyup', () => {
+            usernamePreview.innerHTML = `${usernameInput.value}`;
+          });
+
+          const firstnameInput = document.getElementById('firstnameInput');
+          const firstnamePreview = document.getElementById('firstnamePreview');
+          firstnameInput.addEventListener('keyup', () => {
+            firstnamePreview.innerHTML = `${firstnameInput.value}`;
+          });
+
+          const lastnameInput = document.getElementById('lastnameInput');
+          const lastnamePreview = document.getElementById('lastnamePreview');
+          lastnameInput.addEventListener('keyup', () => {
+            lastnamePreview.innerHTML = `${lastnameInput.value}`;
+          });
+  
+        });
+ 
+      .row
+        .col-xl-4
+          .card
+            .card-body.profile-card.pt-4.d-flex.flex-column.align-items-center
+              h2.mb-3 Profile Overview
+              img(src="#{avatar}", alt="Profile", class="rounded-circle", style="width: 120px;")
+              h2#firstnamePreview #{firstname} 
+              h2#lastnamePreview #{lastname}
+              
+              //- h3 #{username}
+              h5.spacer-right#usernamePreview #{username}
+              .social-links.mt-2
+                a(href="#" class="twitter")
+                  i.bi.bi-twitter
+                a(href="#" class="facebook")
+                  i.bi.bi-facebook
+                a(href="#" class="instagram")
+                  i.bi.bi-instagram
+                a(href="#" class="linkedin")
+                  i.bi.bi-linkedin
+          .d-flex.flex-row.justify-content-center.align-items-center
+            a(href="#" class="btn btn-primary btn-sm m-2")
+              i.bi.bi-person-fill-lock
+              |  Deactivate
+            a(href="/users/profile/delete/#{id}" class="btn btn-danger btn-sm m-2") 
+              i.bi.bi-trash
+              |  Delete Profile
+        .col-xl-8
+          .card
+            .card-body.pt-3
+              ul.nav.nav-tabs.nav-tabs-bordered
+                li.nav-item
+                  button.nav-link.active(data-bs-toggle="tab", data-bs-target="#profile-edit") Edit Profile
+                li.nav-item
+                  button.nav-link(data-bs-toggle="tab", data-bs-target="#profile-settings") Settings
+                li.nav-item
+                  button.nav-link(data-bs-toggle="tab", data-bs-target="#profile-change-password") Change Password
+                li.nav-item
+                  button.nav-link(data-bs-toggle="tab", data-bs-target="#billing-info") Billing and Subscription
+              .tab-content.pt-2
+                p#error-message(style="color: red;")
+                p#success-message(style="color: green;")                       
+                .tab-pane.fade.show.active.profile-edit.pt-3#profile-edit
+                  form#user-update-form(action="/users/#{id}", method="POST", enctype="multipart/form-data")
+                    input(type="hidden", name="_method", value="PUT")
+                    .row.mb-3
+                      label.col-md-4.col-lg-3.col-form-label(for="profileImage") Profile Image
+                      .col-md-8.col-lg-9.d-flex.flex-row.justify-content-start.align-items-center
+                        img.rounded-circle.img-fluid(src="#{avatar}", alt="Profile", style="width: 120px;")
+                        .block.p-2
+                          a(href="#" class="btn text-primary btn-sm", title="Upload new profile image")
+                            i.bi.bi-upload
+                          //- a(href="#" class="btn text-danger btn-sm", title="Remove my profile image")
+                          button.btn.text-danger.btn-sm(type="submit", onClick="removeAvatar(event)")
+                            i.bi.bi-trash
+
+                    label.col-md-4.col-lg-3.col-form-label(for="About") About
+                    //- p.small.fst-italic #{bio ? bio : "No bio."}
+
+                    //- Quill Editor Bubble
+                    div.quill-editor-bubble
+                      textarea.form-control-sm.my-2(name="bio", cols="60", rows="10", placeholder="Enter your bio") #{bio ? bio : "No bio."}
+                    //- End Quill Editor Bubble
+
+
+                    h5.card-title Profile Details
+
+                    .row.mb-3
+                      label.col-md-4.col-lg-3.col-form-label(for="userName") Username
+                      .col-md-8.col-lg-9
+                        input.form-control(id="usernameInput", type="text", name="username", placeholder="Enter your username", value="#{username}")
+                    .row.mb-3
+                      label.col-md-4.col-lg-3.col-form-label(for="firstName") First Name
+                      .col-md-8.col-lg-9
+                        input.form-control(id="firstnameInput", type="text", name="firstname", placeholder="Enter your first name", value="#{firstname}")
+                    .row.mb-3
+                      label.col-md-4.col-lg-3.col-form-label(for="lastName") Last Name
+                      .col-md-8.col-lg-9
+                        input.form-control(id="lastnameInput", type="text", name="lastname", placeholder="Enter your last name", value="#{lastname}")
+                    .row.mb-3
+                      label.col-md-4.col-lg-3.col-form-label(for="Role") Role
+                      .col-md-8.col-lg-9
+                        p.form-control.text-capitalize.border-0 #{role}
+                    .row.mb-3
+                      label.col-md-4.col-lg-3.col-form-label(for="email") Email
+                      .col-md-8.col-lg-9
+                        input.form-control(type="text", name="email", placeholder="Enter your email", value="#{email}")
+                    .text-center.py-3
+                      //- button.btn.btn-primary(type="submit", onClick="updateUser(event)") Save Changes
+                    .d-flex.flex-row.justify-content-center.align-items-center
+                      button.btn.btn-primary.btn-sm.m-1(type="submit", onClick="updateUser(event)") 
+                        i.bi.bi-floppy 
+                        | Update Profile
+                      //- a(href="#" class="btn btn-primary btn-sm m-2")
+                      //-   i.bi.bi-floppy 
+                        | Update Profile
+                      //- a(href="#" class="btn btn-primary btn-sm m-2")
+                      //-   i.bi.bi-person-fill-lock
+                      //-   |  Deactivate
+                      //- a(href="/users/profile/delete/#{id}" class="btn btn-danger btn-sm m-2") 
+                      //-   i.bi.bi-trash
+                      //-   |  Delete Profile
+
+                .tab-pane.fade.pt-3#profile-settings
+                  form
+                    .row.mb-3
+                      label.col-md-4.col-lg-3.col-form-label Email Notifications
+                      .col-md-8.col-lg-9
+                        .form-check
+                          input.form-check-input(type="checkbox", id="changesMade", checked)
+                          label.form-check-label(for="changesMade") Changes made to your account
+                        .form-check
+                          input.form-check-input(type="checkbox", id="newProducts", checked)
+                          label.form-check-label(for="newProducts") Information on new products and services
+                        .form-check
+                          input.form-check-input(type="checkbox", id="proOffers")
+                          label.form-check-label(for="proOffers") Marketing and promo offers
+                        .form-check
+                          input.form-check-input(type="checkbox", id="securityNotify", checked disabled)
+                          label.form-check-label(for="securityNotify") Security alerts
+                    .text-center.py-4.border-top
+                      button.btn.btn-primary(type="submit") Save Changes
+                .tab-pane.fade.pt-3#profile-change-password
+                  form
+                    .row.mb-3
+                      label.col-md-4.col-lg-3.col-form-label(for="currentPassword") Current Password
+                      .col-md-8.col-lg-9
+                        input.form-control(name="password", type="password", id="currentPassword")
+                    .row.mb-3
+                      label.col-md-4.col-lg-3.col-form-label(for="newPassword") New Password
+                      .col-md-8.col-lg-9
+                        input.form-control(name="newpassword", type="password", id="newPassword")
+                    .row.mb-3
+                      label.col-md-4.col-lg-3.col-form-label(for="renewPassword") Re-enter New Password
+                      .col-md-8.col-lg-9
+                        input.form-control(name="renewpassword", type="password", id="renewPassword")
+                    .text-center.py-4.border-top
+                      button.btn.btn-primary(type="submit") Change Password
+                .tab-pane.fade.pt-3#billing-info
+                  form
+                  h3.text-center.my-4 Coming soon!
+                    //- .row.mb-3
+                    //-   label.col-md-4.col-lg-3.col-form-label(for="currentPassword") Current Password
+                    //-   .col-md-8.col-lg-9
+                    //-     input.form-control(name="password", type="password", id="currentPassword")
+                    //- .row.mb-3
+                    //-   label.col-md-4.col-lg-3.col-form-label(for="newPassword") New Password
+                    //-   .col-md-8.col-lg-9
+                    //-     input.form-control(name="newpassword", type="password", id="newPassword")
+                    //- .row.mb-3
+                    //-   label.col-md-4.col-lg-3.col-form-label(for="renewPassword") Re-enter New Password
+                    //-   .col-md-8.col-lg-9
+                    //-     input.form-control(name="renewpassword", type="password", id="renewPassword")
+                    .text-center
+                      button.btn.btn-primary(type="submit") Save Billing Information
+  include partials/footer.jade

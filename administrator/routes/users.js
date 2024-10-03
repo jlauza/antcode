@@ -438,7 +438,7 @@ router.get("/:username", async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     } else {
       return res.status(200).json({
-        message: "User Info",
+        message: "User Information",
         user: {
           username: user.username,
           firstname: user.firstname,
